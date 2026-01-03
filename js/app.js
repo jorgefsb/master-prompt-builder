@@ -32,12 +32,9 @@ class MPBApp {
         this.app.innerHTML = `
             <div class="landing-page">
                 <header class="landing-header">
-                    <nav class="container flex justify-between items-center" style="padding: 24px;">
-                        <div class="flex items-center gap-3">
-                            <img src="assets/logo.png" alt="MPB Logo" style="height: 50px; width: auto;">
-                            <div class="logo logo-animated" style="font-size: 1.8rem; font-weight: 800; letter-spacing: -1px;">
-                                MPB
-                            </div>
+                    <nav class="container flex justify-between items-center" style="padding: 16px 24px;">
+                        <div class="logo logo-animated" style="font-size: 1.6rem; font-weight: 800; letter-spacing: -1px;">
+                            ⚡ MPB
                         </div>
                         <div class="flex gap-4">
                             <a href="#features" class="btn btn-secondary btn-sm">Cómo funciona</a>
@@ -46,113 +43,107 @@ class MPBApp {
                     </nav>
                 </header>
                 
-                <main class="landing-hero container text-center" style="padding: 100px 20px 60px;">
+                <main class="landing-hero container text-center" style="padding: 60px 20px 40px;">
                     <div class="animate-fade-in-up stagger-1">
-                        <span class="badge mb-4" style="padding: 8px 16px;">🔥 El secreto de los Prompt Engineers</span>
+                        <span class="badge mb-4" style="padding: 6px 14px; font-size: 0.85rem;">🔥 El secreto de la productividad AI</span>
                     </div>
                     
-                    <h1 class="animate-fade-in-up stagger-2 mb-6" style="max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.1;">
+                    <h1 class="animate-fade-in-up stagger-2 mb-4" style="max-width: 850px; margin-left: auto; margin-right: auto; line-height: 1.1; font-size: clamp(2.5rem, 5vw, 4rem);">
                         Deja de explicarle al AI <span class="text-gradient">quién eres</span> en cada chat.
                     </h1>
                     
-                    <p class="animate-fade-in-up stagger-3 mb-10" style="font-size: 1.4rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-secondary);">
-                        Crea tu <strong>Master Prompt</strong>: Tu manual de identidad digital que hace que ChatGPT, Claude y Gemini te den respuestas perfectas desde el primer segundo.
+                    <p class="animate-fade-in-up stagger-3 mb-8" style="font-size: 1.25rem; max-width: 650px; margin-left: auto; margin-right: auto; color: var(--color-text-secondary); line-height: 1.5;">
+                        Crea tu <strong>Master Prompt</strong>: Tu manual de identidad que hace que ChatGPT y Claude te den respuestas perfectas desde el primer segundo.
                     </p>
                     
                     <div class="animate-fade-in-up stagger-4 flex justify-center gap-6 flex-wrap">
-                        <button class="btn btn-cta btn-lg" id="start-btn" style="padding: 20px 40px; font-size: 1.3rem;">
-                            ✨ Crear mi Master Prompt Gratis
+                        <button class="btn btn-cta btn-lg" id="start-btn" style="padding: 16px 36px; font-size: 1.2rem;">
+                            ⚡ Crear mi Master Prompt Gratis
                         </button>
                     </div>
                     
-                    <div class="animate-fade-in-up stagger-5 mt-16" style="opacity: 0.6;">
-                        <p class="text-secondary mb-6">Optimizado para tus herramientas favoritas:</p>
-                        <div class="flex justify-center gap-8 flex-wrap">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" height="30" alt="ChatGPT" style="filter: grayscale(1) invert(1);">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Claude_AI_logo.svg" height="30" alt="Claude" style="filter: grayscale(1) invert(1);">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg" height="30" alt="GitHub" style="filter: grayscale(1) invert(1);">
+                    <div class="animate-fade-in-up stagger-5 mt-12" style="opacity: 0.5;">
+                        <p class="text-secondary mb-4" style="font-size: 0.9rem;">Optimizado para:</p>
+                        <div class="flex justify-center gap-6 flex-wrap">
+                            <span style="font-weight: 600; letter-spacing: 0.5px;">🤖 ChatGPT</span>
+                            <span style="font-weight: 600; letter-spacing: 0.5px;">🧠 Claude</span>
+                            <span style="font-weight: 600; letter-spacing: 0.5px;">✨ Gemini</span>
                         </div>
                     </div>
                 </main>
 
                 <!-- El Dolor Section -->
-                <section class="container" style="padding: 80px 20px; border-top: 1px solid var(--glass-border);">
-                    <div class="flex split-layout items-center">
-                        <div class="animate-slide-in-left">
-                            <h2 class="mb-6">El problema de la <span style="color: var(--color-error);">amnesia</span> de la IA</h2>
-                            <p class="text-lg mb-4">Cada vez que abres un chat nuevo, estás hablando con un <strong>extraño</strong>. Pierdes 5-10 minutos explicando:</p>
-                            <ul style="line-height: 2; color: var(--color-text-secondary); margin-bottom: 30px;">
-                                <li>❌ Cuál es tu stack tecnológico</li>
-                                <li>❌ Qué tono de voz prefieres</li>
-                                <li>❌ En qué proyectos estás trabajando</li>
-                                <li>❌ Cómo quieres que te entregue el código</li>
+                <section class="container" style="padding: 60px 20px; border-top: 1px solid var(--glass-border);">
+                    <div class="flex split-layout items-center gap-12">
+                        <div class="animate-slide-in-left" style="flex: 1;">
+                            <h2 class="mb-4" style="font-size: 2rem;">El problema de la <span style="color: var(--color-error);">amnesia</span> de la IA</h2>
+                            <p class="mb-6 opacity-80">Cada nuevo chat es un extraño. No pierdas más tiempo repitiendo lo mismo:</p>
+                            <ul style="line-height: 1.8; color: var(--color-text-secondary); margin-bottom: 0;">
+                                <li>❌ Tu rol y stack tecnológico</li>
+                                <li>❌ El tono de voz que prefieres</li>
+                                <li>❌ Contexto de tus proyectos</li>
+                                <li>❌ Reglas de formato de código</li>
                             </ul>
-                            <p class="text-lg"><strong>Multiplica eso por 10 veces al día. Estás perdiendo una hora diaria.</strong></p>
                         </div>
-                        <div class="card animate-slide-in-right" style="padding: 40px; background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2);">
-                            <div style="font-family: monospace; color: var(--color-text-tertiary);">
-                                <div class="mb-2">> AI: Hola, ¿en qué te ayudo?</div>
-                                <div class="mb-2" style="color: var(--color-text-secondary);">>> Tú: Soy dev senior en React, uso Supabase, prefiero respuestas directas y... (escribiendo lo mismo de ayer)</div>
-                                <div class="mb-2">> AI: Entendido. ¿Qué proyecto...?</div>
-                                <div style="color: var(--color-text-secondary);">>> Tú: El de la e-commerce... (suspiro)</div>
+                        <div class="card animate-slide-in-right" style="flex: 1; padding: 32px; background: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.1);">
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--color-text-tertiary);">
+                                <div class="mb-2" style="opacity: 0.6;">> AI: Hola, ¿en qué te ayudo?</div>
+                                <div class="mb-2" style="color: #667EEA;">>> Tú: Soy dev senior, uso React...</div>
+                                <div class="mb-2" style="opacity: 0.6;">> AI: Entendido. ¿Qué proyecto...?</div>
+                                <div style="color: #667EEA;">>> Tú: El de ayer... (otra vez)</div>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <!-- La Solución Section -->
-                <section id="features" class="container" style="padding: 80px 20px;">
-                    <h2 class="text-center mb-12">¿Cómo MPB cambia tu vida?</h2>
-                    
-                    <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
-                        <div class="card animate-fade-in-up">
-                            <div class="emoji-icon">🧠</div>
-                            <h4 class="mb-3">DNA Digital One-Click</h4>
-                            <p class="text-secondary">Un solo documento que contiene tu identidad profesional completa. Pégalo una vez y obtén respuestas de nivel experto.</p>
+                <section id="features" class="container" style="padding: 60px 20px;">
+                    <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+                        <div class="card animate-fade-in-up" style="padding: 32px;">
+                            <div class="emoji-icon" style="font-size: 2rem; margin-bottom: 16px;">🧠</div>
+                            <h4 class="mb-2">DNA Digital</h4>
+                            <p class="text-secondary" style="font-size: 0.95rem;">Un solo documento que captura tu identidad profesional completa.</p>
                         </div>
                         
-                        <div class="card animate-fade-in-up">
-                            <div class="emoji-icon">🚀</div>
-                            <h4 class="mb-3">Contexto Instantáneo</h4>
-                            <p class="text-secondary">El AI sabrá tus proyectos actuales, tus deadlines y tus preferencias sin que digas una sola palabra extra.</p>
+                        <div class="card animate-fade-in-up" style="padding: 32px;">
+                            <div class="emoji-icon" style="font-size: 2rem; margin-bottom: 16px;">🚀</div>
+                            <h4 class="mb-2">Zero-Effort</h4>
+                            <p class="text-secondary" style="font-size: 0.95rem;">Contexto instantáneo en cada chat sin escribir una palabra extra.</p>
                         </div>
                         
-                        <div class="card animate-fade-in-up">
-                            <div class="emoji-icon">🔄</div>
-                            <h4 class="mb-3">Evolución Dinámica</h4>
-                            <p class="text-secondary">¿Cambiaste de stack? ¿Nuevo proyecto? Actualiza tu MPB en segundos y sincronízalo con tu GitHub automáticamente.</p>
+                        <div class="card animate-fade-in-up" style="padding: 32px;">
+                            <div class="emoji-icon" style="font-size: 2rem; margin-bottom: 16px;">🔄</div>
+                            <h4 class="mb-2">Sincronizado</h4>
+                            <p class="text-secondary" style="font-size: 0.95rem;">Mantén tu perfil actualizado y listo en todas tus plataformas de IA.</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- ¿Para quién? Section -->
-                <section class="container text-center" style="padding: 80px 20px; background: rgba(102, 126, 234, 0.03); border-radius: 40px;">
-                    <h2 class="mb-12">Esencial para...</h2>
-                    <div class="flex justify-center gap-4 flex-wrap">
-                        <div class="chip active" style="padding: 12px 24px;">👨‍💻 Desarrolladores</div>
-                        <div class="chip active" style="padding: 12px 24px;">👨‍💼 Emprendedores</div>
-                        <div class="chip active" style="padding: 12px 24px;">🎨 Diseñadores UX</div>
-                        <div class="chip active" style="padding: 12px 24px;">✍️ Creadores de Contenido</div>
-                        <div class="chip active" style="padding: 12px 24px;">📊 Project Managers</div>
+                <section class="container text-center" style="padding: 40px 20px;">
+                    <h3 class="mb-8" style="font-size: 1.5rem; opacity: 0.9;">Esencial para:</h3>
+                    <div class="flex justify-center gap-3 flex-wrap">
+                        <span class="badge" style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.2); padding: 8px 16px;">👨‍💻 Developers</span>
+                        <span class="badge" style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.2); padding: 8px 16px;">👨‍💼 Founders</span>
+                        <span class="badge" style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.2); padding: 8px 16px;">🎨 Designers</span>
+                        <span class="badge" style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.2); padding: 8px 16px;">✍️ Creators</span>
                     </div>
                 </section>
                 
                 <!-- CTA Final Section -->
-                <section class="landing-cta container text-center" style="padding: 100px 20px;">
-                    <div class="card" style="padding: 60px; background: var(--color-accent-gradient); border: none; position: relative; overflow: hidden;">
-                        <div style="position: absolute; top: -20px; right: -20px; font-size: 10rem; opacity: 0.1;">⚡</div>
-                        <h2 class="mb-6" style="color: white; font-size: 3rem;">Toma el control de tu productividad</h2>
-                        <p style="color: rgba(255,255,255,0.9); font-size: 1.3rem; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                            Únete a cientos de profesionales que ya no pierden el tiempo explicando lo obvio al AI.
+                <section class="container text-center" style="padding: 80px 20px 100px;">
+                    <div class="card" style="padding: 50px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: 1px solid var(--glass-border); position: relative; overflow: hidden; border-radius: 32px;">
+                        <h2 class="mb-4" style="font-size: 2.2rem;">Toma el control de tu productividad</h2>
+                        <p style="color: var(--color-text-secondary); font-size: 1.1rem; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                            No pierdas más tiempo explicando lo obvio. Deja que tu Master Prompt lo haga por ti.
                         </p>
-                        <button class="btn btn-lg" id="start-btn-2" style="background: white; color: #667EEA; padding: 20px 50px; font-size: 1.2rem; font-weight: 700;">
-                            ✨ Comenzar mi Master Prompt GRATIS
+                        <button class="btn btn-cta btn-lg" id="start-btn-2" style="padding: 16px 40px; font-size: 1.2rem;">
+                            🚀 Comenzar Gratis
                         </button>
                     </div>
                 </section>
 
-                <footer class="container text-center" style="padding: 40px 20px; opacity: 0.5; font-size: 0.9rem;">
-                    <p>© 2024 MPB - Master Prompt Builder. Construye mejores IAs.</p>
+                <footer class="container text-center" style="padding: 40px 20px; opacity: 0.4; font-size: 0.85rem; border-top: 1px solid var(--glass-border);">
+                    <p>© 2024 MPB - Master Prompt Builder. Optimized for the AI Age.</p>
                 </footer>
             </div>
         `;
