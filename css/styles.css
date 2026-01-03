@@ -10,25 +10,25 @@
     --color-bg-secondary: #12121a;
     --color-bg-card: rgba(255, 255, 255, 0.03);
     --color-bg-card-hover: rgba(255, 255, 255, 0.06);
-    
+
     --color-text-primary: #ffffff;
     --color-text-secondary: rgba(255, 255, 255, 0.7);
     --color-text-tertiary: rgba(255, 255, 255, 0.5);
-    
+
     --color-accent-primary: #667EEA;
     --color-accent-secondary: #764BA2;
     --color-accent-gradient: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-    
+
     --color-success: #10B981;
     --color-warning: #F59E0B;
     --color-error: #EF4444;
     --color-cta: #FFD93D;
-    
+
     /* Glassmorphism */
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     --glass-blur: 20px;
-    
+
     /* Typography */
     --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-size-xs: 0.75rem;
@@ -40,7 +40,7 @@
     --font-size-3xl: 2rem;
     --font-size-4xl: 2.5rem;
     --font-size-5xl: 3.5rem;
-    
+
     /* Spacing */
     --space-1: 0.25rem;
     --space-2: 0.5rem;
@@ -53,7 +53,7 @@
     --space-12: 3rem;
     --space-16: 4rem;
     --space-20: 5rem;
-    
+
     /* Border Radius */
     --radius-sm: 0.375rem;
     --radius-md: 0.5rem;
@@ -61,13 +61,13 @@
     --radius-xl: 1rem;
     --radius-2xl: 1.5rem;
     --radius-full: 9999px;
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
     --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
-    
+
     /* Transitions */
     --transition-fast: 150ms ease;
     --transition-base: 250ms ease;
@@ -75,7 +75,9 @@
 }
 
 /* Reset & Base */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -106,7 +108,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
+    background:
         radial-gradient(ellipse at 20% 20%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
         radial-gradient(ellipse at 50% 50%, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
@@ -119,18 +121,40 @@ body::before {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 700;
     line-height: 1.2;
     color: var(--color-text-primary);
 }
 
-h1 { font-size: var(--font-size-5xl); }
-h2 { font-size: var(--font-size-4xl); }
-h3 { font-size: var(--font-size-3xl); }
-h4 { font-size: var(--font-size-2xl); }
-h5 { font-size: var(--font-size-xl); }
-h6 { font-size: var(--font-size-lg); }
+h1 {
+    font-size: var(--font-size-5xl);
+}
+
+h2 {
+    font-size: var(--font-size-4xl);
+}
+
+h3 {
+    font-size: var(--font-size-3xl);
+}
+
+h4 {
+    font-size: var(--font-size-2xl);
+}
+
+h5 {
+    font-size: var(--font-size-xl);
+}
+
+h6 {
+    font-size: var(--font-size-lg);
+}
 
 p {
     color: var(--color-text-secondary);
@@ -204,14 +228,42 @@ a:hover {
 }
 
 .btn-cta {
-    background: var(--color-cta);
-    color: #1a1a2e;
-    font-weight: 700;
+    background: linear-gradient(135deg, #FFD93D 0%, #FFB100 100%);
+    color: #0F0F1A;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(255, 177, 0, 0.2);
 }
 
 .btn-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(255, 217, 61, 0.4);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(255, 177, 0, 0.4);
+    background: linear-gradient(135deg, #FFB100 0%, #FFD93D 100%);
+}
+
+.btn-cta i,
+.btn-cta svg {
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Efecto de brillo sutil en el botón */
+.btn-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+    transition: all 0.6s;
+}
+
+.btn-cta:hover::before {
+    left: 100%;
 }
 
 .btn-lg {
@@ -472,7 +524,10 @@ a:hover {
 }
 
 /* Utility Classes */
-.text-center { text-align: center; }
+.text-center {
+    text-align: center;
+}
+
 .text-gradient {
     background: var(--color-accent-gradient);
     -webkit-background-clip: text;
@@ -480,32 +535,80 @@ a:hover {
     background-clip: text;
 }
 
-.mb-2 { margin-bottom: var(--space-2); }
-.mb-4 { margin-bottom: var(--space-4); }
-.mb-6 { margin-bottom: var(--space-6); }
-.mb-8 { margin-bottom: var(--space-8); }
-.mt-4 { margin-top: var(--space-4); }
-.mt-8 { margin-top: var(--space-8); }
+.mb-2 {
+    margin-bottom: var(--space-2);
+}
 
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-.gap-2 { gap: var(--space-2); }
-.gap-4 { gap: var(--space-4); }
-.gap-6 { gap: var(--space-6); }
+.mb-4 {
+    margin-bottom: var(--space-4);
+}
+
+.mb-6 {
+    margin-bottom: var(--space-6);
+}
+
+.mb-8 {
+    margin-bottom: var(--space-8);
+}
+
+.mt-4 {
+    margin-top: var(--space-4);
+}
+
+.mt-8 {
+    margin-top: var(--space-8);
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.gap-2 {
+    gap: var(--space-2);
+}
+
+.gap-4 {
+    gap: var(--space-4);
+}
+
+.gap-6 {
+    gap: var(--space-6);
+}
 
 /* Responsive */
 @media (max-width: 768px) {
-    h1 { font-size: var(--font-size-3xl); }
-    h2 { font-size: var(--font-size-2xl); }
-    h3 { font-size: var(--font-size-xl); }
-    
+    h1 {
+        font-size: var(--font-size-3xl);
+    }
+
+    h2 {
+        font-size: var(--font-size-2xl);
+    }
+
+    h3 {
+        font-size: var(--font-size-xl);
+    }
+
     .container {
         padding: 0 var(--space-4);
     }
-    
+
     .btn-lg {
         padding: var(--space-3) var(--space-6);
         font-size: var(--font-size-base);

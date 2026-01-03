@@ -33,8 +33,11 @@ class MPBApp {
             <div class="landing-page">
                 <header class="landing-header">
                     <nav class="container flex justify-between items-center" style="padding: 24px;">
-                        <div class="logo logo-animated" style="font-size: 1.8rem; font-weight: 800; letter-spacing: -1px;">
-                            ⚡ MPB
+                        <div class="flex items-center gap-3">
+                            <img src="assets/logo.png" alt="MPB Logo" style="height: 50px; width: auto;">
+                            <div class="logo logo-animated" style="font-size: 1.8rem; font-weight: 800; letter-spacing: -1px;">
+                                MPB
+                            </div>
                         </div>
                         <div class="flex gap-4">
                             <a href="#features" class="btn btn-secondary btn-sm">Cómo funciona</a>
@@ -57,8 +60,8 @@ class MPBApp {
                     </p>
                     
                     <div class="animate-fade-in-up stagger-4 flex justify-center gap-6 flex-wrap">
-                        <button class="btn btn-cta btn-lg" id="start-btn" style="padding: 20px 40px; font-size: 1.3rem; box-shadow: 0 0 50px rgba(255, 217, 61, 0.3);">
-                            ⚡ Crear mi Master Prompt Gratis
+                        <button class="btn btn-cta btn-lg" id="start-btn" style="padding: 20px 40px; font-size: 1.3rem;">
+                            ✨ Crear mi Master Prompt Gratis
                         </button>
                     </div>
                     
@@ -143,7 +146,7 @@ class MPBApp {
                             Únete a cientos de profesionales que ya no pierden el tiempo explicando lo obvio al AI.
                         </p>
                         <button class="btn btn-lg" id="start-btn-2" style="background: white; color: #667EEA; padding: 20px 50px; font-size: 1.2rem; font-weight: 700;">
-                            🚀 Comenzar mi Master Prompt GRATIS
+                            ✨ Comenzar mi Master Prompt GRATIS
                         </button>
                     </div>
                 </section>
@@ -152,12 +155,12 @@ class MPBApp {
                     <p>© 2024 MPB - Master Prompt Builder. Construye mejores IAs.</p>
                 </footer>
             </div>
-        `; `;
+        `;
 
         // Event listeners
         document.getElementById('start-btn').addEventListener('click', () => this.showOnboarding());
         document.getElementById('start-btn-2').addEventListener('click', () => this.showOnboarding());
-        document.getElementById('learn-btn').addEventListener('click', () => this.showLearnMore());
+        document.getElementById('login-btn').addEventListener('click', () => this.showComingSoon('Autenticación VIP'));
     }
 
     showWelcomeBack(data) {
