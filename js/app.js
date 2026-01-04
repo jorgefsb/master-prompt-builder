@@ -7,6 +7,7 @@ import WizardManager from './wizard.js';
 import { generateMasterPrompt } from './generator.js';
 import exportFunctions from './export.js';
 import storage from './storage.js';
+import { supabase, saveLead } from './supabase.js';
 
 class MPBApp {
     constructor() {
@@ -15,16 +16,83 @@ class MPBApp {
         this.init();
     }
 
-    init() {
-        // Verificar si hay datos guardados
+    async init() {
+        // Verificar sesión de Supabase
+        const { data: { session } } = await supabase.auth.getSession();
+        this.user = session?.user || null;
+
+        // Verificar si hay datos guardados localmente
         const savedData = storage.load();
 
-        if (savedData && savedData.name) {
-            // Usuario que regresa - preguntar si continuar
+        if (this.user) {
+            this.handleUserLoggedIn(this.user);
+        } else if (savedData && savedData.name) {
             this.showWelcomeBack(savedData);
         } else {
             this.showLanding();
         }
+
+        // Suscribirse a cambios de autenticación
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN') {
+                this.user = session.user;
+                this.handleUserLoggedIn(this.user);
+            } else if (event === 'SIGNED_OUT') {
+                this.user = null;
+                this.showLanding();
+            }
+        });
+    }
+
+    async handleUserLoggedIn(user) {
+        // Intentar obtener perfil de Supabase
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', user.id)
+            .single();
+
+        if (profile && profile.dna_content) {
+            // Usuario con DNA guardado
+            this.showLanding(); // O dashboard
+        } else {
+            this.showLanding();
+        }
+    }
+
+    async handleLogin() {
+        this.app.innerHTML = `
+            <div class="onboarding container text-center" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 20px;">
+                <div class="animate-fade-in-up">
+                    <h1 class="mb-4">Acceso VIP</h1>
+                    <p class="text-secondary mb-12">Guarda tu DNA Digital en la nube y accede desde cualquier lugar.</p>
+                    
+                    <div class="flex flex-col gap-4 max-width-400" style="margin: 0 auto;">
+                        <button class="btn btn-secondary btn-lg w-full" id="login-google" style="background: white; color: black; border: 1px solid #ddd;">
+                            <img src="https://www.google.com/favicon.ico" style="width: 20px; margin-right: 12px;"> Continuar con Google
+                        </button>
+                        <button class="btn btn-secondary btn-lg w-full" id="login-github" style="background: #24292e; color: white;">
+                            <img src="https://github.com/favicon.ico" style="width: 20px; margin-right: 12px; filter: invert(1);"> Continuar con GitHub
+                        </button>
+                        <button class="btn btn-sm mt-8" id="back-from-login" style="background: transparent;">← Volver</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('login-google').addEventListener('click', () => this.signInWithProvider('google'));
+        document.getElementById('login-github').addEventListener('click', () => this.signInWithProvider('github'));
+        document.getElementById('back-from-login').addEventListener('click', () => this.showLanding());
+    }
+
+    async signInWithProvider(provider) {
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider,
+            options: {
+                redirectTo: window.location.origin
+            }
+        });
+        if (error) console.error('Error loggin in:', error);
     }
 
     showLanding() {
@@ -232,7 +300,7 @@ class MPBApp {
         // Event listeners
         document.getElementById('start-btn').addEventListener('click', () => this.showOnboarding());
         document.getElementById('start-btn-2').addEventListener('click', () => this.showOnboarding());
-        document.getElementById('login-btn').addEventListener('click', () => this.showComingSoon('Acceso VIP'));
+        document.getElementById('login-btn').addEventListener('click', () => this.handleLogin());
 
         // Smooth scroll for "Cómo funciona"
         const howBtn = document.querySelector('a[href="#how-it-works"]');

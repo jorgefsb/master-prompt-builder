@@ -10,9 +10,9 @@
 - [x] Documentación de despliegue a Vercel
 
 ## Phase 2: Infraestructura & Leads (EN PROGRESO 🏗️)
-- [ ] Configuración del proyecto en Supabase
-- [ ] Creación de tabla `leads` y `profiles`
-- [ ] Implementación de Auth (Google / GitHub) para "Acceso VIP"
+- [x] Configuración del cliente Supabase en el código
+- [x] Implementación de Auth (Google / GitHub) para "Acceso VIP"
+- [ ] Creación de tablas en el dashboard de Supabase (Pendiente por el Usuario)
 - [ ] Conexión del wizard para guardar datos en la DB
 - [ ] Integración de sistema de exportación (MD, PDF) finalizada
 
@@ -28,4 +28,4 @@
 - [ ] Modo "Empresa" para equipos
 
 ---
-*Última actualización: 2026-01-03 18:30*
+*Última actualización: 2026-01-03 21:45*
