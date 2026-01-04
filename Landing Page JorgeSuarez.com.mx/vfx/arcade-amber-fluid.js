@@ -805,7 +805,6 @@ function initFluid(canvas) {
         gl.uniform3f(bloomPrefilterProgram.uniforms.curve, curve0, curve1, curve2);
         gl.uniform1f(bloomPrefilterProgram.uniforms.threshold, params.BLOOM_THRESHOLD);
         gl.uniform1i(bloomPrefilterProgram.uniforms.uTexture, last.attach(0));
-        gl.viewport(0, 0, bloomFramebuffers[0].width, bloomFramebuffers[0].height);
         blit(bloomFramebuffers[0].fbo);
         last = bloomFramebuffers[0];
 
@@ -814,7 +813,6 @@ function initFluid(canvas) {
             let dest = bloomFramebuffers[i];
             gl.uniform2f(bloomBlurProgram.uniforms.texelSize, 1.0 / last.width, 1.0 / last.height);
             gl.uniform1i(bloomBlurProgram.uniforms.uTexture, last.attach(0));
-            gl.viewport(0, 0, dest.width, dest.height);
             blit(dest.fbo);
             last = dest;
         }
@@ -826,7 +824,6 @@ function initFluid(canvas) {
             let base = bloomFramebuffers[i];
             gl.uniform2f(bloomBlurProgram.uniforms.texelSize, 1.0 / last.width, 1.0 / last.height);
             gl.uniform1i(bloomBlurProgram.uniforms.uTexture, last.attach(0));
-            gl.viewport(0, 0, base.width, base.height);
             blit(base.fbo);
             last = base;
         }
@@ -836,7 +833,6 @@ function initFluid(canvas) {
         gl.uniform2f(bloomFinalProgram.uniforms.texelSize, 1.0 / last.width, 1.0 / last.height);
         gl.uniform1i(bloomFinalProgram.uniforms.uTexture, last.attach(0));
         gl.uniform1f(bloomFinalProgram.uniforms.intensity, params.BLOOM_INTENSITY);
-        gl.viewport(0, 0, bloomFramebuffers[bloomFramebuffers.length - 1].width, bloomFramebuffers[bloomFramebuffers.length - 1].height);
         blit(bloomFramebuffers[bloomFramebuffers.length - 1].fbo);
     }
 
