@@ -15,6 +15,9 @@
 </head>
 
 <body>
+  <!-- Canvas for Fluid Effect -->
+  <canvas id="fluid-canvas"></canvas>
+
   <!-- Navigation -->
   <nav class="navbar">
     <div class="container">
@@ -22,9 +25,9 @@
       <ul class="nav-links">
         <li><a href="#journey">Trayectoria</a></li>
         <li><a href="#amber">Amber México</a></li>
+        <li><a href="#ecosystem">Ecosistema</a></li>
         <li><a href="#frameworks">Frameworks</a></li>
-        <li><a href="#ventures">Iniciativas</a></li>
-        <li><a href="#social">Conecta</a></li>
+        <li><a href="#contact">Conecta</a></li>
       </ul>
       <div class="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -32,7 +35,7 @@
     </div>
   </nav>
 
-  <!-- Hero: Documentary Tone -->
+  <!-- Hero: Documentary Tone + Fluid Background -->
   <section class="hero" id="home">
     <div class="container">
       <div class="hero-content">
@@ -45,7 +48,12 @@
           poner una sonrisa en la cara del jugador. No soy un gurú, estoy documentando el viaje.
         </p>
         <div class="hero-ctas">
-          <a href="#amber" class="btn btn-primary">Mi rol en Amber</a>
+          <a href="https://vip.jorgesuarez.com.mx/" target="_blank" class="btn btn-primary">
+            <span>VIP Access</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </a>
           <a href="#journey" class="btn btn-secondary">Mi Historia</a>
         </div>
       </div>
@@ -63,9 +71,9 @@
       <div class="proof-logos">
         <span>Forbes 30 Promesas</span>
         <span>Shark Tank México</span>
-        <span>Cinépolis Seedcamp</span>
+        <span>Cinépolis Seedcamp Winner</span>
+        <span>PhD & MBA 2023</span>
         <span>Tec de Monterrey</span>
-        <span>PhD & MBA</span>
       </div>
     </div>
   </div>
@@ -75,26 +83,32 @@
     <div class="container">
       <div class="section-header">
         <h2>Documentando el <span class="text-gradient">Camino</span></h2>
-        <p>Dos décadas de lecciones en la trinchera del emprendimiento tecnológico.</p>
+        <p>Dos décadas de lecciones en la trinchera del emprendimiento tecnológico y el gaming global.</p>
       </div>
 
-      <div class="grid-2">
+      <div class="grid-3">
         <div class="card reveal">
           <span class="card-date">2004 - Presente</span>
-          <h3>Fundando KaraOkulta</h3>
+          <h3>KaraOkulta & KOGameStudios</h3>
           <p>
-            Creé una de las comunidades más vibrantes de desarrolladores en México. Innovamos con el concepto de
-            <strong>"Crowdpublishing"</strong> y plataformas de MVPs para juegos móviles que alcanzaron mercados en toda
-            LATAM.
+            Fundé el estudio mexicano que fomentó la comunidad gamedev más vibrante del país. Innovamos con el
+            <strong>"Crowdpublishing"</strong> y escalamos a mercados europeos desde nuestra base en Londres.
+          </p>
+        </div>
+        <div class="card reveal">
+          <span class="card-date">2015 - Presente</span>
+          <h3>Sparkplug Technologies</h3>
+          <p>
+            Basada en San Francisco, Sparkplug es el holding de nuestras plataformas de desarrollo y spin-offs. Creemos
+            en trascender a través del arte en forma de apps y medios que la gente ama.
           </p>
         </div>
         <div class="card reveal">
           <span class="card-date">2019 - Presente</span>
-          <h3>Escalando con Amber</h3>
+          <h3>Amber México</h3>
           <p>
-            Tras la adquisición de KaraOkulta por Amber, asumí el reto de liderar Amber México. En menos de 2 años,
-            escalamos de un equipo de <strong>20 a más de 200 artesanos digitales</strong>, convirtiéndonos en el HUB
-            líder de la región.
+            Tras la adquisición, lideré el crecimiento del estudio de <strong>20 a 200+ artesanos</strong>. Supervisando
+            operaciones estratégicas y expandiendo la influencia de Amber en toda Latinoamérica.
           </p>
         </div>
       </div>
@@ -117,14 +131,91 @@
           <span class="hero-tagline">General Manager México</span>
           <h2>Evolucionando la ciencia y el <span class="text-gradient">arte de jugar</span>.</h2>
           <p>
-            En Amber, no solo desarrollamos juegos; somos socios de innovación para los gigantes de la industria. Lidero
-            las operaciones en México con un enfoque en <strong>Humanismo, Kaizen y Maestría</strong>.
+            Somos un colectivo global de artesanos entregando impacto positivo. Como Socio de Innovación, mi misión en
+            México es evolucionar cómo se crean y consumen los videojuegos a nivel AAA.
           </p>
           <div class="framework-pills">
-            <span>Engineering</span><span>Art Production</span><span>Co-Dev</span><span>Live Ops</span>
+            <span>AAA Games</span><span>Full Dev</span><span>Engineering</span><span>Art Production</span><span>Live
+              Ops</span>
           </div>
-          <a href="https://www.amberstudio.com" target="_blank" class="btn btn-primary"
-            style="margin-top: 2rem;">Explorar Amber Studio</a>
+          <div class="hero-ctas" style="margin-top: 2rem;">
+            <a href="https://www.amberstudio.com" target="_blank" class="btn btn-primary">Website Oficial</a>
+            <a href="https://amberstudio.com/overview-deck/" target="_blank" class="btn btn-secondary">Overview Deck</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community & Ecosystem (Everything from jorgesuarez.com.mx) -->
+  <section class="ecosystem" id="ecosystem">
+    <div class="container">
+      <div class="section-header">
+        <h2>Mi <span class="text-gradient">Ecosistema</span></h2>
+        <p>Iniciativas, comunidades y recursos que forman parte de mi DNA como emprendedor.</p>
+      </div>
+
+      <div class="grid-3 reveal">
+        <!-- PlayPitch -->
+        <div class="card card-highlight">
+          <h3>🚀 PlayPitch</h3>
+          <p>Conectando juegos Indie con creadores de contenido. La plataforma definitiva para amplificar el alcance de
+            nuevos títulos.</p>
+          <a href="https://playpitch.io" target="_blank" class="text-accent">Explorar PlayPitch →</a>
+        </div>
+
+        <!-- Master Prompt Builder -->
+        <div class="card card-highlight">
+          <h3>🧠 Master Prompt Builder</h3>
+          <p>Inyecta tu DNA profesional en la IA. Una herramienta para profesionales que dominan la colaboración con
+            modelos generativos.</p>
+          <a href="https://master-prompt-builder.vercel.app" target="_blank" class="text-accent">Crear mi Prompt →</a>
+        </div>
+
+        <!-- YouTube Shorts -->
+        <div class="card">
+          <h3>📹 Shorts Diarios</h3>
+          <p>Suscríbete GRATIS para recibir lecciones cortas sobre gaming, tech y emprendimiento cada día.</p>
+          <a href="https://www.youtube.com/@jorgefsb/shorts?sub_confirmation=1" target="_blank"
+            class="text-accent">Suscribirse en YouTube →</a>
+        </div>
+
+        <!-- GameArtShirt -->
+        <div class="card">
+          <h3>👕 GameArtShirt.com</h3>
+          <p>El punto de unión entre el arte de los videojuegos y el diseño de moda independiente.</p>
+          <a href="https://gameartshirt.com" target="_blank" class="text-accent">Ver Colección →</a>
+        </div>
+
+        <!-- Pet City Mania -->
+        <div class="card">
+          <h3>🐾 Pet City Mania</h3>
+          <p>Nuestra IP propia utilizada para entrenamiento de talento y pruebas de frameworks en Amber/KaraOkulta.</p>
+          <a href="https://www.youtube.com/channel/UCvja7Q0AIlJO2N_lDkMLsAw?sub_confirmation=1" target="_blank"
+            class="text-accent">Ver Canal →</a>
+        </div>
+
+        <!-- La KOmunidad -->
+        <div class="card">
+          <h3>👥 La KOmunidad</h3>
+          <p>La red social de desarrolladores de videojuegos más activa de México. Conecta con otros builders.</p>
+          <a href="http://comunidad.karaokulta.com/" target="_blank" class="text-accent">Unirse en Facebook →</a>
+        </div>
+      </div>
+
+      <div class="grid-2 reveal" style="margin-top: var(--space-lg);">
+        <!-- Spotify Gamedev -->
+        <div class="card card-glass">
+          <h4>🎵 KOGameStudios #Gamedev Playlist</h4>
+          <p>La música que nos inspira a construir mundos virtuales.</p>
+          <a href="https://open.spotify.com/playlist/1hwRvxU7lMmIXLpqLdQLAL?si=5d16031f69e34cfa" target="_blank"
+            class="text-accent">Escuchar en Spotify →</a>
+        </div>
+        <!-- VIP PASS -->
+        <div class="card card-highlight">
+          <h4>✨ Starter Pass 24/7 (VIP Access)</h4>
+          <p>Acceso exclusivo, Yorgen AI y comunicación directa con mis iniciativas.</p>
+          <a href="https://vip.jorgesuarez.com.mx/" target="_blank" class="text-accent">Obtener Acceso VIP →</a>
         </div>
       </div>
     </div>
@@ -135,78 +226,95 @@
     <div class="container">
       <div class="section-header">
         <h2>Mis <span class="text-gradient">Frameworks</span></h2>
-        <p>Sistemas que he diseñado para sistematizar la innovación y el crecimiento.</p>
+        <p>Sistemas pragmáticos diseñados para sistematizar la innovación y el crecimiento de estudios.</p>
       </div>
       <div class="grid-3">
         <div class="card-glass reveal">
           <div class="f-icon">GDF</div>
           <h3>Game Development Framework</h3>
-          <p>Metodologías ágiles aplicadas específicamente a la creación de IPs memorables.</p>
+          <p>Metodologías ágiles aplicadas específicamente a la creación de IPs memorables y productos free-to-play.</p>
         </div>
         <div class="card-glass reveal">
           <div class="f-icon">SDF</div>
           <h3>Studio Development Framework</h3>
-          <p>El blueprint para escalar estudios de videojuegos de forma sostenible y humana.</p>
+          <p>El blueprint que usé para escalar de 20 a 200+ personas. Cultura, procesos y escalabilidad humana.</p>
         </div>
         <div class="card-glass reveal">
           <div class="f-icon">AGF</div>
           <h3>Agile Development Framework</h3>
-          <p>Optimización de procesos para equipos de alto rendimiento en tecnologia de punta.</p>
+          <p>Optimización de flujos de trabajo en equipos multidisciplinarios de alta intensidad.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Initiatives (The Entrepreneur) -->
-  <section class="ventures" id="ventures">
-    <div class="container">
-      <div class="section-header">
-        <h2>Otras <span class="text-gradient">Iniciativas</span></h2>
-        <p>Porque el hambre de crear nunca se detiene.</p>
-      </div>
-      <div class="grid-2 reveal">
-        <div class="card flex-card">
-          <div class="card-content">
-            <h3>PlayPitch</h3>
-            <p>Conectando juegos Indie con creadores de contenido. La plataforma definitiva para el crecimiento
-              cross-media.</p>
-            <a href="https://playpitch.io" target="_blank" class="text-accent">Ver Proyecto →</a>
-          </div>
-        </div>
-        <div class="card flex-card">
-          <div class="card-content">
-            <h3>Master Prompt Builder</h3>
-            <p>Democratizando el uso de la IA generativa para profesionales y creativos del gaming.</p>
-            <a href="https://master-prompt-builder.vercel.app" target="_blank" class="text-accent">Ver Proyecto →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Social Link Tree / Hub -->
-  <section class="social-hub" id="social">
+  <!-- Social Hub Section -->
+  <section class="social-hub" id="contact">
     <div class="container">
       <div class="section-header">
         <h2>Conecta con el <span class="text-gradient">Viaje</span></h2>
-        <p>Sigueme en mis canales donde documento aprendizajes diarios sobre negocios y videojuegos.</p>
+        <p>Sígueme en mis canales principales donde comparto el "behind the scenes" del gaming.</p>
       </div>
+
       <div class="social-grid reveal">
-        <a href="https://linkedin.com/in/yorgenmeister" class="social-link"><span>LinkedIn</span></a>
-        <a href="#" class="social-link"><span>X / Twitter</span></a>
-        <a href="#" class="social-link"><span>Instagram</span></a>
-        <a href="#" class="social-link"><span>TikTok</span></a>
-        <a href="mailto:jorgefsb@gmail.com" class="social-link"><span>Email Directo</span></a>
+        <a href="https://linkedin.com/in/yorgenmeister" target="_blank" rel="noopener" aria-label="LinkedIn"
+          class="social-link">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://x.com/jorgefsb" target="_blank" rel="noopener" aria-label="Twitter/X" class="social-link">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+          <span>X / Twitter</span>
+        </a>
+        <a href="https://instagram.com/jorgefsb" target="_blank" rel="noopener" aria-label="Instagram"
+          class="social-link">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+          </svg>
+          <span>Instagram</span>
+        </a>
+        <a href="https://www.youtube.com/@jorgefsb" target="_blank" rel="noopener" aria-label="YouTube"
+          class="social-link">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <path
+              d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088C19.267 3.5 12 3.5 12 3.5s-7.267 0-9.407.617a3.007 3.007 0 00-2.088 2.088C.5 8.343.5 12 .5 12s0 3.657.617 5.795a3.007 3.007 0 002.088 2.088c2.14.617 9.407.617 9.407.617s7.267 0 9.407-.617a3.007 3.007 0 002.088-2.088C23.5 15.657 23.5 12 23.5 12s0-3.657-.617-5.795zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+          </svg>
+          <span>YouTube</span>
+        </a>
+        <a href="https://tiktok.com/@jorgesuarez.com.mx" target="_blank" rel="noopener" aria-label="TikTok"
+          class="social-link">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <path
+              d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+          </svg>
+          <span>TikTok</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Testimonials Placeholder (Waiting for user feedback) -->
-  <section class="testimonials" id="testimonials">
+  <!-- Final CTA: The VIP Entry -->
+  <section class="contact" id="contact-cta">
     <div class="container">
       <div class="card card-highlight text-center reveal">
-        <h3>Testimoniales próximamente...</h3>
-        <p>Lo que dicen otros builders sobre trabajar conmigo.</p>
+        <h2 class="mb-md">¿Listo para el <span class="text-gradient">Siguiente Nivel</span>?</h2>
+        <p class="mb-lg" style="max-width: 600px; margin: 0 auto;">
+          Obtén el <strong>Starter Pass 24/7</strong> para acceso VIP, consultas a Yorgen AI y
+          noticias exclusivas antes que nadie.
+        </p>
+        <a href="https://vip.jorgesuarez.com.mx/" target="_blank" class="btn btn-primary">
+          Acceso VIP
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+        </a>
       </div>
     </div>
   </section>
@@ -214,10 +322,11 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <p>Jorge Suárez | © 2024 | Built on Kaizen.</p>
+      <p>Jorge Suárez | © 2024 | Built on Kaizen & Play.</p>
     </div>
   </footer>
 
+  <script src="fluid.js"></script>
   <script src="scripts.js"></script>
 </body>
 

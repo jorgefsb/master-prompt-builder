@@ -70,8 +70,19 @@
 }
 
 /* ================================
-   RESET & BASE
+   BASE & CANVAS
    ================================ */
+#fluid-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
 *,
 *::before,
 *::after {
@@ -573,6 +584,37 @@ section {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+/* ================================
+   ECOSYSTEM & JOURNEY REFINEMENTS
+   ================================ */
+.ecosystem {
+  background: var(--bg-primary);
+}
+
+.flex-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-highlight h3 {
+  color: var(--accent-primary);
+}
+
+.text-accent {
+  color: var(--accent-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: auto;
+  padding-top: var(--space-md);
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+
+.text-accent:hover {
+  transform: translateX(4px);
 }
 
 /* ================================
