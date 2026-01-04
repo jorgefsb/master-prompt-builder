@@ -41,8 +41,18 @@
 3. Mantener el naranja Amber (#ff6b35) como hilo conductor de lealtad a la marca Amber.
 4. Mostrar el impacto social ("SMILE in people's faces").
 
-## ❌ Don'ts
+---
 
-1. Evitar sonar como una biografía de Wikipedia en tercera persona.
-2. No usar lenguage corporativo vacío ("Sinergia", "Optimización dinámica").
-3. No ocultar los inicios (mencionar los 19.03 años en DAM162 o Consultcorp).
+## 💻 Tech & Visual DNA
+
+1. **Fluid Motion**: Integración de **WebGL-Fluid-Simulation** (estilo Arcade Studio) en el background para representar la fluidez del pensamiento y la adaptabilidad emprendedora.
+2. **Premium Portraiture**: Uso de retratos de alta resolución con efectos de iluminación dinámica (Amber Glow) y micro-animaciones (float/pulse) para elevar el perfil personal.
+3. **Glassmorphism**: Uso de capas translúcidas (backdrop-blur) para organizar la información sin perder la profundidad del background.
+
+---
+
+## 🔄 Expert Workflow (Kaizen Design)
+
+1. **Sync Constante**: Integración directa con GitHub para despliegue y versionado activo.
+2. **Iteración Rápida**: Documentación de cada fase en `task.md` y logs de sesión para transparencia total del proceso creativo.
+3. **Optimización Visual**: Balance entre performance WebGL y estética AAA, asegurando que el diseño sea "adhoc" al nivel de un líder global de la industria.
