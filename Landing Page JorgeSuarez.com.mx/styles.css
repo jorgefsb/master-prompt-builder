@@ -435,29 +435,24 @@ section {
   z-index: 1;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
+  /* Alinea al fondo para el desvanecimiento */
 }
 
 .hero-image img {
   width: 100%;
-  max-width: 380px;
-  /* Tamaño "pequeño" y elegante */
-  border-radius: var(--radius-lg);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 107, 53, 0.1);
+  max-width: 400px;
+  height: auto;
+  filter: drop-shadow(0 0 30px rgba(255, 107, 53, 0.15));
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   transition: transform var(--transition-slow);
   animation: float 6s ease-in-out infinite;
 }
 
+/* Eliminamos el ::after rectangular que delataba el cuadro */
 .hero-image::after {
-  content: '';
-  position: absolute;
-  inset: -10px;
-  width: calc(100% + 20px);
-  height: calc(100% + 20px);
-  border: 1px solid rgba(255, 107, 53, 0.3);
-  border-radius: var(--radius-lg);
-  z-index: -1;
-  pointer-events: none;
-  animation: pulse-border 4s ease-in-out infinite;
+  display: none;
 }
 
 @keyframes float {
