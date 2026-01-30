@@ -64,24 +64,48 @@ class MPBApp {
         this.app.innerHTML = `
             <div class="onboarding container text-center" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 20px;">
                 <div class="animate-fade-in-up">
+                    <div style="font-size: 4rem; margin-bottom: 24px;">⚡</div>
                     <h1 class="mb-4">Acceso VIP</h1>
-                    <p class="text-secondary mb-12">Guarda tu DNA Digital en la nube y accede desde cualquier lugar.</p>
+                    <p class="text-secondary mb-12">Ingresa tu email para guardar tu DNA Digital y recibir actualizaciones exclusivas.</p>
                     
-                    <div class="flex flex-col gap-4 max-width-400" style="margin: 0 auto;">
-                        <button class="btn btn-secondary btn-lg w-full" id="login-google" style="background: white; color: black; border: 1px solid #ddd;">
-                            <img src="https://www.google.com/favicon.ico" style="width: 20px; margin-right: 12px;"> Continuar con Google
+                    <div class="flex flex-col gap-4" style="max-width: 400px; margin: 0 auto;">
+                        <input type="email" class="input" id="vip-email" placeholder="tu@email.com" style="padding: 16px 20px; font-size: 1.1rem; text-align: center; border-radius: 12px;">
+                        <div id="vip-error" style="color: #ff5f56; font-size: 0.9rem; display: none;"></div>
+                        <button class="btn btn-cta btn-lg w-full" id="vip-submit" style="padding: 16px; font-size: 1.1rem;">
+                            🚀 Crear mi DNA Digital
                         </button>
-                        <button class="btn btn-secondary btn-lg w-full" id="login-github" style="background: #24292e; color: white;">
-                            <img src="https://github.com/favicon.ico" style="width: 20px; margin-right: 12px; filter: invert(1);"> Continuar con GitHub
-                        </button>
-                        <button class="btn btn-sm mt-8" id="back-from-login" style="background: transparent;">← Volver</button>
+                        <button class="btn btn-sm mt-4" id="back-from-login" style="background: transparent; opacity: 0.6;">← Volver al inicio</button>
                     </div>
                 </div>
             </div>
         `;
 
-        document.getElementById('login-google').addEventListener('click', () => this.signInWithProvider('google'));
-        document.getElementById('login-github').addEventListener('click', () => this.signInWithProvider('github'));
+        const emailInput = document.getElementById('vip-email');
+        const errorDiv = document.getElementById('vip-error');
+
+        document.getElementById('vip-submit').addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            if (!email || !email.includes('@')) {
+                errorDiv.textContent = 'Por favor ingresa un email válido';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            errorDiv.style.display = 'none';
+            
+            // Save lead to Supabase
+            const result = await saveLead(email, 'vip-access');
+            
+            // Store email locally for the session
+            storage.save({ vipEmail: email });
+            
+            // Proceed to onboarding
+            this.showOnboarding();
+        });
+
+        emailInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') document.getElementById('vip-submit').click();
+        });
+
         document.getElementById('back-from-login').addEventListener('click', () => this.showLanding());
     }
 
@@ -302,12 +326,12 @@ class MPBApp {
         document.getElementById('start-btn-2').addEventListener('click', () => this.showOnboarding());
         document.getElementById('login-btn').addEventListener('click', () => this.handleLogin());
 
-        // Smooth scroll for "Cómo funciona"
+        // "Cómo funciona" → go to onboarding
         const howBtn = document.querySelector('a[href="#how-it-works"]');
         if (howBtn) {
             howBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' });
+                this.showOnboarding();
             });
         }
     }
