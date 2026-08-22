@@ -1,8 +1,14 @@
-# MPB - Master Prompt Builder 🚀
+<div align="center">
 
-![MPB](assets/favicon.svg)
+<img src="./assets/readme-banner.svg" width="1000" alt="Master Prompt Builder — tu contexto, tus reglas, tu IA." />
 
-**Crea tu Master Prompt personal para ChatGPT, Claude y cualquier AI.**
+[⚡ Probar MPB](https://mpb.jorgesuarez.com.mx) · [🐙 Ver código](https://github.com/jorgefsb/master-prompt-builder) · **Estado:** activo
+
+</div>
+
+## 👾 ¿Qué desbloquea?
+
+**Crea tu Master Prompt personal para ChatGPT, Claude y cualquier IA.**
 
 Una web app que te guía paso a paso para crear, mantener y exportar tu Master Prompt - un documento que captura quién eres, cómo trabajas y cómo te gusta recibir respuestas.
 
@@ -40,7 +46,7 @@ Una web app que te guía paso a paso para crear, mantener y exportar tu Master P
 - **Frontend**: Vanilla JavaScript (ES Modules)
 - **Styling**: CSS Custom Properties + Glassmorphism
 - **Storage**: localStorage
-- **Sin dependencias externas** - Ligero y rápido
+- **Sin build step** - Sirve los archivos estáticos y empieza a trabajar
 
 ## 🚀 Cómo usar
 
@@ -48,7 +54,7 @@ Una web app que te guía paso a paso para crear, mantener y exportar tu Master P
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/master-prompt-builder.git
+git clone https://github.com/jorgefsb/master-prompt-builder.git
 cd master-prompt-builder
 
 # Iniciar servidor local
@@ -110,10 +116,6 @@ Un **Master Prompt** es tu "manual de usuario personal" para las IAs. Incluye:
 - [ ] API pública
 - [ ] Mobile app (PWA)
 
-## 📄 Licencia
-
-MIT © 2024
-
 ---
 
-Hecho con ❤️ para la comunidad de AI
+Hecho con ❤️ para la comunidad de IA
