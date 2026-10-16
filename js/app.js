@@ -130,6 +130,9 @@ class MPBApp {
                 <div class="data-node node-3"></div>
 
                 <header class="landing-header">
+                    <div class="site-home-bar">
+                        <a class="site-home-link" href="https://jorgesuarez.com.mx/">← JorgeSuarez.com.mx</a>
+                    </div>
                     <nav class="container flex justify-between items-center" style="padding: 16px 24px; position: relative; z-index: 10;">
                         <div class="logo logo-animated" style="font-size: 1.6rem; font-weight: 800; letter-spacing: -1px;">
                             ⚡ <span style="letter-spacing: 2px;">MPB</span>
@@ -311,11 +314,14 @@ class MPBApp {
                     <p style="margin-top: 24px; font-size: 0.85rem; opacity: 0.5;">No requiere tarjeta de crédito • 100% Privado</p>
                 </section>
 
-                <footer class="container" style="padding: 60px 20px; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; opacity: 0.5; font-size: 0.85rem;">
-                    <p>© 2024 MPB - The Professional Standard for AI Collaboration.</p>
-                    <div class="flex gap-6">
-                        <a href="#">Privacidad</a>
-                        <a href="https://github.com" target="_blank">Github</a>
+                <footer class="container landing-footer">
+                    <a class="site-home-link" href="https://jorgesuarez.com.mx/">← JorgeSuarez.com.mx</a>
+                    <div class="landing-footer-meta">
+                        <p>© 2024 MPB - The Professional Standard for AI Collaboration.</p>
+                        <div class="flex gap-6">
+                            <a href="#">Privacidad</a>
+                            <a href="https://github.com" target="_blank">Github</a>
+                        </div>
                     </div>
                 </footer>
             </div>
