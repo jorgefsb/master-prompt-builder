@@ -342,7 +342,7 @@
     }
 
     50% {
-        box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+        box-shadow: none;
     }
 }
 

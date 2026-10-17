@@ -71,8 +71,8 @@ export const exportFunctions = {
                         line-height: 1.6;
                         color: #1a1a2e;
                     }
-                    h1 { color: #667EEA; border-bottom: 2px solid #667EEA; padding-bottom: 10px; }
-                    h2 { color: #764BA2; margin-top: 30px; }
+                    h1 { color: #FF6B35; border-bottom: 2px solid #FF6B35; padding-bottom: 10px; }
+                    h2 { color: #22211F; margin-top: 30px; }
                     h3 { color: #333; }
                     ul { margin: 10px 0; }
                     li { margin: 5px 0; }
@@ -97,8 +97,8 @@ export const exportFunctions = {
                 </style>
             </head>
             <body>
-                <div class="no-print" style="background: #667EEA; color: white; padding: 10px 20px; margin: -20px -20px 30px; border-radius: 8px;">
-                    <button onclick="window.print()" style="background: white; color: #667EEA; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                <div class="no-print" style="background: #FF6B35; color: #22211F; padding: 10px 20px; margin: -20px -20px 30px; border-radius: 8px;">
+                    <button onclick="window.print()" style="background: white; color: #FF6B35; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">
                         🖨️ Imprimir / Guardar como PDF
                     </button>
                 </div>
