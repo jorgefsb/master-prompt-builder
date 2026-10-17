@@ -20,6 +20,15 @@ export function applyLang(lang) {
         }
         img.setAttribute('alt', next === 'en' ? img.getAttribute('data-alt-en') : img.getAttribute('data-alt-es'));
     });
+    document.querySelectorAll('[data-placeholder-en]').forEach((input) => {
+        if (!input.getAttribute('data-placeholder-es')) {
+            input.setAttribute('data-placeholder-es', input.getAttribute('placeholder') || '');
+        }
+        input.setAttribute(
+            'placeholder',
+            next === 'en' ? input.getAttribute('data-placeholder-en') : input.getAttribute('data-placeholder-es')
+        );
+    });
 }
 
 export function bindLangSwitch() {

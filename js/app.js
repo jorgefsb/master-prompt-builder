@@ -139,7 +139,7 @@ class MPBApp {
                     <p class="text-secondary mb-12"><span data-lang="es">Ingresa tu email para guardar tu DNA Digital y recibir actualizaciones exclusivas.</span><span data-lang="en" hidden>Enter your email to save your Digital DNA and get exclusive updates.</span></p>
                     
                     <div class="flex flex-col gap-4" style="max-width: 400px; margin: 0 auto;">
-                        <input type="email" class="input" id="vip-email" placeholder="tu@email.com" style="padding: 16px 20px; font-size: 1.1rem; text-align: center; border-radius: 12px;">
+                        <input type="email" class="input" id="vip-email" placeholder="tu@email.com" data-placeholder-es="tu@email.com" data-placeholder-en="you@email.com" style="padding: 16px 20px; font-size: 1.1rem; text-align: center; border-radius: 12px;">
                         <div id="vip-error" style="color: #ff5f56; font-size: 0.9rem; display: none;"></div>
                         <button class="btn btn-cta btn-lg w-full" id="vip-submit" style="padding: 16px; font-size: 1.1rem;">
                             <span data-lang="es">🚀 Crear mi DNA Digital</span><span data-lang="en" hidden>🚀 Create my Digital DNA</span>
