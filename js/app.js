@@ -51,24 +51,62 @@ class MPBApp {
     bindChrome() {
         const loginBtn = document.getElementById('login-btn');
         const howBtn = document.getElementById('how-btn');
+        const header = document.querySelector('.site-header');
+        const toggle = document.getElementById('nav-toggle');
+
+        const closeMenu = () => {
+            if (!header || !toggle) return;
+            header.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+        };
+
         if (loginBtn) {
-            loginBtn.addEventListener('click', () => this.handleLogin());
+            loginBtn.addEventListener('click', () => {
+                closeMenu();
+                this.handleLogin();
+            });
         }
         if (howBtn) {
             howBtn.addEventListener('click', (e) => {
                 e.preventDefault();
+                closeMenu();
                 this.showOnboarding();
             });
         }
+        if (toggle && header) {
+            toggle.addEventListener('click', () => {
+                const open = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', String(!open));
+                header.classList.toggle('is-open', !open);
+            });
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+        document.addEventListener('click', (e) => {
+            if (!header || !header.classList.contains('is-open')) return;
+            if (!header.contains(e.target)) closeMenu();
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 800) closeMenu();
+        });
+
         bindLangSwitch();
+
         const syncHeader = () => {
-            const header = document.querySelector('.site-header');
-            if (header) {
-                document.body.style.setProperty('--site-header-offset', `${header.offsetHeight}px`);
-            }
+            if (!header) return;
+            const row = header.querySelector('.header-row');
+            const height = Math.round((row || header).getBoundingClientRect().height);
+            document.body.style.setProperty('--site-header-offset', `${height}px`);
         };
         syncHeader();
         window.addEventListener('resize', syncHeader);
+        if (window.ResizeObserver) {
+            new ResizeObserver(syncHeader).observe(header);
+        }
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(syncHeader);
+        }
     }
 
     paint(html) {
@@ -160,12 +198,12 @@ class MPBApp {
                 <div class="data-node node-2"></div>
                 <div class="data-node node-3"></div>
 
-                <main class="landing-hero container" style="padding: 60px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 5;">
+                <main class="landing-hero container">
                     <p class="product-mark mb-4">⚡ MPB</p>
                     <div class="animate-fade-in-up stagger-1">
-                        <span class="badge mb-4" style="padding: 6px 14px; font-size: 0.8rem; background: rgba(255, 107, 53, 0.12); color: var(--color-cta); border: 1px solid rgba(255, 107, 53, 0.28); letter-spacing: 1px;">
-                            <span data-lang="es">PARA PROFESIONALES QUE DOMINAN LA IA</span>
-                            <span data-lang="en" hidden>FOR PROFESSIONALS WHO MASTER AI</span>
+                        <span class="badge hero-pill mb-4">
+                            <span data-lang="es">PARA QUIEN YA USA IA</span>
+                            <span data-lang="en" hidden>FOR PEOPLE ALREADY USING AI</span>
                         </span>
                     </div>
                     
@@ -174,20 +212,23 @@ class MPBApp {
                         <span data-lang="en" hidden>No more empty chats. <br> Your AI finally <span class="text-gradient">knows you.</span></span>
                     </h1>
                     
-                    <p class="animate-fade-in-up stagger-3 mb-10" style="font-size: 1.4rem; max-width: 750px; color: var(--color-text-secondary); line-height: 1.6; font-weight: 400;">
+                    <p class="hero-lead animate-fade-in-up stagger-3 mb-10">
                         <span data-lang="es">Diseña tu <strong>Master Prompt</strong> en minutos. Un motor de identidad digital que inyecta tu DNA profesional en cada sesión de ChatGPT, Claude o Gemini.</span>
                         <span data-lang="en" hidden>Design your <strong>Master Prompt</strong> in minutes. A digital identity engine that injects your professional DNA into every ChatGPT, Claude or Gemini session.</span>
                     </p>
                     
-                    <div class="animate-fade-in-up stagger-4 flex justify-center gap-6 mb-12">
+                    <div class="hero-cta-row animate-fade-in-up stagger-4 mb-8">
                         <button class="btn btn-cta btn-lg" id="start-btn" style="padding: 20px 48px; font-size: 1.3rem;">
                             <span data-lang="es">⚡ Crear mi DNA Digital Gratis</span>
                             <span data-lang="en" hidden>⚡ Create my Digital DNA for free</span>
                         </button>
                     </div>
 
-                    <div class="animate-fade-in-up stagger-5" style="width: 100%; max-width: 800px; position: relative;">
-                        <div class="card" style="padding: 24px; background: rgba(10, 10, 10, 0.8); border: 1px solid var(--glass-border); border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); text-align: left; overflow: hidden;">
+                    <div class="hero-stage">
+                        <figure class="hero-moki">
+                            <img src="assets/moki/moki_chr_three_quarter_v001_approved.png" width="1215" height="1295" alt="Moki, astronauta de cartón naranja con casco crema, visor negro y parche MOKI en la oreja derecha" data-alt-en="Moki, an orange cardboard astronaut with a cream helmet, black visor and a MOKI patch on the right ear">
+                        </figure>
+                        <div class="card hero-code animate-fade-in-up stagger-5">
                             <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 12px;">
                                 <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
                                 <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
@@ -205,9 +246,6 @@ class MPBApp {
                             </div>
                             <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; background: linear-gradient(transparent, #0A0A0A); border-radius: 0 0 20px 20px;"></div>
                         </div>
-                        <figure class="hero-moki" style="margin-top: 24px;">
-                            <img src="assets/moki/moki_chr_three_quarter_v001_approved.png" width="1215" height="1295" alt="Moki, astronauta de cartón naranja con casco crema, visor negro y parche MOKI en la oreja derecha" data-alt-en="Moki, an orange cardboard astronaut with a cream helmet, black visor and a MOKI patch on the right ear">
-                        </figure>
                     </div>
                 </main>
 

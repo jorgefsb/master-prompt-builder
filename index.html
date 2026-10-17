@@ -24,15 +24,17 @@
 <body>
     <header class="site-header">
         <div class="container header-row">
-            <div class="brand-block">
-                <a class="wordmark" href="https://jorgesuarez.com.mx/">JorgeSuarez<span>.com.mx</span></a>
-                <a class="home-back" href="https://jorgesuarez.com.mx/">← JorgeSuarez.com.mx</a>
+            <a class="wordmark" href="https://jorgesuarez.com.mx/">JorgeSuarez<span>.com.mx</span></a>
+            <div class="header-actions">
+                <div class="lang" role="group" aria-label="Idioma / Language">
+                    <button type="button" data-lang-btn="es" aria-pressed="true">ES</button>
+                    <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
+                </div>
+                <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menú / Menu">
+                    <span class="nav-toggle__bars" aria-hidden="true"></span>
+                </button>
             </div>
-            <div class="lang" role="group" aria-label="Idioma / Language">
-                <button type="button" data-lang-btn="es" aria-pressed="true">ES</button>
-                <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
-            </div>
-            <div class="header-tools">
+            <nav class="header-tools" id="site-menu">
                 <a href="#how-it-works" class="btn btn-secondary btn-sm" id="how-btn">
                     <span data-lang="es">¿Cómo funciona?</span>
                     <span data-lang="en" hidden>How does it work?</span>
@@ -41,7 +43,7 @@
                     <span data-lang="es">Acceso VIP</span>
                     <span data-lang="en" hidden>VIP Access</span>
                 </button>
-            </div>
+            </nav>
         </div>
     </header>
 
