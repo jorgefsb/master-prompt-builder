@@ -345,16 +345,22 @@ a:hover {
 .chip {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-2);
+    min-height: 44px;
+    min-width: 44px;
     padding: var(--space-2) var(--space-4);
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-full);
+    font-family: inherit;
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     cursor: pointer;
     transition: all var(--transition-fast);
     user-select: none;
+    appearance: none;
+    text-align: center;
 }
 
 .chip:hover {
@@ -744,9 +750,7 @@ img {
     align-items: center;
     white-space: nowrap;
     margin-right: auto;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    flex-shrink: 0;
 }
 
 .wordmark span {
@@ -772,10 +776,12 @@ img {
 
 .header-actions {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: flex-end;
     gap: 8px;
-    flex-shrink: 0;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 .site-header .header-tools .lang-in-menu {
@@ -1037,17 +1043,16 @@ img {
 }
 
 @media (max-width: 480px) {
-    .wordmark span {
+    .site-header .wordmark span {
         display: none;
-    }
-
-    .wordmark {
-        overflow: visible;
-        text-overflow: unset;
     }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 400px) {
+    .header-row {
+        flex-wrap: wrap;
+    }
+
     .header-actions .lang {
         display: none;
     }
@@ -1086,7 +1091,9 @@ img {
 }
 
 @media (max-width: 640px) {
-    .site-header .jz-dock > .juice-sfx {
+    .site-header .jz-dock > .juice-sfx,
+    .site-header .jz-dock > .jz-feel,
+    .site-header .jz-dock > .jz-lvl {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -1098,7 +1105,9 @@ img {
         gap: 0;
     }
 
-    .site-header .jz-dock > .juice-sfx .juice-sfx__label {
+    .site-header .jz-dock > .juice-sfx .juice-sfx__label,
+    .site-header .jz-dock > .jz-feel .jz-feel__label,
+    .site-header .jz-dock > .jz-lvl .jz-lvl__label {
         position: absolute;
         width: 1px;
         height: 1px;
@@ -1185,4 +1194,26 @@ img {
     .hero-moki img {
         width: 160px;
     }
+}
+
+.btn:focus-visible,
+.chip:focus-visible,
+.lang button:focus-visible,
+.wordmark:focus-visible,
+.nav-toggle:focus-visible,
+.home-back:focus-visible,
+.papacito-footer a:focus-visible,
+.input:focus-visible,
+.slider:focus-visible,
+#login-btn:focus-visible,
+#how-btn:focus-visible,
+#back-from-login:focus-visible,
+#start-btn:focus-visible,
+#start-btn-2:focus-visible,
+#vip-submit:focus-visible,
+#next-btn:focus-visible,
+#prev-btn:focus-visible,
+#nav-toggle:focus-visible {
+    outline: 3px solid var(--brand-accent, #FF6B35);
+    outline-offset: 2px;
 }

@@ -49,6 +49,10 @@ footer.papacito-footer {
 }
 
 .papacito-footer .papacito-footer__signature a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
     font-weight: inherit;
     color: inherit;
     text-decoration-thickness: 1px;
@@ -58,12 +62,30 @@ footer.papacito-footer {
 .papacito-footer .papacito-footer__meta {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    gap: 4px 18px;
+    align-items: center;
+    gap: 8px 16px;
     margin: 12px 0 0;
     color: var(--muted, #b7b3ad);
     font-size: 12px;
     line-height: 1.7;
+}
+
+.papacito-footer .papacito-footer__meta a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.papacito-footer .papacito-footer__meta p:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+}
+
+.papacito-footer .home-back {
+    margin-top: 8px;
 }
 
 .papacito-footer .papacito-footer__meta p {
@@ -157,11 +179,10 @@ footer.papacito-footer {
     }
 
     .papacito-footer .papacito-footer__meta {
-        display: block;
-    }
-
-    .papacito-footer .papacito-footer__meta p + p {
-        margin-top: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 
     .papacito-footer .papacito-footer__signature {

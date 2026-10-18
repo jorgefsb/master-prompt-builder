@@ -9,6 +9,148 @@ import {
 } from './data.js';
 import { generateMasterPrompt } from './generator.js';
 import storage from './storage.js';
+import { getLang } from './i18n.js';
+
+function wizardChrome() {
+    if (getLang() === 'en') {
+        return {
+            stepOf: (n, total) => `Step ${n} of ${total}`,
+            steps: [
+                { title: 'Identity', description: 'Who you are and your main role' },
+                { title: 'Context', description: 'Your industry and responsibilities' },
+                { title: 'Stack', description: 'Tools you use' },
+                { title: 'Communication', description: 'How you like answers' },
+                { title: 'Rules', description: 'What you always or never want' },
+                { title: 'Projects', description: 'What you are working on' },
+                { title: 'Review', description: 'Review and adjust your prompt' }
+            ],
+            nameLabel: 'What should I call you? *',
+            namePh: 'E.g. Jorge, @jorgedev, Dr. García...',
+            roleLabel: 'What is your main role?',
+            companyLabel: 'Company or organization (optional)',
+            companyPh: 'E.g. My Startup, Google, Freelancer...',
+            bioLabel: 'One-line bio (optional)',
+            bioPh: 'E.g. CEO building the future of remote work...',
+            industryLabel: 'What industry or context do you work in?',
+            respLabel: 'What are your main responsibilities?',
+            respPh: 'E.g. I lead product development, manage a team of 5, set the technical strategy...',
+            expertiseLabel: 'Areas of expertise (comma-separated)',
+            expertisePh: 'E.g. Machine Learning, UX Design, Growth Marketing...',
+            stackLabel: 'Select the tools you use often:',
+            expLabel: 'Technical experience level',
+            levels: [
+                { id: 'principiante', label: 'Beginner' },
+                { id: 'intermedio', label: 'Intermediate' },
+                { id: 'avanzado', label: 'Advanced' },
+                { id: 'experto', label: 'Expert' }
+            ],
+            cats: {
+                frontend: '🌐 Frontend',
+                backend: '⚙️ Backend',
+                mobile: '📱 Mobile',
+                design: '🎨 Design',
+                productivity: '📋 Productivity',
+                communication: '💬 Communication',
+                development: '💻 Development',
+                ai: '🤖 AI Tools',
+                database: '🗄️ Database',
+                cloud: '☁️ Cloud'
+            },
+            styleLabel: 'What answer style do you prefer?',
+            formality: 'Formality',
+            casual: '😎 Casual',
+            formal: '👔 Formal',
+            detail: 'Level of detail',
+            concise: '⚡ Concise',
+            detailed: '📚 Detailed',
+            promptLangLabel: 'Preferred language for answers',
+            alwaysLabel: '✅ ALWAYS I want you to:',
+            neverLabel: '❌ NEVER I want you to:',
+            customLabel: 'Custom rules (optional)',
+            customPh: 'Add any other specific instruction...',
+            projectsLabel: 'What kind of projects are you working on?',
+            projectsHint: '👆 Tap a project type to add it, or skip this step.',
+            remove: '✕ Remove',
+            projectNamePh: 'Project name',
+            projectDescPh: 'Short description...',
+            yourPrompt: '📄 Your Master Prompt',
+            copy: '📋 Copy',
+            copied: '✓ Copied!',
+            finalLabel: 'Final tweaks (edit freely)',
+            save: '💾 Save version',
+            saved: '✓ Saved!',
+            export: '📤 Export',
+            prev: '← Back',
+            next: 'Next →',
+            finish: '✨ Finish',
+            live: 'Live'
+        };
+    }
+    return {
+        stepOf: (n, total) => `Paso ${n} de ${total}`,
+        steps: WIZARD_STEPS,
+        nameLabel: '¿Cómo te gustaría que te llame? *',
+        namePh: 'Ej: Jorge, @jorgedev, Dr. García...',
+        roleLabel: '¿Cuál es tu rol principal?',
+        companyLabel: 'Empresa u organización (opcional)',
+        companyPh: 'Ej: Mi Startup, Google, Freelancer...',
+        bioLabel: 'Bio de una línea (opcional)',
+        bioPh: 'Ej: CEO construyendo el futuro del trabajo remoto...',
+        industryLabel: '¿En qué industria o contexto trabajas?',
+        respLabel: '¿Cuáles son tus responsabilidades principales?',
+        respPh: 'Ej: Lidero el desarrollo de producto, gestiono un equipo de 5 personas, defino la estrategia técnica...',
+        expertiseLabel: 'Áreas de expertise (separadas por coma)',
+        expertisePh: 'Ej: Machine Learning, UX Design, Growth Marketing...',
+        stackLabel: 'Selecciona las herramientas que usas frecuentemente:',
+        expLabel: 'Nivel de experiencia técnica',
+        levels: [
+            { id: 'principiante', label: 'Principiante' },
+            { id: 'intermedio', label: 'Intermedio' },
+            { id: 'avanzado', label: 'Avanzado' },
+            { id: 'experto', label: 'Experto' }
+        ],
+        cats: {
+            frontend: '🌐 Frontend',
+            backend: '⚙️ Backend',
+            mobile: '📱 Mobile',
+            design: '🎨 Design',
+            productivity: '📋 Productividad',
+            communication: '💬 Comunicación',
+            development: '💻 Development',
+            ai: '🤖 AI Tools',
+            database: '🗄️ Base de Datos',
+            cloud: '☁️ Cloud'
+        },
+        styleLabel: '¿Qué estilo de respuestas prefieres?',
+        formality: 'Formalidad',
+        casual: '😎 Casual',
+        formal: '👔 Formal',
+        detail: 'Nivel de detalle',
+        concise: '⚡ Conciso',
+        detailed: '📚 Detallado',
+        promptLangLabel: 'Idioma preferido para las respuestas',
+        alwaysLabel: '✅ SIEMPRE quiero que hagas:',
+        neverLabel: '❌ NUNCA quiero que hagas:',
+        customLabel: 'Reglas personalizadas (opcional)',
+        customPh: 'Agrega cualquier otra instrucción específica...',
+        projectsLabel: '¿En qué tipo de proyectos estás trabajando?',
+        projectsHint: '👆 Haz click en un tipo de proyecto para agregarlo, o sáltate este paso.',
+        remove: '✕ Quitar',
+        projectNamePh: 'Nombre del proyecto',
+        projectDescPh: 'Descripción breve...',
+        yourPrompt: '📄 Tu Master Prompt',
+        copy: '📋 Copiar',
+        copied: '✓ Copiado!',
+        finalLabel: 'Ajustes finales (edita libremente)',
+        save: '💾 Guardar versión',
+        saved: '✓ Guardado!',
+        export: '📤 Exportar',
+        prev: '← Anterior',
+        next: 'Siguiente →',
+        finish: '✨ Finalizar',
+        live: 'En vivo'
+    };
+}
 
 class WizardManager {
     constructor(container, previewContainer, onComplete) {
@@ -59,19 +201,22 @@ class WizardManager {
     }
 
     renderProgress() {
+        const c = wizardChrome();
+        const stepMeta = WIZARD_STEPS[this.currentStep - 1];
+        const stepCopy = c.steps[this.currentStep - 1];
         return `
             <div class="wizard-header">
                 <div class="steps-indicator">
                     ${WIZARD_STEPS.map((step, i) => `
                         <div class="step-dot ${i + 1 < this.currentStep ? 'completed' : ''} ${i + 1 === this.currentStep ? 'active' : ''}" 
-                             title="${step.emoji} ${step.title}">
+                             title="${step.emoji} ${c.steps[i].title}">
                         </div>
                     `).join('')}
                 </div>
                 <div class="step-info text-center mb-6">
-                    <span class="badge mb-2">Paso ${this.currentStep} de ${this.totalSteps}</span>
-                    <h2 class="mb-2">${WIZARD_STEPS[this.currentStep - 1].emoji} ${WIZARD_STEPS[this.currentStep - 1].title}</h2>
-                    <p class="text-secondary">${WIZARD_STEPS[this.currentStep - 1].description}</p>
+                    <span class="badge mb-2">${c.stepOf(this.currentStep, this.totalSteps)}</span>
+                    <h2 class="mb-2">${stepMeta.emoji} ${stepCopy.title}</h2>
+                    <p class="text-secondary">${stepCopy.description}</p>
                 </div>
             </div>
         `;
@@ -92,32 +237,33 @@ class WizardManager {
 
     // Paso 1: Identidad
     renderStep1() {
+        const c = wizardChrome();
         return `
             <div class="step-content">
                 <div class="input-group">
-                    <label class="input-label">¿Cómo te gustaría que te llame? *</label>
-                    <input type="text" class="input" id="name" placeholder="Ej: Jorge, @jorgedev, Dr. García..." value="${this.data.name}">
+                    <label class="input-label">${c.nameLabel}</label>
+                    <input type="text" class="input" id="name" placeholder="${c.namePh}" value="${this.data.name}">
                 </div>
                 
                 <div class="input-group">
-                    <label class="input-label">¿Cuál es tu rol principal?</label>
+                    <label class="input-label">${c.roleLabel}</label>
                     <div class="chip-group" id="roles-chips">
                         ${ROLES.map(role => `
-                            <div class="chip ${this.data.role === role.label ? 'active' : ''}" data-role="${role.id}" data-label="${role.label}" data-emoji="${role.emoji}">
+                            <button type="button" class="chip ${this.data.role === role.label ? 'active' : ''}" data-role="${role.id}" data-label="${role.label}" data-emoji="${role.emoji}" aria-pressed="${this.data.role === role.label ? 'true' : 'false'}">
                                 ${role.emoji} ${role.label}
-                            </div>
+                            </button>
                         `).join('')}
                     </div>
                 </div>
                 
                 <div class="input-group">
-                    <label class="input-label">Empresa u organización (opcional)</label>
-                    <input type="text" class="input" id="company" placeholder="Ej: Mi Startup, Google, Freelancer..." value="${this.data.company}">
+                    <label class="input-label">${c.companyLabel}</label>
+                    <input type="text" class="input" id="company" placeholder="${c.companyPh}" value="${this.data.company}">
                 </div>
                 
                 <div class="input-group">
-                    <label class="input-label">Bio de una línea (opcional)</label>
-                    <input type="text" class="input" id="bio" placeholder="Ej: CEO construyendo el futuro del trabajo remoto..." value="${this.data.bio}">
+                    <label class="input-label">${c.bioLabel}</label>
+                    <input type="text" class="input" id="bio" placeholder="${c.bioPh}" value="${this.data.bio}">
                 </div>
             </div>
         `;
@@ -125,27 +271,28 @@ class WizardManager {
 
     // Paso 2: Contexto
     renderStep2() {
+        const c = wizardChrome();
         return `
             <div class="step-content">
                 <div class="input-group">
-                    <label class="input-label">¿En qué industria o contexto trabajas?</label>
+                    <label class="input-label">${c.industryLabel}</label>
                     <div class="chip-group" id="industry-chips">
                         ${INDUSTRIES.map(ind => `
-                            <div class="chip ${this.data.industry === ind.label ? 'active' : ''}" data-industry="${ind.id}" data-label="${ind.label}" data-emoji="${ind.emoji}">
+                            <button type="button" class="chip ${this.data.industry === ind.label ? 'active' : ''}" data-industry="${ind.id}" data-label="${ind.label}" data-emoji="${ind.emoji}" aria-pressed="${this.data.industry === ind.label ? 'true' : 'false'}">
                                 ${ind.emoji} ${ind.label}
-                            </div>
+                            </button>
                         `).join('')}
                     </div>
                 </div>
                 
                 <div class="input-group">
-                    <label class="input-label">¿Cuáles son tus responsabilidades principales?</label>
-                    <textarea class="input textarea" id="responsibilities" placeholder="Ej: Lidero el desarrollo de producto, gestiono un equipo de 5 personas, defino la estrategia técnica...">${this.data.responsibilities}</textarea>
+                    <label class="input-label">${c.respLabel}</label>
+                    <textarea class="input textarea" id="responsibilities" placeholder="${c.respPh}">${this.data.responsibilities}</textarea>
                 </div>
                 
                 <div class="input-group">
-                    <label class="input-label">Áreas de expertise (separadas por coma)</label>
-                    <input type="text" class="input" id="expertise" placeholder="Ej: Machine Learning, UX Design, Growth Marketing..." value="${this.data.expertise.join(', ')}">
+                    <label class="input-label">${c.expertiseLabel}</label>
+                    <input type="text" class="input" id="expertise" placeholder="${c.expertisePh}" value="${this.data.expertise.join(', ')}">
                 </div>
             </div>
         `;
@@ -153,21 +300,22 @@ class WizardManager {
 
     // Paso 3: Stack
     renderStep3() {
+        const c = wizardChrome();
         const categories = [...new Set(TECH_STACK.map(t => t.category))];
 
         return `
             <div class="step-content">
                 <div class="input-group">
-                    <label class="input-label">Selecciona las herramientas que usas frecuentemente:</label>
+                    <label class="input-label">${c.stackLabel}</label>
                     ${categories.map(cat => `
                         <div class="stack-category mb-4">
-                            <h6 class="mb-2 text-secondary">${this.categoryLabel(cat)}</h6>
+                            <h6 class="mb-2 text-secondary">${c.cats[cat] || cat}</h6>
                             <div class="chip-group">
                                 ${TECH_STACK.filter(t => t.category === cat).map(tool => `
-                                    <div class="chip ${this.data.stack.some(s => s.id === tool.id) ? 'active' : ''}" 
-                                         data-stack="${tool.id}" data-label="${tool.label}" data-category="${tool.category}">
+                                    <button type="button" class="chip ${this.data.stack.some(s => s.id === tool.id) ? 'active' : ''}" 
+                                         data-stack="${tool.id}" data-label="${tool.label}" data-category="${tool.category}" aria-pressed="${this.data.stack.some(s => s.id === tool.id) ? 'true' : 'false'}">
                                         ${tool.label}
-                                    </div>
+                                    </button>
                                 `).join('')}
                             </div>
                         </div>
@@ -175,12 +323,12 @@ class WizardManager {
                 </div>
                 
                 <div class="input-group">
-                    <label class="input-label">Nivel de experiencia técnica</label>
+                    <label class="input-label">${c.expLabel}</label>
                     <div class="chip-group">
-                        ${['Principiante', 'Intermedio', 'Avanzado', 'Experto'].map(level => `
-                            <div class="chip ${this.data.experienceLevel === level.toLowerCase() ? 'active' : ''}" data-level="${level.toLowerCase()}">
-                                ${level}
-                            </div>
+                        ${c.levels.map(level => `
+                            <button type="button" class="chip ${this.data.experienceLevel === level.id ? 'active' : ''}" data-level="${level.id}" aria-pressed="${this.data.experienceLevel === level.id ? 'true' : 'false'}">
+                                ${level.label}
+                            </button>
                         `).join('')}
                     </div>
                 </div>
@@ -188,63 +336,48 @@ class WizardManager {
         `;
     }
 
-    categoryLabel(cat) {
-        const labels = {
-            'frontend': '🌐 Frontend',
-            'backend': '⚙️ Backend',
-            'mobile': '📱 Mobile',
-            'design': '🎨 Design',
-            'productivity': '📋 Productividad',
-            'communication': '💬 Comunicación',
-            'development': '💻 Development',
-            'ai': '🤖 AI Tools',
-            'database': '🗄️ Base de Datos',
-            'cloud': '☁️ Cloud'
-        };
-        return labels[cat] || cat;
-    }
-
     // Paso 4: Comunicación
     renderStep4() {
+        const c = wizardChrome();
         return `
             <div class="step-content">
                 <div class="input-group">
-                    <label class="input-label">¿Qué estilo de respuestas prefieres?</label>
+                    <label class="input-label">${c.styleLabel}</label>
                     <div class="chip-group" id="style-chips">
                         ${COMMUNICATION_STYLES.map(style => `
-                            <div class="chip ${this.data.communicationStyle === style.label ? 'active' : ''}" 
-                                 data-style="${style.id}" data-label="${style.label}">
+                            <button type="button" class="chip ${this.data.communicationStyle === style.label ? 'active' : ''}" 
+                                 data-style="${style.id}" data-label="${style.label}" aria-pressed="${this.data.communicationStyle === style.label ? 'true' : 'false'}">
                                 ${style.emoji} ${style.label}
-                            </div>
+                            </button>
                         `).join('')}
                     </div>
                 </div>
                 
                 <div class="slider-container">
-                    <label class="input-label">Formalidad</label>
+                    <label class="input-label">${c.formality}</label>
                     <div class="slider-labels">
-                        <span>😎 Casual</span>
-                        <span>👔 Formal</span>
+                        <span>${c.casual}</span>
+                        <span>${c.formal}</span>
                     </div>
                     <input type="range" class="slider" id="formality" min="0" max="100" value="${this.data.formality}">
                 </div>
                 
                 <div class="slider-container">
-                    <label class="input-label">Nivel de detalle</label>
+                    <label class="input-label">${c.detail}</label>
                     <div class="slider-labels">
-                        <span>⚡ Conciso</span>
-                        <span>📚 Detallado</span>
+                        <span>${c.concise}</span>
+                        <span>${c.detailed}</span>
                     </div>
                     <input type="range" class="slider" id="detailLevel" min="0" max="100" value="${this.data.detailLevel}">
                 </div>
                 
                 <div class="input-group">
-                    <label class="input-label">Idioma preferido para las respuestas</label>
+                    <label class="input-label">${c.promptLangLabel}</label>
                     <div class="chip-group" data-prompt-lang-group>
                         ${['Español', 'English', 'Ambos'].map(lang => `
-                            <div class="chip ${this.data.language === lang ? 'active' : ''}" data-prompt-lang="${lang}">
+                            <button type="button" class="chip ${this.data.language === lang ? 'active' : ''}" data-prompt-lang="${lang}" aria-pressed="${this.data.language === lang ? 'true' : 'false'}">
                                 ${lang === 'Español' ? '🇪🇸' : lang === 'English' ? '🇺🇸' : '🌎'} ${lang}
-                            </div>
+                            </button>
                         `).join('')}
                     </div>
                 </div>
@@ -254,33 +387,34 @@ class WizardManager {
 
     // Paso 5: Reglas
     renderStep5() {
+        const c = wizardChrome();
         return `
             <div class="step-content">
                 <div class="input-group">
-                    <label class="input-label">✅ SIEMPRE quiero que hagas:</label>
+                    <label class="input-label">${c.alwaysLabel}</label>
                     <div class="chip-group" id="always-chips">
                         ${ALWAYS_RULES.map(rule => `
-                            <div class="chip ${this.data.alwaysRules.includes(rule.label) ? 'active' : ''}" data-always="${rule.id}" data-label="${rule.label}">
+                            <button type="button" class="chip ${this.data.alwaysRules.includes(rule.label) ? 'active' : ''}" data-always="${rule.id}" data-label="${rule.label}" aria-pressed="${this.data.alwaysRules.includes(rule.label) ? 'true' : 'false'}">
                                 ${rule.label}
-                            </div>
+                            </button>
                         `).join('')}
                     </div>
                 </div>
                 
                 <div class="input-group mt-8">
-                    <label class="input-label">❌ NUNCA quiero que hagas:</label>
+                    <label class="input-label">${c.neverLabel}</label>
                     <div class="chip-group" id="never-chips">
                         ${NEVER_RULES.map(rule => `
-                            <div class="chip ${this.data.neverRules.includes(rule.label) ? 'active' : ''}" data-never="${rule.id}" data-label="${rule.label}">
+                            <button type="button" class="chip ${this.data.neverRules.includes(rule.label) ? 'active' : ''}" data-never="${rule.id}" data-label="${rule.label}" aria-pressed="${this.data.neverRules.includes(rule.label) ? 'true' : 'false'}">
                                 ${rule.label}
-                            </div>
+                            </button>
                         `).join('')}
                     </div>
                 </div>
                 
                 <div class="input-group mt-8">
-                    <label class="input-label">Reglas personalizadas (opcional)</label>
-                    <textarea class="input textarea" id="customRules" placeholder="Agrega cualquier otra instrucción específica...">${this.data.customNotes}</textarea>
+                    <label class="input-label">${c.customLabel}</label>
+                    <textarea class="input textarea" id="customRules" placeholder="${c.customPh}">${this.data.customNotes}</textarea>
                 </div>
             </div>
         `;
@@ -288,15 +422,16 @@ class WizardManager {
 
     // Paso 6: Proyectos
     renderStep6() {
+        const c = wizardChrome();
         return `
             <div class="step-content">
                 <div class="input-group">
-                    <label class="input-label">¿En qué tipo de proyectos estás trabajando?</label>
+                    <label class="input-label">${c.projectsLabel}</label>
                     <div class="chip-group" id="project-chips">
                         ${PROJECT_TEMPLATES.map(proj => `
-                            <div class="chip" data-project="${proj.id}" data-label="${proj.label}" data-emoji="${proj.emoji}">
+                            <button type="button" class="chip" data-project="${proj.id}" data-label="${proj.label}" data-emoji="${proj.emoji}" aria-pressed="false">
                                 ${proj.emoji} ${proj.label}
-                            </div>
+                            </button>
                         `).join('')}
                     </div>
                 </div>
@@ -306,24 +441,25 @@ class WizardManager {
                 </div>
                 
                 <p class="text-secondary text-center mt-4">
-                    👆 Haz click en un tipo de proyecto para agregarlo, o sáltate este paso.
+                    ${c.projectsHint}
                 </p>
             </div>
         `;
     }
 
     renderProjectCard(project, index) {
+        const c = wizardChrome();
         return `
             <div class="card mb-4 project-card" data-index="${index}">
                 <div class="flex justify-between items-center mb-4">
                     <h5>${project.emoji} ${project.name}</h5>
-                    <button class="btn btn-sm btn-secondary remove-project" data-index="${index}">✕ Quitar</button>
+                    <button class="btn btn-sm btn-secondary remove-project" data-index="${index}">${c.remove}</button>
                 </div>
                 <div class="input-group mb-2">
-                    <input type="text" class="input project-name" placeholder="Nombre del proyecto" value="${project.name}" data-index="${index}">
+                    <input type="text" class="input project-name" placeholder="${c.projectNamePh}" value="${project.name}" data-index="${index}">
                 </div>
                 <div class="input-group">
-                    <textarea class="input textarea project-desc" placeholder="Descripción breve..." data-index="${index}">${project.description || ''}</textarea>
+                    <textarea class="input textarea project-desc" placeholder="${c.projectDescPh}" data-index="${index}">${project.description || ''}</textarea>
                 </div>
             </div>
         `;
@@ -331,39 +467,41 @@ class WizardManager {
 
     // Paso 7: Revisión
     renderStep7() {
+        const c = wizardChrome();
         const prompt = generateMasterPrompt(this.data);
 
         return `
             <div class="step-content">
                 <div class="card">
                     <div class="flex justify-between items-center mb-4">
-                        <h5>📄 Tu Master Prompt</h5>
-                        <button class="btn btn-sm btn-secondary" id="copy-prompt" type="button">📋 Copiar</button>
+                        <h5>${c.yourPrompt}</h5>
+                        <button class="btn btn-sm btn-secondary" id="copy-prompt" type="button">${c.copy}</button>
                     </div>
                     <div class="preview-content" id="final-preview">${this.escapeHtml(prompt)}</div>
                 </div>
                 
                 <div class="input-group mt-6">
-                    <label class="input-label">Ajustes finales (edita libremente)</label>
+                    <label class="input-label">${c.finalLabel}</label>
                     <textarea class="input textarea" id="final-edit" style="min-height: 200px;">${prompt}</textarea>
                 </div>
                 
                 <div class="flex gap-4 justify-center mt-8">
-                    <button class="btn btn-secondary btn-lg" id="save-prompt" type="button">💾 Guardar versión</button>
-                    <button class="btn btn-cta btn-lg jz-antic" id="export-prompt" type="button" data-jz="jz-tap">📤 Exportar</button>
+                    <button class="btn btn-secondary btn-lg" id="save-prompt" type="button">${c.save}</button>
+                    <button class="btn btn-cta btn-lg jz-antic" id="export-prompt" type="button" data-jz="jz-tap">${c.export}</button>
                 </div>
             </div>
         `;
     }
 
     renderNavigation() {
+        const c = wizardChrome();
         return `
             <div class="wizard-nav flex justify-between mt-8">
                 <button class="btn btn-secondary" id="prev-btn" type="button" ${this.currentStep === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
-                    ← Anterior
+                    ${c.prev}
                 </button>
                 <button class="btn btn-primary jz-antic" id="next-btn" type="button" data-jz="jz-tap">
-                    ${this.currentStep === this.totalSteps ? '✨ Finalizar' : 'Siguiente →'}
+                    ${this.currentStep === this.totalSteps ? c.finish : c.next}
                 </button>
             </div>
         `;
@@ -379,6 +517,15 @@ class WizardManager {
 
         // Step-specific listeners
         this.attachStepListeners();
+    }
+
+    setChipPressed(chip, on) {
+        chip.classList.toggle('active', on);
+        chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+
+    pressExclusive(chips, selected) {
+        chips.forEach((chip) => this.setChipPressed(chip, chip === selected));
     }
 
     attachStepListeners() {
@@ -414,8 +561,7 @@ class WizardManager {
         // Role chips
         document.querySelectorAll('[data-role]').forEach(chip => {
             chip.addEventListener('click', () => {
-                document.querySelectorAll('[data-role]').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
+                this.pressExclusive(document.querySelectorAll('[data-role]'), chip);
                 this.data.role = chip.dataset.label;
                 this.data.roleEmoji = chip.dataset.emoji;
                 this.saveAndUpdate();
@@ -425,8 +571,7 @@ class WizardManager {
         // Industry chips
         document.querySelectorAll('[data-industry]').forEach(chip => {
             chip.addEventListener('click', () => {
-                document.querySelectorAll('[data-industry]').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
+                this.pressExclusive(document.querySelectorAll('[data-industry]'), chip);
                 this.data.industry = chip.dataset.label;
                 this.data.industryEmoji = chip.dataset.emoji;
                 this.saveAndUpdate();
@@ -436,7 +581,7 @@ class WizardManager {
         // Stack chips (multi-select)
         document.querySelectorAll('[data-stack]').forEach(chip => {
             chip.addEventListener('click', () => {
-                chip.classList.toggle('active');
+                this.setChipPressed(chip, !chip.classList.contains('active'));
                 const tool = {
                     id: chip.dataset.stack,
                     label: chip.dataset.label,
@@ -454,8 +599,7 @@ class WizardManager {
         // Experience level
         document.querySelectorAll('[data-level]').forEach(chip => {
             chip.addEventListener('click', () => {
-                document.querySelectorAll('[data-level]').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
+                this.pressExclusive(document.querySelectorAll('[data-level]'), chip);
                 this.data.experienceLevel = chip.dataset.level;
                 this.saveAndUpdate();
             });
@@ -464,8 +608,7 @@ class WizardManager {
         // Communication style
         document.querySelectorAll('[data-style]').forEach(chip => {
             chip.addEventListener('click', () => {
-                document.querySelectorAll('[data-style]').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
+                this.pressExclusive(document.querySelectorAll('[data-style]'), chip);
                 this.data.communicationStyle = chip.dataset.label;
                 this.saveAndUpdate();
             });
@@ -474,8 +617,7 @@ class WizardManager {
         // Language of the prompt (never [data-lang]: that is site i18n in header/footer)
         this.container.querySelectorAll('[data-prompt-lang]').forEach(chip => {
             chip.addEventListener('click', () => {
-                this.container.querySelectorAll('[data-prompt-lang]').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
+                this.pressExclusive(this.container.querySelectorAll('[data-prompt-lang]'), chip);
                 this.data.language = chip.getAttribute('data-prompt-lang');
                 this.saveAndUpdate();
             });
@@ -484,7 +626,7 @@ class WizardManager {
         // Always rules (multi-select)
         document.querySelectorAll('[data-always]').forEach(chip => {
             chip.addEventListener('click', () => {
-                chip.classList.toggle('active');
+                this.setChipPressed(chip, !chip.classList.contains('active'));
                 const rule = chip.dataset.label;
                 if (chip.classList.contains('active')) {
                     this.data.alwaysRules.push(rule);
@@ -498,7 +640,7 @@ class WizardManager {
         // Never rules (multi-select)
         document.querySelectorAll('[data-never]').forEach(chip => {
             chip.addEventListener('click', () => {
-                chip.classList.toggle('active');
+                this.setChipPressed(chip, !chip.classList.contains('active'));
                 const rule = chip.dataset.label;
                 if (chip.classList.contains('active')) {
                     this.data.neverRules.push(rule);
@@ -560,8 +702,8 @@ class WizardManager {
                 const text = document.getElementById('final-edit')?.value || generateMasterPrompt(this.data);
                 navigator.clipboard.writeText(text);
                 document.dispatchEvent(new CustomEvent('mpb:copy', { detail: { el: copyBtn } }));
-                copyBtn.textContent = '✓ Copiado!';
-                setTimeout(() => copyBtn.textContent = '📋 Copiar', 2000);
+                copyBtn.textContent = wizardChrome().copied;
+                setTimeout(() => copyBtn.textContent = wizardChrome().copy, 2000);
             });
         }
 
@@ -570,8 +712,8 @@ class WizardManager {
             saveBtn.addEventListener('click', () => {
                 const prompt = document.getElementById('final-edit')?.value || generateMasterPrompt(this.data);
                 storage.saveVersion(prompt);
-                saveBtn.textContent = '✓ Guardado!';
-                setTimeout(() => saveBtn.textContent = '💾 Guardar versión', 2000);
+                saveBtn.textContent = wizardChrome().saved;
+                setTimeout(() => saveBtn.textContent = wizardChrome().save, 2000);
             });
         }
 
@@ -604,7 +746,7 @@ class WizardManager {
         this.previewContainer.innerHTML = `
             <div class="preview-header flex justify-between items-center mb-4">
                 <h5 class="text-gradient">📄 Preview</h5>
-                <span class="badge">En vivo</span>
+                <span class="badge">${wizardChrome().live}</span>
             </div>
             <div class="preview-content">${this.escapeHtml(prompt)}</div>
         `;

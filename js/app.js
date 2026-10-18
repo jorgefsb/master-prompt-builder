@@ -92,6 +92,11 @@ class MPBApp {
         });
 
         bindLangSwitch();
+        document.addEventListener('mpb:lang', () => {
+            if (this.currentView === 'wizard' && this.wizard) {
+                this.wizard.render();
+            }
+        });
 
         const syncHeader = () => {
             if (!header) return;
@@ -404,20 +409,20 @@ class MPBApp {
             <div class="welcome-back container text-center" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 20px;">
                 <div class="animate-fade-in-up">
                     <div class="emoji-icon" style="font-size: 4rem;">👋</div>
-                    <h1 class="mb-4">¡Hola de nuevo, ${data.name}!</h1>
-                    <p class="text-secondary mb-8">Encontré tu Master Prompt guardado. ¿Qué quieres hacer?</p>
+                    <h1 class="mb-4"><span data-lang="es">¡Hola de nuevo, ${data.name}!</span><span data-lang="en" hidden>Welcome back, ${data.name}!</span></h1>
+                    <p class="text-secondary mb-8"><span data-lang="es">Encontré tu Master Prompt guardado. ¿Qué quieres hacer?</span><span data-lang="en" hidden>I found your saved Master Prompt. What do you want to do?</span></p>
 
                     <div class="flex justify-center gap-4 flex-wrap">
                         <button class="btn btn-primary btn-lg" id="continue-btn">
-                            ✏️ Continuar editando
+                            <span data-lang="es">✏️ Continuar editando</span><span data-lang="en" hidden>✏️ Keep editing</span>
                         </button>
                         <button class="btn btn-secondary btn-lg" id="new-btn">
-                            🆕 Empezar de nuevo
+                            <span data-lang="es">🆕 Empezar de nuevo</span><span data-lang="en" hidden>🆕 Start over</span>
                         </button>
                     </div>
 
                     <div class="card mt-8" style="max-width: 600px; margin: 32px auto 0; text-align: left;">
-                        <h5 class="mb-4">📄 Tu último prompt guardado:</h5>
+                        <h5 class="mb-4"><span data-lang="es">📄 Tu último prompt guardado:</span><span data-lang="en" hidden>📄 Your last saved prompt:</span></h5>
                         <div class="preview-content" style="max-height: 200px; overflow-y: auto;">
                             ${generateMasterPrompt(data).substring(0, 500)}...
                         </div>
@@ -438,44 +443,44 @@ class MPBApp {
         this.paint(`
             <div class="onboarding container" style = "min-height: 100vh; padding: 60px 20px;" >
                 <div class="text-center mb-12 animate-fade-in-up">
-                    <h1 class="mb-4">¿Cómo quieres empezar?</h1>
-                    <p class="text-secondary">Elige la opción que mejor se adapte a ti</p>
+                    <h1 class="mb-4"><span data-lang="es">¿Cómo quieres empezar?</span><span data-lang="en" hidden>How do you want to start?</span></h1>
+                    <p class="text-secondary"><span data-lang="es">Elige la opción que mejor se adapte a ti</span><span data-lang="en" hidden>Pick the option that fits you best</span></p>
                 </div>
                 
                 <div class="onboarding-options" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto;">
                     
                     <div class="card card-clickable animate-fade-in-up stagger-1" id="opt-scratch">
                         <div class="emoji-icon">🆕</div>
-                        <h4 class="mb-2">Empezar de cero</h4>
-                        <p class="text-secondary">Wizard guiado paso a paso con ejemplos para elegir. Ideal si nunca has creado un Master Prompt.</p>
-                        <span class="badge mt-4">Recomendado para nuevos</span>
+                        <h4 class="mb-2"><span data-lang="es">Empezar de cero</span><span data-lang="en" hidden>Start from scratch</span></h4>
+                        <p class="text-secondary"><span data-lang="es">Wizard guiado paso a paso con ejemplos para elegir. Ideal si nunca has creado un Master Prompt.</span><span data-lang="en" hidden>A step-by-step wizard with examples. Best if you have never created a Master Prompt.</span></p>
+                        <span class="badge mt-4"><span data-lang="es">Recomendado para nuevos</span><span data-lang="en" hidden>Recommended for newcomers</span></span>
                     </div>
                     
                     <div class="card card-clickable animate-fade-in-up stagger-2" id="opt-import">
                         <div class="emoji-icon">📄</div>
-                        <h4 class="mb-2">Importar mi Master Prompt</h4>
-                        <p class="text-secondary">¿Ya tienes un prompt? Pégalo aquí y lo parseamos para que puedas editarlo y mejorarlo.</p>
-                        <span class="badge mt-4">Para usuarios existentes</span>
+                        <h4 class="mb-2"><span data-lang="es">Importar mi Master Prompt</span><span data-lang="en" hidden>Import my Master Prompt</span></h4>
+                        <p class="text-secondary"><span data-lang="es">¿Ya tienes un prompt? Pégalo aquí y lo parseamos para que puedas editarlo y mejorarlo.</span><span data-lang="en" hidden>Already have a prompt? Paste it here and we parse it so you can edit and improve it.</span></p>
+                        <span class="badge mt-4"><span data-lang="es">Para usuarios existentes</span><span data-lang="en" hidden>For existing users</span></span>
                     </div>
                     
                     <div class="card card-clickable animate-fade-in-up stagger-3" id="opt-memories">
                         <div class="emoji-icon">🧠</div>
-                        <h4 class="mb-2">Importar de ChatGPT</h4>
-                        <p class="text-secondary">Pega tus memorias de ChatGPT y extraemos automáticamente tu información.</p>
-                        <span class="badge mt-4">¡ChatGPT ya te conoce!</span>
+                        <h4 class="mb-2"><span data-lang="es">Importar de ChatGPT</span><span data-lang="en" hidden>Import from ChatGPT</span></h4>
+                        <p class="text-secondary"><span data-lang="es">Pega tus memorias de ChatGPT y extraemos automáticamente tu información.</span><span data-lang="en" hidden>Paste your ChatGPT memories and we extract your info automatically.</span></p>
+                        <span class="badge mt-4"><span data-lang="es">¡ChatGPT ya te conoce!</span><span data-lang="en" hidden>ChatGPT already knows you!</span></span>
                     </div>
                     
                     <div class="card card-clickable animate-fade-in-up stagger-4" id="opt-linkedin">
                         <div class="emoji-icon">🔗</div>
-                        <h4 class="mb-2">Importar de LinkedIn</h4>
-                        <p class="text-secondary">Conecta tu perfil de LinkedIn para pre-llenar tu información profesional.</p>
-                        <span class="badge mt-4">Próximamente</span>
+                        <h4 class="mb-2"><span data-lang="es">Importar de LinkedIn</span><span data-lang="en" hidden>Import from LinkedIn</span></h4>
+                        <p class="text-secondary"><span data-lang="es">Conecta tu perfil de LinkedIn para pre-llenar tu información profesional.</span><span data-lang="en" hidden>Connect your LinkedIn profile to pre-fill your professional info.</span></p>
+                        <span class="badge mt-4"><span data-lang="es">Próximamente</span><span data-lang="en" hidden>Coming soon</span></span>
                     </div>
                     
                 </div>
                 
                 <div class="text-center mt-8">
-                    <button class="btn btn-secondary" id="back-landing">← Volver al inicio</button>
+                    <button class="btn btn-secondary" id="back-landing"><span data-lang="es">← Volver al inicio</span><span data-lang="en" hidden>← Back to home</span></button>
                 </div>
             </div >
         `);
@@ -491,16 +496,16 @@ class MPBApp {
         this.paint(`
             <div class="import-prompt container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
                 <div class="text-center mb-8 animate-fade-in-up">
-                    <h1 class="mb-4">📄 Importar tu Master Prompt</h1>
-                    <p class="text-secondary">Pega tu Master Prompt existente y lo analizaremos para pre-llenar el wizard.</p>
+                    <h1 class="mb-4"><span data-lang="es">📄 Importar tu Master Prompt</span><span data-lang="en" hidden>📄 Import your Master Prompt</span></h1>
+                    <p class="text-secondary"><span data-lang="es">Pega tu Master Prompt existente y lo analizaremos para pre-llenar el wizard.</span><span data-lang="en" hidden>Paste your existing Master Prompt and we will parse it to pre-fill the wizard.</span></p>
                 </div>
                 
                 <div class="card animate-fade-in-up">
-                    <textarea class="input textarea" id="import-text" placeholder="Pega aquí tu Master Prompt existente..." style="min-height: 300px;"></textarea>
+                    <textarea class="input textarea" id="import-text" placeholder="Pega aquí tu Master Prompt existente..." data-placeholder-en="Paste your existing Master Prompt here..." style="min-height: 300px;"></textarea>
                     
                     <div class="flex gap-4 justify-center mt-6">
-                        <button class="btn btn-secondary" id="back-onboarding">← Volver</button>
-                        <button class="btn btn-primary" id="analyze-prompt">🔍 Analizar y continuar</button>
+                        <button class="btn btn-secondary" id="back-onboarding"><span data-lang="es">← Volver</span><span data-lang="en" hidden>← Back</span></button>
+                        <button class="btn btn-primary" id="analyze-prompt"><span data-lang="es">🔍 Analizar y continuar</span><span data-lang="en" hidden>🔍 Analyze and continue</span></button>
                     </div>
                 </div>
             </div >
@@ -522,26 +527,26 @@ class MPBApp {
         this.paint(`
             <div class="import-memories container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
                 <div class="text-center mb-8 animate-fade-in-up">
-                    <h1 class="mb-4">🧠 Importar Memorias de ChatGPT</h1>
-                    <p class="text-secondary">ChatGPT ha aprendido sobre ti en cientos de conversaciones. ¡Usemos esa información!</p>
+                    <h1 class="mb-4"><span data-lang="es">🧠 Importar Memorias de ChatGPT</span><span data-lang="en" hidden>🧠 Import ChatGPT Memories</span></h1>
+                    <p class="text-secondary"><span data-lang="es">ChatGPT ha aprendido sobre ti en cientos de conversaciones. ¡Usemos esa información!</span><span data-lang="en" hidden>ChatGPT has learned about you across hundreds of chats. Let's use that.</span></p>
                 </div>
                 
                 <div class="card animate-fade-in-up mb-6">
-                    <h4 class="mb-4">📋 Cómo obtener tus memorias:</h4>
+                    <h4 class="mb-4"><span data-lang="es">📋 Cómo obtener tus memorias:</span><span data-lang="en" hidden>📋 How to get your memories:</span></h4>
                     <ol style="line-height: 2; color: var(--color-text-secondary);">
-                        <li>Abre ChatGPT → Settings → Personalization</li>
-                        <li>Click en "Manage Memory"</li>
-                        <li>Copia todas las memorias (o exporta si está disponible)</li>
-                        <li>Pégalas abajo</li>
+                        <li><span data-lang="es">Abre ChatGPT → Settings → Personalization</span><span data-lang="en" hidden>Open ChatGPT → Settings → Personalization</span></li>
+                        <li><span data-lang="es">Click en "Manage Memory"</span><span data-lang="en" hidden>Click "Manage Memory"</span></li>
+                        <li><span data-lang="es">Copia todas las memorias (o exporta si está disponible)</span><span data-lang="en" hidden>Copy all memories (or export if available)</span></li>
+                        <li><span data-lang="es">Pégalas abajo</span><span data-lang="en" hidden>Paste them below</span></li>
                     </ol>
                 </div>
                 
                 <div class="card animate-fade-in-up">
-                    <textarea class="input textarea" id="memories-text" placeholder="Pega aquí tus memorias de ChatGPT..." style="min-height: 250px;"></textarea>
+                    <textarea class="input textarea" id="memories-text" placeholder="Pega aquí tus memorias de ChatGPT..." data-placeholder-en="Paste your ChatGPT memories here..." style="min-height: 250px;"></textarea>
                     
                     <div class="flex gap-4 justify-center mt-6">
-                        <button class="btn btn-secondary" id="back-onboarding">← Volver</button>
-                        <button class="btn btn-primary" id="analyze-memories">🔍 Analizar memorias</button>
+                        <button class="btn btn-secondary" id="back-onboarding"><span data-lang="es">← Volver</span><span data-lang="en" hidden>← Back</span></button>
+                        <button class="btn btn-primary" id="analyze-memories"><span data-lang="es">🔍 Analizar memorias</span><span data-lang="en" hidden>🔍 Analyze memories</span></button>
                     </div>
                 </div>
             </div >
@@ -646,9 +651,9 @@ class MPBApp {
             <div class="coming-soon container text-center" style = "min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 20px;" >
                 <div class="animate-scale-in">
                     <div class="emoji-icon" style="font-size: 4rem;">🚧</div>
-                    <h1 class="mb-4">Importar desde ${feature}</h1>
-                    <p class="text-secondary mb-8">Esta función estará disponible próximamente.</p>
-                    <button class="btn btn-primary" id="back-onboarding">← Elegir otra opción</button>
+                    <h1 class="mb-4"><span data-lang="es">Importar desde ${feature}</span><span data-lang="en" hidden>Import from ${feature}</span></h1>
+                    <p class="text-secondary mb-8"><span data-lang="es">Esta función estará disponible próximamente.</span><span data-lang="en" hidden>This feature will be available soon.</span></p>
+                    <button class="btn btn-primary" id="back-onboarding"><span data-lang="es">← Elegir otra opción</span><span data-lang="en" hidden>← Pick another option</span></button>
                 </div>
             </div >
         `);
@@ -659,39 +664,42 @@ class MPBApp {
     showLearnMore() {
         this.paint(`
             <div class="learn-more container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
-                <button class="btn btn-secondary mb-8" id="back-landing">← Volver</button>
+                <button class="btn btn-secondary mb-8" id="back-landing"><span data-lang="es">← Volver</span><span data-lang="en" hidden>← Back</span></button>
                 
                 <article class="animate-fade-in-up">
-                    <h1 class="mb-6">¿Qué es un Master Prompt?</h1>
+                    <h1 class="mb-6"><span data-lang="es">¿Qué es un Master Prompt?</span><span data-lang="en" hidden>What is a Master Prompt?</span></h1>
                     
                     <p class="text-lg mb-6">
-                        Un <strong>Master Prompt</strong> es un documento que contiene toda la información que un AI necesita saber sobre ti para darte las mejores respuestas posibles.
+                        <span data-lang="es">Un <strong>Master Prompt</strong> es un documento que contiene toda la información que un AI necesita saber sobre ti para darte las mejores respuestas posibles.</span>
+                        <span data-lang="en" hidden>A <strong>Master Prompt</strong> is a document with everything an AI needs to know about you to give you the best answers.</span>
                     </p>
                     
-                    <h3 class="mb-4">🤔 El problema</h3>
+                    <h3 class="mb-4"><span data-lang="es">🤔 El problema</span><span data-lang="en" hidden>🤔 The problem</span></h3>
                     <p class="mb-6">
-                        Cada vez que abres un chat nuevo con ChatGPT, Claude u otro AI, tienes que explicar desde cero quién eres, qué haces, cómo te gusta recibir respuestas, etc. Es tedioso y pierdes tiempo valioso.
+                        <span data-lang="es">Cada vez que abres un chat nuevo con ChatGPT, Claude u otro AI, tienes que explicar desde cero quién eres, qué haces, cómo te gusta recibir respuestas, etc. Es tedioso y pierdes tiempo valioso.</span>
+                        <span data-lang="en" hidden>Every time you open a new chat with ChatGPT, Claude or another AI, you have to explain from scratch who you are, what you do, and how you like answers. It is tedious and you lose valuable time.</span>
                     </p>
                     
-                    <h3 class="mb-4">💡 La solución</h3>
+                    <h3 class="mb-4"><span data-lang="es">💡 La solución</span><span data-lang="en" hidden>💡 The solution</span></h3>
                     <p class="mb-6">
-                        Un Master Prompt es como tu "manual de usuario personal". Lo pegas al inicio de cada conversación (o lo configuras en Custom Instructions) y el AI ya sabe exactamente cómo ayudarte.
+                        <span data-lang="es">Un Master Prompt es como tu "manual de usuario personal". Lo pegas al inicio de cada conversación (o lo configuras en Custom Instructions) y el AI ya sabe exactamente cómo ayudarte.</span>
+                        <span data-lang="en" hidden>A Master Prompt is your personal user manual. Paste it at the start of each chat (or set it in Custom Instructions) and the AI already knows how to help you.</span>
                     </p>
                     
-                    <h3 class="mb-4">✨ ¿Qué incluye?</h3>
+                    <h3 class="mb-4"><span data-lang="es">✨ ¿Qué incluye?</span><span data-lang="en" hidden>✨ What is included?</span></h3>
                     <ul class="mb-6" style="line-height: 2;">
-                        <li>👤 Quién eres (nombre, rol, empresa)</li>
-                        <li>🎯 Tu contexto profesional</li>
-                        <li>🛠️ Las herramientas que usas</li>
-                        <li>💬 Cómo te gusta recibir respuestas</li>
-                        <li>⚡ Reglas específicas (lo que siempre/nunca quieres)</li>
-                        <li>📁 Tus proyectos activos</li>
+                        <li><span data-lang="es">👤 Quién eres (nombre, rol, empresa)</span><span data-lang="en" hidden>👤 Who you are (name, role, company)</span></li>
+                        <li><span data-lang="es">🎯 Tu contexto profesional</span><span data-lang="en" hidden>🎯 Your professional context</span></li>
+                        <li><span data-lang="es">🛠️ Las herramientas que usas</span><span data-lang="en" hidden>🛠️ The tools you use</span></li>
+                        <li><span data-lang="es">💬 Cómo te gusta recibir respuestas</span><span data-lang="en" hidden>💬 How you like to receive answers</span></li>
+                        <li><span data-lang="es">⚡ Reglas específicas (lo que siempre/nunca quieres)</span><span data-lang="en" hidden>⚡ Specific rules (what you always/never want)</span></li>
+                        <li><span data-lang="es">📁 Tus proyectos activos</span><span data-lang="en" hidden>📁 Your active projects</span></li>
                     </ul>
                     
                     <div class="card" style="background: var(--brand-accent, #FF6B35); border: none; padding: 30px;">
-                        <h3 class="mb-4" style="color: var(--brand-ink, #22211F);">¿Listo para crear el tuyo?</h3>
+                        <h3 class="mb-4" style="color: var(--brand-ink, #22211F);"><span data-lang="es">¿Listo para crear el tuyo?</span><span data-lang="en" hidden>Ready to create yours?</span></h3>
                         <button class="btn btn-lg jz-antic" id="start-wizard" type="button" data-jz="jz-tap" style="background: var(--brand-background, #0A0A0A); color: var(--brand-text-on-dark, #FFFFFF);">
-                            ⚡ Crear mi Master Prompt
+                            <span data-lang="es">⚡ Crear mi Master Prompt</span><span data-lang="en" hidden>⚡ Create my Master Prompt</span>
                         </button>
                     </div>
                 </article>
@@ -731,8 +739,8 @@ class MPBApp {
             <div class="export-page container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
                 <div class="text-center mb-12 animate-fade-in-up">
                     <div class="emoji-icon" style="font-size: 4rem;">🎉</div>
-                    <h1 class="mb-4">¡Tu Master Prompt está listo!</h1>
-                    <p class="text-secondary">Elige cómo quieres exportarlo</p>
+                    <h1 class="mb-4"><span data-lang="es">¡Tu Master Prompt está listo!</span><span data-lang="en" hidden>Your Master Prompt is ready!</span></h1>
+                    <p class="text-secondary"><span data-lang="es">Elige cómo quieres exportarlo</span><span data-lang="en" hidden>Choose how you want to export it</span></p>
                 </div>
                 
                 <div class="export-options" style="display: grid; gap: 16px; margin-bottom: 40px;">
@@ -740,8 +748,8 @@ class MPBApp {
                         <div class="flex items-center gap-4">
                             <span style="font-size: 2rem;">📋</span>
                             <div>
-                                <h4>Copiar al clipboard</h4>
-                                <p class="text-secondary mb-0">Listo para pegar en cualquier AI</p>
+                                <h4><span data-lang="es">Copiar al clipboard</span><span data-lang="en" hidden>Copy to clipboard</span></h4>
+                                <p class="text-secondary mb-0"><span data-lang="es">Listo para pegar en cualquier AI</span><span data-lang="en" hidden>Ready to paste into any AI</span></p>
                             </div>
                         </div>
                     </div>
@@ -750,8 +758,8 @@ class MPBApp {
                         <div class="flex items-center gap-4">
                             <span style="font-size: 2rem;">📝</span>
                             <div>
-                                <h4>Descargar Markdown</h4>
-                                <p class="text-secondary mb-0">Archivo .md para GitHub, Notion, Obsidian</p>
+                                <h4><span data-lang="es">Descargar Markdown</span><span data-lang="en" hidden>Download Markdown</span></h4>
+                                <p class="text-secondary mb-0"><span data-lang="es">Archivo .md para GitHub, Notion, Obsidian</span><span data-lang="en" hidden>.md file for GitHub, Notion, Obsidian</span></p>
                             </div>
                         </div>
                     </div>
@@ -760,8 +768,8 @@ class MPBApp {
                         <div class="flex items-center gap-4">
                             <span style="font-size: 2rem;">📄</span>
                             <div>
-                                <h4>Exportar a PDF</h4>
-                                <p class="text-secondary mb-0">Con instrucciones de uso incluidas</p>
+                                <h4><span data-lang="es">Exportar a PDF</span><span data-lang="en" hidden>Export to PDF</span></h4>
+                                <p class="text-secondary mb-0"><span data-lang="es">Con instrucciones de uso incluidas</span><span data-lang="en" hidden>With usage instructions included</span></p>
                             </div>
                         </div>
                     </div>
@@ -770,8 +778,8 @@ class MPBApp {
                         <div class="flex items-center gap-4">
                             <span style="font-size: 2rem;">🤖</span>
                             <div>
-                                <h4>Versión ChatGPT</h4>
-                                <p class="text-secondary mb-0">Optimizado para Custom Instructions</p>
+                                <h4><span data-lang="es">Versión ChatGPT</span><span data-lang="en" hidden>ChatGPT version</span></h4>
+                                <p class="text-secondary mb-0"><span data-lang="es">Optimizado para Custom Instructions</span><span data-lang="en" hidden>Optimized for Custom Instructions</span></p>
                             </div>
                         </div>
                     </div>
@@ -780,21 +788,21 @@ class MPBApp {
                         <div class="flex items-center gap-4">
                             <span style="font-size: 2rem;">🐙</span>
                             <div>
-                                <h4>Sincronizar con GitHub</h4>
-                                <p class="text-secondary mb-0">Versionado automático (próximamente)</p>
+                                <h4><span data-lang="es">Sincronizar con GitHub</span><span data-lang="en" hidden>Sync with GitHub</span></h4>
+                                <p class="text-secondary mb-0"><span data-lang="es">Versionado automático (próximamente)</span><span data-lang="en" hidden>Automatic versioning (coming soon)</span></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="flex justify-center gap-4">
-                    <button class="btn btn-secondary" id="back-wizard">← Editar más</button>
-                    <button class="btn btn-primary" id="new-prompt">🆕 Crear otro</button>
+                    <button class="btn btn-secondary" id="back-wizard"><span data-lang="es">← Editar más</span><span data-lang="en" hidden>← Edit more</span></button>
+                    <button class="btn btn-primary" id="new-prompt"><span data-lang="es">🆕 Crear otro</span><span data-lang="en" hidden>🆕 Create another</span></button>
                 </div>
                 
                 <!--Toast -->
             <div id="toast" class="toast" style="display: none; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--brand-accent, #FF6B35); color: var(--brand-ink, #22211F); padding: 16px 24px; border-radius: 12px; font-weight: 600;">
-                ✓ Copiado al clipboard
+                <span data-lang="es">✓ Copiado al clipboard</span><span data-lang="en" hidden>✓ Copied to clipboard</span>
             </div>
             </div >
         `);
@@ -804,12 +812,12 @@ class MPBApp {
             const copyCard = document.getElementById('export-copy');
             await exportFunctions.copyToClipboard(prompt);
             this.juiceCopy(copyCard);
-            this.showToast('✓ Copiado al clipboard');
+            this.showToast(getLang() === 'en' ? '✓ Copied to clipboard' : '✓ Copiado al clipboard');
         });
 
         document.getElementById('export-md').addEventListener('click', () => {
             exportFunctions.exportMarkdown(data);
-            this.showToast('✓ Descargando archivo...');
+            this.showToast(getLang() === 'en' ? '✓ Downloading file...' : '✓ Descargando archivo...');
         });
 
         document.getElementById('export-pdf').addEventListener('click', () => {
@@ -820,7 +828,7 @@ class MPBApp {
             const chatgptVersion = generateMasterPrompt(data);
             await exportFunctions.copyToClipboard(chatgptVersion);
             this.juiceCopy(document.getElementById('export-chatgpt'));
-            this.showToast('✓ Versión ChatGPT copiada');
+            this.showToast(getLang() === 'en' ? '✓ ChatGPT version copied' : '✓ Versión ChatGPT copiada');
         });
 
         document.getElementById('export-github').addEventListener('click', () => {

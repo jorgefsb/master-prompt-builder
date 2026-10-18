@@ -284,6 +284,11 @@
     overflow: hidden;
 }
 
+.btn:focus-visible,
+.chip:focus-visible {
+    overflow: visible;
+}
+
 .card-clickable::before {
     content: none;
 }
