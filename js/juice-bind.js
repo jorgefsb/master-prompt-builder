@@ -26,6 +26,7 @@
         var live = t.closest('[data-jz-moki], .jz-moki');
         if (live) {
             jz.snd('tap');
+            jz.press(live);
             jz.hop(live);
             return;
         }

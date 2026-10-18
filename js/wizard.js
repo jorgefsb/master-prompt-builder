@@ -240,9 +240,9 @@ class WizardManager {
                 
                 <div class="input-group">
                     <label class="input-label">Idioma preferido para las respuestas</label>
-                    <div class="chip-group">
+                    <div class="chip-group" data-prompt-lang-group>
                         ${['Español', 'English', 'Ambos'].map(lang => `
-                            <div class="chip ${this.data.language === lang ? 'active' : ''}" data-lang="${lang}">
+                            <div class="chip ${this.data.language === lang ? 'active' : ''}" data-prompt-lang="${lang}">
                                 ${lang === 'Español' ? '🇪🇸' : lang === 'English' ? '🇺🇸' : '🌎'} ${lang}
                             </div>
                         `).join('')}
@@ -471,12 +471,12 @@ class WizardManager {
             });
         });
 
-        // Language
-        document.querySelectorAll('[data-lang]').forEach(chip => {
+        // Language of the prompt (never [data-lang]: that is site i18n in header/footer)
+        this.container.querySelectorAll('[data-prompt-lang]').forEach(chip => {
             chip.addEventListener('click', () => {
-                document.querySelectorAll('[data-lang]').forEach(c => c.classList.remove('active'));
+                this.container.querySelectorAll('[data-prompt-lang]').forEach(c => c.classList.remove('active'));
                 chip.classList.add('active');
-                this.data.language = chip.dataset.lang;
+                this.data.language = chip.getAttribute('data-prompt-lang');
                 this.saveAndUpdate();
             });
         });

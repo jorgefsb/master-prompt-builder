@@ -235,6 +235,20 @@ class MPBApp {
                     </div>
 
                     <div class="hero-stage">
+                        <figure class="hero-moki">
+                            <button type="button" class="jz-moki" data-jz-moki>
+                                <img
+                                    src="/brand/0.3/moki-parche-derecho-160.webp"
+                                    srcset="/brand/0.3/moki-parche-derecho-80.webp 80w, /brand/0.3/moki-parche-derecho-160.webp 160w"
+                                    sizes="(max-width: 799px) 80px, 160px"
+                                    width="160"
+                                    height="171"
+                                    alt="Moki, astronauta de cartón naranja con parche en la oreja derecha"
+                                    data-alt-es="Moki, astronauta de cartón naranja con parche en la oreja derecha"
+                                    data-alt-en="Moki, orange cardboard astronaut with a patch on the right ear"
+                                    decoding="async">
+                            </button>
+                        </figure>
                         <div class="card hero-code jz-host animate-fade-in-up stagger-5">
                             <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--brand-border, #8A7E70); padding-bottom: 12px;">
                                 <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--brand-border, #8A7E70);"></div>

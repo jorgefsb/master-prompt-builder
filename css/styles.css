@@ -98,6 +98,7 @@ html {
     font-size: 16px;
     scroll-behavior: smooth;
     overflow-x: clip;
+    scroll-padding-top: var(--site-header-offset, 64px);
 }
 
 body {
@@ -883,9 +884,13 @@ img {
 }
 
 .lang button[aria-pressed="true"] {
-    background: var(--orange);
-    color: var(--ink);
-    border-color: var(--orange);
+    background: var(--surface);
+    color: var(--brand-text-on-dark, #FFFFFF);
+    border-color: var(--border);
+    text-decoration: underline;
+    text-decoration-color: var(--orange);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
 }
 
 .product-mark {
@@ -906,9 +911,21 @@ img {
 .hero-moki img,
 .cta-moki img {
     display: block;
-    width: 120px;
+    width: 80px;
     height: auto;
     transform: none;
+}
+
+.hero-moki .jz-moki,
+.cta-moki .jz-moki {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    transform: none;
+    pointer-events: auto;
 }
 
 .cta-moki img {
@@ -981,11 +998,6 @@ img {
     pointer-events: auto;
 }
 
-.hero-moki .jz-moki,
-.cta-moki .jz-moki {
-    display: inline-block;
-}
-
 .hero-code {
     padding: 24px;
     background: rgba(10, 10, 10, 0.8);
@@ -1003,6 +1015,25 @@ img {
 .papacito-footer {
     padding-left: var(--space-6);
     padding-right: var(--space-6);
+}
+
+#name,
+#vip-email,
+#vip-submit,
+.chip,
+.chip-group {
+    scroll-margin-top: calc(var(--site-header-offset, 64px) + 12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-moki .jz-moki,
+    .cta-moki .jz-moki,
+    .hero-moki img,
+    .cta-moki img {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1029,6 +1060,55 @@ img {
 
     .lang-in-menu button {
         flex: 1;
+    }
+}
+
+@media (max-width: 799px) {
+    html {
+        scroll-padding-top: 0;
+    }
+
+    body {
+        padding-top: 0;
+    }
+
+    .site-header {
+        position: static;
+    }
+
+    #name,
+    #vip-email,
+    #vip-submit,
+    .chip,
+    .chip-group {
+        scroll-margin-top: 12px;
+    }
+}
+
+@media (max-width: 640px) {
+    .site-header .jz-dock > .juice-sfx {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        min-width: 44px;
+        max-width: 44px;
+        height: 44px;
+        padding: 0;
+        gap: 0;
+    }
+
+    .site-header .jz-dock > .juice-sfx .juice-sfx__label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
     }
 }
 
@@ -1103,6 +1183,6 @@ img {
     }
 
     .hero-moki img {
-        width: 200px;
+        width: 160px;
     }
 }
