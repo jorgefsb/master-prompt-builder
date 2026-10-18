@@ -74,9 +74,9 @@
     --radius-full: 9999px;
 
     /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
     --shadow-glow: 0 0 0 transparent;
 
     /* Transitions */
@@ -286,7 +286,7 @@ a:hover {
     color: var(--color-ink);
     font-weight: 700;
     letter-spacing: -0.2px;
-    border: 1px solid rgba(244, 232, 213, 0.16);
+    border: 1px solid var(--brand-border, #8A7E70);
     box-shadow: var(--shadow-md);
 }
 
@@ -401,9 +401,9 @@ a:hover {
 }
 
 .input:focus {
-    outline: none;
+    outline: 3px solid var(--brand-accent, #FF6B35);
+    outline-offset: 2px;
     border-color: var(--color-accent-primary);
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.22);
 }
 
 .input::placeholder {
@@ -537,7 +537,7 @@ a:hover {
 }
 
 .preview-content {
-    font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+    font-family: var(--brand-font-body, Inter, sans-serif);
     font-size: var(--font-size-sm);
     line-height: 1.8;
     white-space: pre-wrap;
@@ -560,7 +560,8 @@ a:hover {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-radius: var(--radius-full);
-    background: rgba(255, 107, 53, 0.16);
+    background: var(--brand-surface, #161616);
+    border: 1px solid #FF6B35;
     color: var(--color-accent-primary);
 }
 
@@ -961,9 +962,9 @@ img {
     font-size: 0.7rem;
     letter-spacing: 0.08em;
     white-space: nowrap;
-    background: rgba(255, 107, 53, 0.12);
+    background: var(--brand-surface, #161616);
     color: var(--color-cta);
-    border: 1px solid rgba(255, 107, 53, 0.28);
+    border: 1px solid #FF6B35;
 }
 
 .hero-lead {
@@ -1000,10 +1001,9 @@ img {
 
 .hero-code {
     padding: 24px;
-    background: rgba(10, 10, 10, 0.8);
+    background: var(--brand-surface, #161616);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
     text-align: left;
     overflow: hidden;
 }

@@ -254,9 +254,9 @@ class MPBApp {
                                 <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--brand-border, #8A7E70);"></div>
                                 <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--brand-accent, #FF6B35);"></div>
                                 <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--brand-text-muted, #B7B3AD);"></div>
-                                <span style="margin-left: 10px; font-size: 0.75rem; color: var(--color-text-tertiary); font-family: monospace;">mi_identidad_profesional.md</span>
+                                <span style="margin-left: 10px; font-size: 0.75rem; color: var(--color-text-tertiary); font-family: var(--brand-font-body, Inter, sans-serif);">mi_identidad_profesional.md</span>
                             </div>
-                            <div style="font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace; font-size: 0.9rem; line-height: 1.8;">
+                            <div style="font-family: var(--brand-font-body, Inter, sans-serif); font-size: 0.9rem; line-height: 1.8;">
                                 <span style="color: var(--color-accent-primary);"># MI ARCHITECTURA MENTAL</span><br>
                                 <span style="color: var(--color-text-secondary);">Actúa como un CTO orientado a escalabilidad y seguridad.</span><br>
                                 <span style="color: var(--color-accent-primary);"># PREFERENCIAS DE COMUNICACIÓN</span><br>
@@ -300,8 +300,8 @@ class MPBApp {
                             </div>
                         </div>
                         <div class="card animate-slide-in-right" style="flex: 1; min-width: 0; background: var(--brand-background, #0A0A0A); padding: 32px;">
-                            <div style="font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace; font-size: 0.9rem;">
-                                <div class="mb-4" style="color: var(--color-text-tertiary); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;"><span data-lang="es">CASO REAL: SIN MASTER PROMPT</span><span data-lang="en" hidden>REAL CASE: NO MASTER PROMPT</span></div>
+                            <div style="font-family: var(--brand-font-body, Inter, sans-serif); font-size: 0.9rem;">
+                                <div class="mb-4" style="color: var(--color-text-tertiary); border-bottom: 1px solid var(--brand-border, #8A7E70); padding-bottom: 8px;"><span data-lang="es">CASO REAL: SIN MASTER PROMPT</span><span data-lang="en" hidden>REAL CASE: NO MASTER PROMPT</span></div>
                                 <div class="mb-2" style="color: var(--color-accent-primary);">> Tú: Necesito el esquema de...</div>
                                 <div class="mb-4" style="opacity: 0.6;">AI: Claro, aquí tienes un ejemplo genérico usando bibliotecas que no usas...</div>
                                 <div class="mb-2" style="color: var(--color-accent-primary);">>> Tú: No, recuerda que uso SQL y preferimos...</div>
