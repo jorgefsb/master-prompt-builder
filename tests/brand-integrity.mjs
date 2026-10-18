@@ -8,7 +8,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const packs = [
   join(root, 'brand/0.3/manifest.json'),
-  join(root, 'juice/1.0.0/manifest.json'),
+  join(root, 'juice/1.0.1/manifest.json'),
 ];
 
 const MOKI_PNG_SHA = '4980c46331c1fef308ab9505c7cf311466584af16adc741e7f8717e8dcf2e171';

@@ -1,4 +1,4 @@
-/* Binder MPB para juice 1.0.0. El menu vive en el paquete. Sin Stripe. */
+/* Binder MPB para juice 1.0.1. El menu vive en el paquete. Sin Stripe. */
 (function (d) {
     'use strict';
 
