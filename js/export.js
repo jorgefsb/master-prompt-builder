@@ -61,34 +61,65 @@ export const exportFunctions = {
             <html>
             <head>
                 <title>Master Prompt - ${data.name || 'Usuario'}</title>
-                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="${window.location.origin}/brand/0.3/tokens.css">
                 <style>
+                    @font-face {
+                        font-family: Inter;
+                        font-style: normal;
+                        font-weight: 400;
+                        font-display: swap;
+                        src: url('${window.location.origin}/fonts/inter-400.woff2') format('woff2');
+                    }
                     body {
-                        font-family: 'Inter', sans-serif;
+                        font-family: Inter, var(--brand-font-body, system-ui, sans-serif);
                         max-width: 800px;
                         margin: 40px auto;
                         padding: 20px;
                         line-height: 1.6;
-                        color: #1a1a2e;
+                        background: var(--brand-paper, #F4E8D5);
+                        color: var(--brand-ink, #22211F);
                     }
-                    h1 { color: #667EEA; border-bottom: 2px solid #667EEA; padding-bottom: 10px; }
-                    h2 { color: #764BA2; margin-top: 30px; }
-                    h3 { color: #333; }
+                    h1 { color: var(--brand-accent, #FF6B35); border-bottom: 2px solid var(--brand-accent, #FF6B35); padding-bottom: 10px; }
+                    h2, h3 { color: var(--brand-ink, #22211F); margin-top: 30px; }
                     ul { margin: 10px 0; }
                     li { margin: 5px 0; }
-                    code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
-                    .footer { 
-                        margin-top: 40px; 
-                        padding-top: 20px; 
-                        border-top: 1px solid #ddd; 
-                        font-size: 12px; 
-                        color: #666;
+                    code {
+                        background: transparent;
+                        padding: 2px 6px;
+                        border-radius: 4px;
+                        border: 1px solid var(--brand-border, #8A7E70);
+                        color: var(--brand-ink, #22211F);
+                    }
+                    .footer {
+                        margin-top: 40px;
+                        padding-top: 20px;
+                        border-top: 1px solid var(--brand-border, #8A7E70);
+                        font-size: 12px;
+                        color: var(--brand-ink, #22211F);
                     }
                     .instructions {
-                        background: #f8f8fc;
+                        background: var(--brand-paper, #F4E8D5);
                         padding: 20px;
                         border-radius: 8px;
                         margin-top: 30px;
+                        border: 1px solid var(--brand-border, #8A7E70);
+                        color: var(--brand-ink, #22211F);
+                    }
+                    .no-print {
+                        background: var(--brand-accent, #FF6B35);
+                        color: var(--brand-ink, #22211F);
+                        padding: 10px 20px;
+                        margin: -20px -20px 30px;
+                        border-radius: 8px;
+                    }
+                    .no-print button {
+                        background: var(--brand-paper, #F4E8D5);
+                        color: var(--brand-ink, #22211F);
+                        border: 1px solid var(--brand-ink, #22211F);
+                        padding: 10px 20px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        font-weight: 600;
                     }
                     @media print {
                         body { margin: 20px; }
@@ -97,8 +128,8 @@ export const exportFunctions = {
                 </style>
             </head>
             <body>
-                <div class="no-print" style="background: #667EEA; color: white; padding: 10px 20px; margin: -20px -20px 30px; border-radius: 8px;">
-                    <button onclick="window.print()" style="background: white; color: #667EEA; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                <div class="no-print">
+                    <button type="button" onclick="window.print()">
                         🖨️ Imprimir / Guardar como PDF
                     </button>
                 </div>

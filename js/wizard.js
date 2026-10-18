@@ -338,7 +338,7 @@ class WizardManager {
                 <div class="card">
                     <div class="flex justify-between items-center mb-4">
                         <h5>📄 Tu Master Prompt</h5>
-                        <button class="btn btn-sm btn-secondary" id="copy-prompt">📋 Copiar</button>
+                        <button class="btn btn-sm btn-secondary" id="copy-prompt" type="button">📋 Copiar</button>
                     </div>
                     <div class="preview-content" id="final-preview">${this.escapeHtml(prompt)}</div>
                 </div>
@@ -349,8 +349,8 @@ class WizardManager {
                 </div>
                 
                 <div class="flex gap-4 justify-center mt-8">
-                    <button class="btn btn-primary btn-lg" id="save-prompt">💾 Guardar versión</button>
-                    <button class="btn btn-cta btn-lg" id="export-prompt">📤 Exportar</button>
+                    <button class="btn btn-secondary btn-lg" id="save-prompt" type="button">💾 Guardar versión</button>
+                    <button class="btn btn-cta btn-lg jz-antic" id="export-prompt" type="button" data-jz="jz-tap">📤 Exportar</button>
                 </div>
             </div>
         `;
@@ -359,10 +359,10 @@ class WizardManager {
     renderNavigation() {
         return `
             <div class="wizard-nav flex justify-between mt-8">
-                <button class="btn btn-secondary" id="prev-btn" ${this.currentStep === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                <button class="btn btn-secondary" id="prev-btn" type="button" ${this.currentStep === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
                     ← Anterior
                 </button>
-                <button class="btn btn-primary" id="next-btn">
+                <button class="btn btn-primary jz-antic" id="next-btn" type="button" data-jz="jz-tap">
                     ${this.currentStep === this.totalSteps ? '✨ Finalizar' : 'Siguiente →'}
                 </button>
             </div>
@@ -559,6 +559,7 @@ class WizardManager {
             copyBtn.addEventListener('click', () => {
                 const text = document.getElementById('final-edit')?.value || generateMasterPrompt(this.data);
                 navigator.clipboard.writeText(text);
+                document.dispatchEvent(new CustomEvent('mpb:copy', { detail: { el: copyBtn } }));
                 copyBtn.textContent = '✓ Copiado!';
                 setTimeout(() => copyBtn.textContent = '📋 Copiar', 2000);
             });

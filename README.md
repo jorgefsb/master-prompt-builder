@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./assets/readme-banner.svg" width="1000" alt="Master Prompt Builder — tu contexto, tus reglas, tu IA." />
+<img src="./assets/readme-banner.svg" width="1000" alt="Master Prompt Builder: tu contexto, tus reglas, tu IA." />
 
 [⚡ Probar MPB](https://mpb.jorgesuarez.com.mx) · [🐙 Ver código](https://github.com/jorgefsb/master-prompt-builder) · **Estado:** activo
 
