@@ -1,0 +1,7 @@
+{
+  "name": "master-prompt-builder",
+  "private": true,
+  "scripts": {
+    "test": "node tests/brand-integrity.mjs && node tests/wizard-lang-isolation.mjs"
+  }
+}

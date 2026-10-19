@@ -1,0 +1,26 @@
+{
+  "version": "0.3",
+  "source": "https://brandkit.jorgesuarez.com.mx/assets/brand-kit-0.3/tokens.css",
+  "files": [
+    {
+      "path": "tokens.css",
+      "source": "https://brandkit.jorgesuarez.com.mx/assets/brand-kit-0.3/tokens.css",
+      "version": "0.3",
+      "sha256": "8d8f3a345d359a99dd48b98289b9a7d39e2be06179322949ff2e217395ef3152"
+    },
+    {
+      "path": "moki-parche-derecho-160.webp",
+      "source": "derived from official moki-parche-derecho.png",
+      "version": "0.3",
+      "derived_from": "4980c46331c1fef308ab9505c7cf311466584af16adc741e7f8717e8dcf2e171",
+      "sha256": "6bf72d855bfd745d55a9dfb783d38ac58dea4975ea7209fc554cd0d8f28f8f0a"
+    },
+    {
+      "path": "moki-parche-derecho-80.webp",
+      "source": "derived from official moki-parche-derecho.png",
+      "version": "0.3",
+      "derived_from": "4980c46331c1fef308ab9505c7cf311466584af16adc741e7f8717e8dcf2e171",
+      "sha256": "bd2f67ef851cc3f4d14effcb653c990082ba887f7e552372161767411ddcdb30"
+    }
+  ]
+}

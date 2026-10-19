@@ -8,6 +8,7 @@ import { generateMasterPrompt } from './generator.js';
 import exportFunctions from './export.js';
 import storage from './storage.js';
 import { supabase, saveLead } from './supabase.js';
+import { applyLang, bindLangSwitch, getLang } from './i18n.js';
 
 class MPBApp {
     constructor() {
@@ -17,6 +18,9 @@ class MPBApp {
     }
 
     async init() {
+        this.bindChrome();
+        applyLang(getLang());
+
         // Verificar sesión de Supabase
         const { data: { session } } = await supabase.auth.getSession();
         this.user = session?.user || null;
@@ -44,6 +48,86 @@ class MPBApp {
         });
     }
 
+    bindChrome() {
+        const loginBtn = document.getElementById('login-btn');
+        const howBtn = document.getElementById('how-btn');
+        const header = document.querySelector('.site-header');
+        const toggle = document.getElementById('nav-toggle');
+
+        const closeMenu = () => {
+            if (!header || !toggle) return;
+            header.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+        };
+
+        if (loginBtn) {
+            loginBtn.addEventListener('click', () => {
+                closeMenu();
+                this.handleLogin();
+            });
+        }
+        if (howBtn) {
+            howBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeMenu();
+                this.showOnboarding();
+            });
+        }
+        if (toggle && header) {
+            toggle.addEventListener('click', () => {
+                const open = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', String(!open));
+                header.classList.toggle('is-open', !open);
+            });
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+        document.addEventListener('click', (e) => {
+            if (!header || !header.classList.contains('is-open')) return;
+            if (!header.contains(e.target)) closeMenu();
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 800) closeMenu();
+        });
+
+        bindLangSwitch();
+        document.addEventListener('mpb:lang', () => {
+            if (this.currentView === 'wizard' && this.wizard) {
+                this.wizard.render();
+            }
+        });
+
+        const syncHeader = () => {
+            if (!header) return;
+            const row = header.querySelector('.header-row');
+            const height = Math.round((row || header).getBoundingClientRect().height);
+            document.body.style.setProperty('--site-header-offset', `${height}px`);
+        };
+        syncHeader();
+        window.addEventListener('resize', syncHeader);
+        if (window.ResizeObserver) {
+            new ResizeObserver(syncHeader).observe(header);
+        }
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(syncHeader);
+        }
+    }
+
+    paint(html) {
+        this.app.innerHTML = html;
+        applyLang(getLang());
+        document.dispatchEvent(new Event('mpb:paint'));
+    }
+
+    juiceCopy(el) {
+        document.dispatchEvent(new CustomEvent('mpb:copy', { detail: { el } }));
+    }
+
+    juiceError(el) {
+        document.dispatchEvent(new CustomEvent('mpb:error', { detail: { el } }));
+    }
+
     async handleUserLoggedIn(user) {
         // Intentar obtener perfil de Supabase
         const { data: profile } = await supabase
@@ -61,24 +145,24 @@ class MPBApp {
     }
 
     async handleLogin() {
-        this.app.innerHTML = `
-            <div class="onboarding container text-center" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 20px;">
+        this.paint(`
+            <div class="onboarding container text-center" style="min-height: 60vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 20px;">
                 <div class="animate-fade-in-up">
                     <div style="font-size: 4rem; margin-bottom: 24px;">⚡</div>
-                    <h1 class="mb-4">Acceso VIP</h1>
-                    <p class="text-secondary mb-12">Ingresa tu email para guardar tu DNA Digital y recibir actualizaciones exclusivas.</p>
+                    <h1 class="mb-4"><span data-lang="es">Acceso VIP</span><span data-lang="en" hidden>VIP Access</span></h1>
+                    <p class="text-secondary mb-12"><span data-lang="es">Ingresa tu email para guardar tu DNA Digital y recibir actualizaciones exclusivas.</span><span data-lang="en" hidden>Enter your email to save your Digital DNA and get exclusive updates.</span></p>
                     
                     <div class="flex flex-col gap-4" style="max-width: 400px; margin: 0 auto;">
-                        <input type="email" class="input" id="vip-email" placeholder="tu@email.com" style="padding: 16px 20px; font-size: 1.1rem; text-align: center; border-radius: 12px;">
-                        <div id="vip-error" style="color: #ff5f56; font-size: 0.9rem; display: none;"></div>
-                        <button class="btn btn-cta btn-lg w-full" id="vip-submit" style="padding: 16px; font-size: 1.1rem;">
-                            🚀 Crear mi DNA Digital
+                        <input type="email" class="input" id="vip-email" placeholder="tu@email.com" data-placeholder-es="tu@email.com" data-placeholder-en="you@email.com" style="padding: 16px 20px; font-size: 1.1rem; text-align: center; border-radius: 12px;">
+                        <div id="vip-error" class="jz-err" role="status" aria-live="polite" style="color: var(--brand-accent, #FF6B35); font-size: 0.9rem; display: none;"></div>
+                        <button class="btn btn-cta btn-lg w-full jz-antic" id="vip-submit" type="button" data-jz="jz-tap" style="padding: 16px; font-size: 1.1rem;">
+                            <span data-lang="es">🚀 Crear mi DNA Digital</span><span data-lang="en" hidden>🚀 Create my Digital DNA</span>
                         </button>
-                        <button class="btn btn-sm mt-4" id="back-from-login" style="background: transparent; opacity: 0.6;">← Volver al inicio</button>
+                        <button class="btn btn-sm mt-4" id="back-from-login" style="background: transparent; opacity: 0.6;"><span data-lang="es">← Volver al inicio</span><span data-lang="en" hidden>← Back to home</span></button>
                     </div>
                 </div>
             </div>
-        `;
+        `);
 
         const emailInput = document.getElementById('vip-email');
         const errorDiv = document.getElementById('vip-error');
@@ -88,6 +172,7 @@ class MPBApp {
             if (!email || !email.includes('@')) {
                 errorDiv.textContent = 'Por favor ingresa un email válido';
                 errorDiv.style.display = 'block';
+                this.juiceError(emailInput.closest('.flex') || emailInput);
                 return;
             }
             errorDiv.style.display = 'none';
@@ -121,68 +206,71 @@ class MPBApp {
 
     showLanding() {
         this.currentView = 'landing';
-        this.app.innerHTML = `
+        this.paint(`
             <div class="landing-page">
-                <!-- Background Effects -->
                 <div class="bg-grid"></div>
                 <div class="data-node node-1"></div>
                 <div class="data-node node-2"></div>
                 <div class="data-node node-3"></div>
 
-                <header class="landing-header">
-                    <nav class="container flex justify-between items-center" style="padding: 16px 24px; position: relative; z-index: 10;">
-                        <div class="logo logo-animated" style="font-size: 1.6rem; font-weight: 800; letter-spacing: -1px;">
-                            ⚡ <span style="letter-spacing: 2px;">MPB</span>
-                        </div>
-                        <div class="flex gap-4">
-                            <a href="#how-it-works" class="btn btn-secondary btn-sm" style="background: transparent;">¿Cómo funciona?</a>
-                            <button class="btn btn-primary btn-sm" id="login-btn">Acceso VIP</button>
-                        </div>
-                    </nav>
-                </header>
-                
-                <!-- Hero: WHAT & WHO -->
-                <main class="landing-hero container" style="padding: 60px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 5;">
+                <main class="landing-hero container">
+                    <p class="product-mark mb-4">⚡ MPB</p>
                     <div class="animate-fade-in-up stagger-1">
-                        <span class="badge mb-4" style="padding: 6px 14px; font-size: 0.8rem; background: rgba(255, 217, 61, 0.1); color: var(--color-cta); border: 1px solid rgba(255, 217, 61, 0.2); letter-spacing: 1px;">
-                            PARA PROFESIONALES QUE DOMINAN LA IA
+                        <span class="badge hero-pill mb-4">
+                            <span data-lang="es">PARA QUIEN YA USA IA</span>
+                            <span data-lang="en" hidden>FOR PEOPLE ALREADY USING AI</span>
                         </span>
                     </div>
                     
-                    <h1 class="animate-fade-in-up stagger-2 mb-4" style="max-width: 950px; line-height: 1.1; font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 900;">
-                        No más chats vacíos. <br>
-                        Tu IA por fin <span class="text-gradient">te conoce.</span>
+                    <h1 class="animate-fade-in-up stagger-2 mb-4" style="max-width: 950px; line-height: 1.1; font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 700;">
+                        <span data-lang="es">No más chats vacíos. <br> Tu IA por fin <span class="text-gradient">te conoce.</span></span>
+                        <span data-lang="en" hidden>No more empty chats. <br> Your AI finally <span class="text-gradient">knows you.</span></span>
                     </h1>
                     
-                    <p class="animate-fade-in-up stagger-3 mb-10" style="font-size: 1.4rem; max-width: 750px; color: var(--color-text-secondary); line-height: 1.6; font-weight: 400;">
-                        Diseña tu <strong>Master Prompt</strong> en minutos. Un motor de identidad digital que inyecta tu DNA profesional en cada sesión de ChatGPT, Claude o Gemini.
+                    <p class="hero-lead animate-fade-in-up stagger-3 mb-10">
+                        <span data-lang="es">Diseña tu <strong>Master Prompt</strong> en minutos. Un motor de identidad digital que inyecta tu DNA profesional en cada sesión de ChatGPT, Claude o Gemini.</span>
+                        <span data-lang="en" hidden>Design your <strong>Master Prompt</strong> in minutes. A digital identity engine that injects your professional DNA into every ChatGPT, Claude or Gemini session.</span>
                     </p>
                     
-                    <div class="animate-fade-in-up stagger-4 flex justify-center gap-6 mb-12">
-                        <button class="btn btn-cta btn-lg" id="start-btn" style="padding: 20px 48px; font-size: 1.3rem;">
-                            ⚡ Crear mi DNA Digital Gratis
+                    <div class="hero-cta-row animate-fade-in-up stagger-4 mb-8">
+                        <button class="btn btn-cta btn-lg jz-antic" id="start-btn" type="button" data-jz="jz-tap" style="padding: 20px 48px; font-size: 1.3rem;">
+                            <span data-lang="es">⚡ Crear mi DNA Digital Gratis</span>
+                            <span data-lang="en" hidden>⚡ Create my Digital DNA for free</span>
                         </button>
                     </div>
 
-                    <!-- Mock Preview: WHAT -->
-                    <div class="animate-fade-in-up stagger-5" style="width: 100%; max-width: 800px; position: relative;">
-                        <div class="card" style="padding: 24px; background: rgba(10, 10, 15, 0.8); border: 1px solid var(--glass-border); border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); text-align: left; overflow: hidden;">
-                            <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 12px;">
-                                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
-                                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
-                                <div style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f;"></div>
-                                <span style="margin-left: 10px; font-size: 0.75rem; color: var(--color-text-tertiary); font-family: monospace;">mi_identidad_profesional.md</span>
+                    <div class="hero-stage">
+                        <figure class="hero-moki">
+                            <button type="button" class="jz-moki" data-jz-moki>
+                                <img
+                                    src="/brand/0.3/moki-parche-derecho-160.webp"
+                                    srcset="/brand/0.3/moki-parche-derecho-80.webp 80w, /brand/0.3/moki-parche-derecho-160.webp 160w"
+                                    sizes="(max-width: 799px) 80px, 160px"
+                                    width="160"
+                                    height="171"
+                                    alt="Moki, astronauta de cartón naranja con parche en la oreja derecha"
+                                    data-alt-es="Moki, astronauta de cartón naranja con parche en la oreja derecha"
+                                    data-alt-en="Moki, orange cardboard astronaut with a patch on the right ear"
+                                    decoding="async">
+                            </button>
+                        </figure>
+                        <div class="card hero-code jz-host animate-fade-in-up stagger-5">
+                            <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--brand-border, #8A7E70); padding-bottom: 12px;">
+                                <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--brand-border, #8A7E70);"></div>
+                                <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--brand-accent, #FF6B35);"></div>
+                                <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--brand-text-muted, #B7B3AD);"></div>
+                                <span style="margin-left: 10px; font-size: 0.75rem; color: var(--color-text-tertiary); font-family: var(--brand-font-body, Inter, sans-serif);">mi_identidad_profesional.md</span>
                             </div>
-                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; line-height: 1.8;">
-                                <span style="color: #667EEA;"># MI ARCHITECTURA MENTAL</span><br>
+                            <div style="font-family: var(--brand-font-body, Inter, sans-serif); font-size: 0.9rem; line-height: 1.8;">
+                                <span style="color: var(--color-accent-primary);"># MI ARCHITECTURA MENTAL</span><br>
                                 <span style="color: var(--color-text-secondary);">Actúa como un CTO orientado a escalabilidad y seguridad.</span><br>
-                                <span style="color: #667EEA;"># PREFERENCIAS DE COMUNICACIÓN</span><br>
+                                <span style="color: var(--color-accent-primary);"># PREFERENCIAS DE COMUNICACIÓN</span><br>
                                 <span style="color: var(--color-text-secondary);">Tono directo, técnico, sin introducciones ni despedidas.</span><br>
-                                <span style="color: #667EEA;"># REGLAS DE EJECUCIÓN</span><br>
+                                <span style="color: var(--color-accent-primary);"># REGLAS DE EJECUCIÓN</span><br>
                                 <span style="color: var(--color-text-secondary);">1. Si el código no tiene tests unitarios, no lo entregues.</span><br>
                                 <span style="color: var(--color-text-secondary);">2. Optimiza para legibilidad por encima de complejidad.</span>
                             </div>
-                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; background: linear-gradient(transparent, #0a0a0f); border-radius: 0 0 20px 20px;"></div>
+                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; background: linear-gradient(transparent, #0A0A0A); border-radius: 0 0 20px 20px;"></div>
                         </div>
                     </div>
                 </main>
@@ -190,39 +278,39 @@ class MPBApp {
                 <!-- Why/When: THE PAIN -->
                 <section id="how-it-works" class="container" style="padding: 80px 20px; position: relative; z-index: 5;">
                     <div class="text-center mb-16">
-                        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">¿Por qué sigues presentándote?</h2>
-                        <p style="color: var(--color-text-secondary); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">La IA tiene amnesia selectiva. Y eso te está drenando la energía.</p>
+                        <h2 style="font-size: 2.5rem; margin-bottom: 20px;"><span data-lang="es">¿Por qué sigues presentándote?</span><span data-lang="en" hidden>Why do you keep introducing yourself?</span></h2>
+                        <p style="color: var(--color-text-secondary); font-size: 1.2rem; max-width: 600px; margin: 0 auto;"><span data-lang="es">La IA tiene amnesia selectiva. Y eso te está drenando la energía.</span><span data-lang="en" hidden>AI has selective amnesia. And that is draining your energy.</span></p>
                     </div>
 
-                    <div class="flex split-layout items-center gap-12" style="background: rgba(255, 68, 68, 0.02); border: 1px solid rgba(255, 68, 68, 0.1); border-radius: 32px; padding: 40px;">
-                        <div class="animate-slide-in-left" style="flex: 1;">
-                            <h3 class="mb-4" style="font-size: 2rem; font-weight: 800; color: #ff5f56;">La Frustración del Eterno Extraño</h3>
-                            <p class="mb-6" style="font-size: 1.15rem; line-height: 1.7;">Cada nuevo chat es una página en blanco. Un desconocido que no sabe qué herramientas usas, cómo hablas ni cuáles son tus estándares de calidad.</p>
+                    <div class="flex split-layout items-center gap-12" style="background: var(--brand-surface, #161616); border: 1px solid var(--brand-border, #8A7E70); border-radius: 18px; padding: 40px;">
+                        <div class="animate-slide-in-left" style="flex: 1; min-width: 0;">
+                            <h3 class="mb-4" style="font-size: 2rem; font-weight: 700; color: var(--brand-accent, #FF6B35);"><span data-lang="es">La Frustración del Eterno Extraño</span><span data-lang="en" hidden>The frustration of the eternal stranger</span></h3>
+                            <p class="mb-6" style="font-size: 1.15rem; line-height: 1.7;"><span data-lang="es">Cada nuevo chat es una página en blanco. Un desconocido que no sabe qué herramientas usas, cómo hablas ni cuáles son tus estándares de calidad.</span><span data-lang="en" hidden>Every new chat is a blank page. A stranger who does not know which tools you use, how you speak or what your quality standards are.</span></p>
                             
                             <div class="flex flex-col gap-4">
-                                <div style="display: flex; gap: 16px; align-items: flex-start; background: rgba(255, 255, 255, 0.03); padding: 16px; border-radius: 12px;">
-                                    <span style="color: var(--color-error); font-size: 1.2rem; font-weight: bold;">✗</span>
+                                <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--brand-background, #0A0A0A); border: 1px solid var(--brand-border, #8A7E70); padding: 16px; border-radius: 12px;">
+                                    <span style="color: var(--brand-accent, #FF6B35); font-size: 1.2rem; font-weight: bold;">✗</span>
                                     <div>
-                                        <h5 style="color: var(--color-text-primary);">Pérdida de Tiempo (When)</h5>
-                                        <p style="font-size: 0.95rem; opacity: 0.7;">15 minutos explicando tu contexto en cada sesión diaria.</p>
+                                        <h5 style="color: var(--color-text-primary);"><span data-lang="es">Pérdida de Tiempo (When)</span><span data-lang="en" hidden>Time lost (When)</span></h5>
+                                        <p style="font-size: 0.95rem; opacity: 0.7;"><span data-lang="es">15 minutos explicando tu contexto en cada sesión diaria.</span><span data-lang="en" hidden>15 minutes explaining your context in every daily session.</span></p>
                                     </div>
                                 </div>
-                                <div style="display: flex; gap: 16px; align-items: flex-start; background: rgba(255, 255, 255, 0.03); padding: 16px; border-radius: 12px;">
-                                    <span style="color: var(--color-error); font-size: 1.2rem; font-weight: bold;">✗</span>
+                                <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--brand-background, #0A0A0A); border: 1px solid var(--brand-border, #8A7E70); padding: 16px; border-radius: 12px;">
+                                    <span style="color: var(--brand-accent, #FF6B35); font-size: 1.2rem; font-weight: bold;">✗</span>
                                     <div>
-                                        <h5 style="color: var(--color-text-primary);">Resultados Genéricos (Why)</h5>
-                                        <p style="font-size: 0.95rem; opacity: 0.7;">Recibes respuestas de "manual" que no sirven para tu realidad.</p>
+                                        <h5 style="color: var(--color-text-primary);"><span data-lang="es">Resultados Genéricos (Why)</span><span data-lang="en" hidden>Generic results (Why)</span></h5>
+                                        <p style="font-size: 0.95rem; opacity: 0.7;"><span data-lang="es">Recibes respuestas de "manual" que no sirven para tu realidad.</span><span data-lang="en" hidden>You get textbook answers that do not fit your reality.</span></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card animate-slide-in-right" style="flex: 1; border-color: rgba(239, 68, 68, 0.2); background: #0c0c14; padding: 32px;">
-                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
-                                <div class="mb-4" style="color: var(--color-text-tertiary); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">CASO REAL: SIN MASTER PROMPT</div>
-                                <div class="mb-2" style="color: #667EEA;">> Tú: Necesito el esquema de...</div>
+                        <div class="card animate-slide-in-right" style="flex: 1; min-width: 0; background: var(--brand-background, #0A0A0A); padding: 32px;">
+                            <div style="font-family: var(--brand-font-body, Inter, sans-serif); font-size: 0.9rem;">
+                                <div class="mb-4" style="color: var(--color-text-tertiary); border-bottom: 1px solid var(--brand-border, #8A7E70); padding-bottom: 8px;"><span data-lang="es">CASO REAL: SIN MASTER PROMPT</span><span data-lang="en" hidden>REAL CASE: NO MASTER PROMPT</span></div>
+                                <div class="mb-2" style="color: var(--color-accent-primary);">> Tú: Necesito el esquema de...</div>
                                 <div class="mb-4" style="opacity: 0.6;">AI: Claro, aquí tienes un ejemplo genérico usando bibliotecas que no usas...</div>
-                                <div class="mb-2" style="color: #667EEA;">>> Tú: No, recuerda que uso SQL y preferimos...</div>
-                                <div style="color: var(--color-error); font-weight: bold;">[TIEMPO PERDIDO: 8 MINUTOS]</div>
+                                <div class="mb-2" style="color: var(--color-accent-primary);">>> Tú: No, recuerda que uso SQL y preferimos...</div>
+                                <div style="color: var(--brand-accent, #FF6B35); font-weight: 700;">[TIEMPO PERDIDO: 8 MINUTOS]</div>
                             </div>
                         </div>
                     </div>
@@ -231,48 +319,48 @@ class MPBApp {
                 <!-- How: PROCESS -->
                 <section class="container" style="padding: 80px 20px;">
                     <div class="text-center mb-16">
-                        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Diseña tu DNA en 3 pasos</h2>
-                        <p style="color: var(--color-text-secondary); font-size: 1.2rem;">Un proceso quirúrgico para extraer tu valor profesional.</p>
+                        <h2 style="font-size: 2.5rem; margin-bottom: 20px;"><span data-lang="es">Diseña tu DNA en 3 pasos</span><span data-lang="en" hidden>Design your DNA in 3 steps</span></h2>
+                        <p style="color: var(--color-text-secondary); font-size: 1.2rem;"><span data-lang="es">Un proceso quirúrgico para extraer tu valor profesional.</span><span data-lang="en" hidden>A precise process to extract your professional value.</span></p>
                     </div>
 
-                    <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+                    <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px;">
                         <div class="card animate-fade-in-up stagger-1" style="padding: 40px; border-radius: 24px;">
-                            <div style="font-size: 0.8rem; color: var(--color-accent-primary); font-weight: 800; margin-bottom: 16px;">PASO 01</div>
-                            <h4 style="font-size: 1.5rem; margin-bottom: 12px;">Extracción de Contexto</h4>
-                            <p style="color: var(--color-text-secondary); line-height: 1.6;">Define quién eres: roles, stack, industria y manías. Lo que te hace único en tu trabajo.</p>
+                            <div style="font-size: 0.8rem; color: var(--color-accent-primary); font-weight: 700; margin-bottom: 16px;"><span data-lang="es">PASO 01</span><span data-lang="en" hidden>STEP 01</span></div>
+                            <h4 style="font-size: 1.5rem; margin-bottom: 12px;"><span data-lang="es">Extracción de Contexto</span><span data-lang="en" hidden>Context extraction</span></h4>
+                            <p style="color: var(--color-text-secondary); line-height: 1.6;"><span data-lang="es">Define quién eres: roles, stack, industria y manías. Lo que te hace único en tu trabajo.</span><span data-lang="en" hidden>Define who you are: roles, stack, industry and quirks. What makes you unique at work.</span></p>
                         </div>
                         <div class="card animate-fade-in-up stagger-2" style="padding: 40px; border-radius: 24px;">
-                            <div style="font-size: 0.8rem; color: var(--color-accent-primary); font-weight: 800; margin-bottom: 16px;">PASO 02</div>
-                            <h4 style="font-size: 1.5rem; margin-bottom: 12px;">Reglas de Ejecución</h4>
-                            <p style="color: var(--color-text-secondary); line-height: 1.6;">Establece tus "Siempre" y "Nunca". Dicta cómo debe comportarse tu IA en cada respuesta.</p>
+                            <div style="font-size: 0.8rem; color: var(--color-accent-primary); font-weight: 700; margin-bottom: 16px;"><span data-lang="es">PASO 02</span><span data-lang="en" hidden>STEP 02</span></div>
+                            <h4 style="font-size: 1.5rem; margin-bottom: 12px;"><span data-lang="es">Reglas de Ejecución</span><span data-lang="en" hidden>Execution rules</span></h4>
+                            <p style="color: var(--color-text-secondary); line-height: 1.6;"><span data-lang="es">Establece tus "Siempre" y "Nunca". Dicta cómo debe comportarse tu IA en cada respuesta.</span><span data-lang="en" hidden>Set your "Always" and "Never". Tell your AI how to behave in every answer.</span></p>
                         </div>
                         <div class="card animate-fade-in-up stagger-3" style="padding: 40px; border-radius: 24px;">
-                            <div style="font-size: 0.8rem; color: var(--color-accent-primary); font-weight: 800; margin-bottom: 16px;">PASO 03</div>
-                            <h4 style="font-size: 1.5rem; margin-bottom: 12px;">Exportación Vital</h4>
-                            <p style="color: var(--color-text-secondary); line-height: 1.6;">Copia tu DNA Digital y pégalo en tus Custom Instructions o System Prompts. Listo para siempre.</p>
+                            <div style="font-size: 0.8rem; color: var(--color-accent-primary); font-weight: 700; margin-bottom: 16px;"><span data-lang="es">PASO 03</span><span data-lang="en" hidden>STEP 03</span></div>
+                            <h4 style="font-size: 1.5rem; margin-bottom: 12px;"><span data-lang="es">Exportación Vital</span><span data-lang="en" hidden>Vital export</span></h4>
+                            <p style="color: var(--color-text-secondary); line-height: 1.6;"><span data-lang="es">Copia tu DNA Digital y pégalo en tus Custom Instructions o System Prompts. Listo para siempre.</span><span data-lang="en" hidden>Copy your Digital DNA and paste it into Custom Instructions or System Prompts. Ready for good.</span></p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Who: SEGMENTS -->
-                <section class="container" style="padding: 60px 20px; text-center">
-                    <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 40px; padding: 60px 20px; text-align: center;">
-                        <h2 style="font-size: 2rem; margin-bottom: 40px;">¿Para quién es este estándar?</h2>
+                <section class="container" style="padding: 60px 20px; text-align: center;">
+                    <div style="background: var(--brand-surface, #161616); border: 1px solid var(--brand-border, #8A7E70); border-radius: 18px; padding: 60px 20px; text-align: center;">
+                        <h2 style="font-size: 2rem; margin-bottom: 40px;"><span data-lang="es">¿Para quién es este estándar?</span><span data-lang="en" hidden>Who is this standard for?</span></h2>
                         <div class="flex justify-center gap-10 flex-wrap">
-                            <div style="width: 200px;">
+                            <div style="width: 200px; max-width: 100%;">
                                 <div style="font-size: 2.5rem; margin-bottom: 16px;">💼</div>
                                 <h5 style="margin-bottom: 8px;">Founders</h5>
-                                <p style="font-size: 0.85rem; opacity: 0.6;">Estrategias alineadas a su visión de negocio.</p>
+                                <p style="font-size: 0.85rem; opacity: 0.6;"><span data-lang="es">Estrategias alineadas a su visión de negocio.</span><span data-lang="en" hidden>Strategies aligned with their business vision.</span></p>
                             </div>
-                            <div style="width: 200px;">
+                            <div style="width: 200px; max-width: 100%;">
                                 <div style="font-size: 2.5rem; margin-bottom: 16px;">💻</div>
                                 <h5 style="margin-bottom: 8px;">Developers</h5>
-                                <p style="font-size: 0.85rem; opacity: 0.6;">Código que sigue su arquitectura exacta.</p>
+                                <p style="font-size: 0.85rem; opacity: 0.6;"><span data-lang="es">Código que sigue su arquitectura exacta.</span><span data-lang="en" hidden>Code that follows their exact architecture.</span></p>
                             </div>
-                            <div style="width: 200px;">
+                            <div style="width: 200px; max-width: 100%;">
                                 <div style="font-size: 2.5rem; margin-bottom: 16px;">🖋️</div>
                                 <h5 style="margin-bottom: 8px;">Content Leads</h5>
-                                <p style="font-size: 0.85rem; opacity: 0.6;">Tono de voz consistente en cada frase.</p>
+                                <p style="font-size: 0.85rem; opacity: 0.6;"><span data-lang="es">Tono de voz consistente en cada frase.</span><span data-lang="en" hidden>A consistent voice in every sentence.</span></p>
                             </div>
                         </div>
                     </div>
@@ -280,7 +368,7 @@ class MPBApp {
 
                 <!-- Where: INTEGRATION -->
                 <section class="container text-center" style="padding: 80px 20px;">
-                    <p style="font-size: 0.9rem; letter-spacing: 2px; opacity: 0.5; margin-bottom: 40px; text-transform: uppercase; font-weight: 700;">Funciona con todas las AIs</p>
+                    <p style="font-size: 0.9rem; letter-spacing: 2px; opacity: 0.5; margin-bottom: 40px; text-transform: uppercase; font-weight: 700;"><span data-lang="es">Funciona con todas las AIs</span><span data-lang="en" hidden>Works with every AI</span></p>
                     <div class="flex justify-center gap-6 flex-wrap">
                         <div class="glass-chip animate-fade-in-up stagger-1">
                             <span class="chip-icon">✨</span> GPT-4o
@@ -302,66 +390,46 @@ class MPBApp {
 
                 <!-- CTA Final -->
                 <section class="container text-center" style="padding: 100px 20px;">
-                    <div class="animate-pulse" style="display: inline-block; margin-bottom: 24px;">🚀</div>
-                    <h2 style="font-size: 2.8rem; margin-bottom: 24px; font-weight: 900;">Toma el control de tu <br> relación con la IA.</h2>
-                    <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 600px; margin: 0 auto 40px;">No permitas que la IA olvide quién eres hoy. Construye tu DNA Digital ahora.</p>
-                    <button class="btn btn-cta btn-lg" id="start-btn-2" style="padding: 24px 60px; font-size: 1.4rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);">
-                        Comenzar Gratis
+                    <h2 style="font-size: 2.8rem; margin-bottom: 24px; font-weight: 700;"><span data-lang="es">Toma el control de tu <br> relación con la IA.</span><span data-lang="en" hidden>Take control of your <br> relationship with AI.</span></h2>
+                    <p style="color: var(--color-text-secondary); font-size: 1.25rem; max-width: 600px; margin: 0 auto 40px;"><span data-lang="es">No permitas que la IA olvide quién eres hoy. Construye tu DNA Digital ahora.</span><span data-lang="en" hidden>Do not let AI forget who you are today. Build your Digital DNA now.</span></p>
+                    <button class="btn btn-cta btn-lg jz-antic" id="start-btn-2" type="button" data-jz="jz-tap" style="padding: 24px 60px; font-size: 1.4rem; border-radius: 20px;">
+                        <span data-lang="es">Comenzar Gratis</span><span data-lang="en" hidden>Start for free</span>
                     </button>
-                    <p style="margin-top: 24px; font-size: 0.85rem; opacity: 0.5;">No requiere tarjeta de crédito • 100% Privado</p>
+                    <p style="margin-top: 24px; font-size: 0.85rem; opacity: 0.5;"><span data-lang="es">No requiere tarjeta de crédito • 100% Privado</span><span data-lang="en" hidden>No credit card required • 100% Private</span></p>
                 </section>
-
-                <footer class="container" style="padding: 60px 20px; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; opacity: 0.5; font-size: 0.85rem;">
-                    <p>© 2024 MPB - The Professional Standard for AI Collaboration.</p>
-                    <div class="flex gap-6">
-                        <a href="#">Privacidad</a>
-                        <a href="https://github.com" target="_blank">Github</a>
-                    </div>
-                </footer>
             </div>
-        `;
+        `);
 
-        // Event listeners
         document.getElementById('start-btn').addEventListener('click', () => this.showOnboarding());
         document.getElementById('start-btn-2').addEventListener('click', () => this.showOnboarding());
-        document.getElementById('login-btn').addEventListener('click', () => this.handleLogin());
-
-        // "Cómo funciona" → go to onboarding
-        const howBtn = document.querySelector('a[href="#how-it-works"]');
-        if (howBtn) {
-            howBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showOnboarding();
-            });
-        }
     }
 
     showWelcomeBack(data) {
-        this.app.innerHTML = `
+        this.paint(`
             <div class="welcome-back container text-center" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 20px;">
                 <div class="animate-fade-in-up">
                     <div class="emoji-icon" style="font-size: 4rem;">👋</div>
-                    <h1 class="mb-4">¡Hola de nuevo, ${data.name}!</h1>
-                    <p class="text-secondary mb-8">Encontré tu Master Prompt guardado. ¿Qué quieres hacer?</p>
+                    <h1 class="mb-4"><span data-lang="es">¡Hola de nuevo, ${data.name}!</span><span data-lang="en" hidden>Welcome back, ${data.name}!</span></h1>
+                    <p class="text-secondary mb-8"><span data-lang="es">Encontré tu Master Prompt guardado. ¿Qué quieres hacer?</span><span data-lang="en" hidden>I found your saved Master Prompt. What do you want to do?</span></p>
 
                     <div class="flex justify-center gap-4 flex-wrap">
                         <button class="btn btn-primary btn-lg" id="continue-btn">
-                            ✏️ Continuar editando
+                            <span data-lang="es">✏️ Continuar editando</span><span data-lang="en" hidden>✏️ Keep editing</span>
                         </button>
                         <button class="btn btn-secondary btn-lg" id="new-btn">
-                            🆕 Empezar de nuevo
+                            <span data-lang="es">🆕 Empezar de nuevo</span><span data-lang="en" hidden>🆕 Start over</span>
                         </button>
                     </div>
 
                     <div class="card mt-8" style="max-width: 600px; margin: 32px auto 0; text-align: left;">
-                        <h5 class="mb-4">📄 Tu último prompt guardado:</h5>
+                        <h5 class="mb-4"><span data-lang="es">📄 Tu último prompt guardado:</span><span data-lang="en" hidden>📄 Your last saved prompt:</span></h5>
                         <div class="preview-content" style="max-height: 200px; overflow-y: auto;">
                             ${generateMasterPrompt(data).substring(0, 500)}...
                         </div>
                     </div>
                 </div>
             </div >
-            `;
+        `);
 
         document.getElementById('continue-btn').addEventListener('click', () => this.showWizard());
         document.getElementById('new-btn').addEventListener('click', () => {
@@ -372,50 +440,50 @@ class MPBApp {
 
     showOnboarding() {
         this.currentView = 'onboarding';
-        this.app.innerHTML = `
-            < div class="onboarding container" style = "min-height: 100vh; padding: 60px 20px;" >
+        this.paint(`
+            <div class="onboarding container" style = "min-height: 100vh; padding: 60px 20px;" >
                 <div class="text-center mb-12 animate-fade-in-up">
-                    <h1 class="mb-4">¿Cómo quieres empezar?</h1>
-                    <p class="text-secondary">Elige la opción que mejor se adapte a ti</p>
+                    <h1 class="mb-4"><span data-lang="es">¿Cómo quieres empezar?</span><span data-lang="en" hidden>How do you want to start?</span></h1>
+                    <p class="text-secondary"><span data-lang="es">Elige la opción que mejor se adapte a ti</span><span data-lang="en" hidden>Pick the option that fits you best</span></p>
                 </div>
                 
                 <div class="onboarding-options" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto;">
                     
                     <div class="card card-clickable animate-fade-in-up stagger-1" id="opt-scratch">
                         <div class="emoji-icon">🆕</div>
-                        <h4 class="mb-2">Empezar de cero</h4>
-                        <p class="text-secondary">Wizard guiado paso a paso con ejemplos para elegir. Ideal si nunca has creado un Master Prompt.</p>
-                        <span class="badge mt-4">Recomendado para nuevos</span>
+                        <h4 class="mb-2"><span data-lang="es">Empezar de cero</span><span data-lang="en" hidden>Start from scratch</span></h4>
+                        <p class="text-secondary"><span data-lang="es">Wizard guiado paso a paso con ejemplos para elegir. Ideal si nunca has creado un Master Prompt.</span><span data-lang="en" hidden>A step-by-step wizard with examples. Best if you have never created a Master Prompt.</span></p>
+                        <span class="badge mt-4"><span data-lang="es">Recomendado para nuevos</span><span data-lang="en" hidden>Recommended for newcomers</span></span>
                     </div>
                     
                     <div class="card card-clickable animate-fade-in-up stagger-2" id="opt-import">
                         <div class="emoji-icon">📄</div>
-                        <h4 class="mb-2">Importar mi Master Prompt</h4>
-                        <p class="text-secondary">¿Ya tienes un prompt? Pégalo aquí y lo parseamos para que puedas editarlo y mejorarlo.</p>
-                        <span class="badge mt-4">Para usuarios existentes</span>
+                        <h4 class="mb-2"><span data-lang="es">Importar mi Master Prompt</span><span data-lang="en" hidden>Import my Master Prompt</span></h4>
+                        <p class="text-secondary"><span data-lang="es">¿Ya tienes un prompt? Pégalo aquí y lo parseamos para que puedas editarlo y mejorarlo.</span><span data-lang="en" hidden>Already have a prompt? Paste it here and we parse it so you can edit and improve it.</span></p>
+                        <span class="badge mt-4"><span data-lang="es">Para usuarios existentes</span><span data-lang="en" hidden>For existing users</span></span>
                     </div>
                     
                     <div class="card card-clickable animate-fade-in-up stagger-3" id="opt-memories">
                         <div class="emoji-icon">🧠</div>
-                        <h4 class="mb-2">Importar de ChatGPT</h4>
-                        <p class="text-secondary">Pega tus memorias de ChatGPT y extraemos automáticamente tu información.</p>
-                        <span class="badge mt-4">¡ChatGPT ya te conoce!</span>
+                        <h4 class="mb-2"><span data-lang="es">Importar de ChatGPT</span><span data-lang="en" hidden>Import from ChatGPT</span></h4>
+                        <p class="text-secondary"><span data-lang="es">Pega tus memorias de ChatGPT y extraemos automáticamente tu información.</span><span data-lang="en" hidden>Paste your ChatGPT memories and we extract your info automatically.</span></p>
+                        <span class="badge mt-4"><span data-lang="es">¡ChatGPT ya te conoce!</span><span data-lang="en" hidden>ChatGPT already knows you!</span></span>
                     </div>
                     
                     <div class="card card-clickable animate-fade-in-up stagger-4" id="opt-linkedin">
                         <div class="emoji-icon">🔗</div>
-                        <h4 class="mb-2">Importar de LinkedIn</h4>
-                        <p class="text-secondary">Conecta tu perfil de LinkedIn para pre-llenar tu información profesional.</p>
-                        <span class="badge mt-4">Próximamente</span>
+                        <h4 class="mb-2"><span data-lang="es">Importar de LinkedIn</span><span data-lang="en" hidden>Import from LinkedIn</span></h4>
+                        <p class="text-secondary"><span data-lang="es">Conecta tu perfil de LinkedIn para pre-llenar tu información profesional.</span><span data-lang="en" hidden>Connect your LinkedIn profile to pre-fill your professional info.</span></p>
+                        <span class="badge mt-4"><span data-lang="es">Próximamente</span><span data-lang="en" hidden>Coming soon</span></span>
                     </div>
                     
                 </div>
                 
                 <div class="text-center mt-8">
-                    <button class="btn btn-secondary" id="back-landing">← Volver al inicio</button>
+                    <button class="btn btn-secondary" id="back-landing"><span data-lang="es">← Volver al inicio</span><span data-lang="en" hidden>← Back to home</span></button>
                 </div>
             </div >
-            `;
+        `);
 
         document.getElementById('opt-scratch').addEventListener('click', () => this.showWizard());
         document.getElementById('opt-import').addEventListener('click', () => this.showImportPrompt());
@@ -425,67 +493,73 @@ class MPBApp {
     }
 
     showImportPrompt() {
-        this.app.innerHTML = `
-            < div class="import-prompt container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
+        this.paint(`
+            <div class="import-prompt container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
                 <div class="text-center mb-8 animate-fade-in-up">
-                    <h1 class="mb-4">📄 Importar tu Master Prompt</h1>
-                    <p class="text-secondary">Pega tu Master Prompt existente y lo analizaremos para pre-llenar el wizard.</p>
+                    <h1 class="mb-4"><span data-lang="es">📄 Importar tu Master Prompt</span><span data-lang="en" hidden>📄 Import your Master Prompt</span></h1>
+                    <p class="text-secondary"><span data-lang="es">Pega tu Master Prompt existente y lo analizaremos para pre-llenar el wizard.</span><span data-lang="en" hidden>Paste your existing Master Prompt and we will parse it to pre-fill the wizard.</span></p>
                 </div>
                 
                 <div class="card animate-fade-in-up">
-                    <textarea class="input textarea" id="import-text" placeholder="Pega aquí tu Master Prompt existente..." style="min-height: 300px;"></textarea>
+                    <textarea class="input textarea" id="import-text" placeholder="Pega aquí tu Master Prompt existente..." data-placeholder-en="Paste your existing Master Prompt here..." style="min-height: 300px;"></textarea>
                     
                     <div class="flex gap-4 justify-center mt-6">
-                        <button class="btn btn-secondary" id="back-onboarding">← Volver</button>
-                        <button class="btn btn-primary" id="analyze-prompt">🔍 Analizar y continuar</button>
+                        <button class="btn btn-secondary" id="back-onboarding"><span data-lang="es">← Volver</span><span data-lang="en" hidden>← Back</span></button>
+                        <button class="btn btn-primary" id="analyze-prompt"><span data-lang="es">🔍 Analizar y continuar</span><span data-lang="en" hidden>🔍 Analyze and continue</span></button>
                     </div>
                 </div>
             </div >
-            `;
+        `);
 
         document.getElementById('back-onboarding').addEventListener('click', () => this.showOnboarding());
         document.getElementById('analyze-prompt').addEventListener('click', () => {
-            const text = document.getElementById('import-text').value;
+            const field = document.getElementById('import-text');
+            const text = field.value;
             if (text.trim()) {
                 this.parseExistingPrompt(text);
+            } else {
+                this.juiceError(field);
             }
         });
     }
 
     showImportMemories() {
-        this.app.innerHTML = `
-            < div class="import-memories container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
+        this.paint(`
+            <div class="import-memories container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
                 <div class="text-center mb-8 animate-fade-in-up">
-                    <h1 class="mb-4">🧠 Importar Memorias de ChatGPT</h1>
-                    <p class="text-secondary">ChatGPT ha aprendido sobre ti en cientos de conversaciones. ¡Usemos esa información!</p>
+                    <h1 class="mb-4"><span data-lang="es">🧠 Importar Memorias de ChatGPT</span><span data-lang="en" hidden>🧠 Import ChatGPT Memories</span></h1>
+                    <p class="text-secondary"><span data-lang="es">ChatGPT ha aprendido sobre ti en cientos de conversaciones. ¡Usemos esa información!</span><span data-lang="en" hidden>ChatGPT has learned about you across hundreds of chats. Let's use that.</span></p>
                 </div>
                 
                 <div class="card animate-fade-in-up mb-6">
-                    <h4 class="mb-4">📋 Cómo obtener tus memorias:</h4>
+                    <h4 class="mb-4"><span data-lang="es">📋 Cómo obtener tus memorias:</span><span data-lang="en" hidden>📋 How to get your memories:</span></h4>
                     <ol style="line-height: 2; color: var(--color-text-secondary);">
-                        <li>Abre ChatGPT → Settings → Personalization</li>
-                        <li>Click en "Manage Memory"</li>
-                        <li>Copia todas las memorias (o exporta si está disponible)</li>
-                        <li>Pégalas abajo</li>
+                        <li><span data-lang="es">Abre ChatGPT → Settings → Personalization</span><span data-lang="en" hidden>Open ChatGPT → Settings → Personalization</span></li>
+                        <li><span data-lang="es">Click en "Manage Memory"</span><span data-lang="en" hidden>Click "Manage Memory"</span></li>
+                        <li><span data-lang="es">Copia todas las memorias (o exporta si está disponible)</span><span data-lang="en" hidden>Copy all memories (or export if available)</span></li>
+                        <li><span data-lang="es">Pégalas abajo</span><span data-lang="en" hidden>Paste them below</span></li>
                     </ol>
                 </div>
                 
                 <div class="card animate-fade-in-up">
-                    <textarea class="input textarea" id="memories-text" placeholder="Pega aquí tus memorias de ChatGPT..." style="min-height: 250px;"></textarea>
+                    <textarea class="input textarea" id="memories-text" placeholder="Pega aquí tus memorias de ChatGPT..." data-placeholder-en="Paste your ChatGPT memories here..." style="min-height: 250px;"></textarea>
                     
                     <div class="flex gap-4 justify-center mt-6">
-                        <button class="btn btn-secondary" id="back-onboarding">← Volver</button>
-                        <button class="btn btn-primary" id="analyze-memories">🔍 Analizar memorias</button>
+                        <button class="btn btn-secondary" id="back-onboarding"><span data-lang="es">← Volver</span><span data-lang="en" hidden>← Back</span></button>
+                        <button class="btn btn-primary" id="analyze-memories"><span data-lang="es">🔍 Analizar memorias</span><span data-lang="en" hidden>🔍 Analyze memories</span></button>
                     </div>
                 </div>
             </div >
-            `;
+        `);
 
         document.getElementById('back-onboarding').addEventListener('click', () => this.showOnboarding());
         document.getElementById('analyze-memories').addEventListener('click', () => {
-            const text = document.getElementById('memories-text').value;
+            const field = document.getElementById('memories-text');
+            const text = field.value;
             if (text.trim()) {
                 this.parseMemories(text);
+            } else {
+                this.juiceError(field);
             }
         });
     }
@@ -573,61 +647,64 @@ class MPBApp {
     }
 
     showComingSoon(feature) {
-        this.app.innerHTML = `
-            < div class="coming-soon container text-center" style = "min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 20px;" >
+        this.paint(`
+            <div class="coming-soon container text-center" style = "min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 20px;" >
                 <div class="animate-scale-in">
                     <div class="emoji-icon" style="font-size: 4rem;">🚧</div>
-                    <h1 class="mb-4">Importar desde ${feature}</h1>
-                    <p class="text-secondary mb-8">Esta función estará disponible próximamente.</p>
-                    <button class="btn btn-primary" id="back-onboarding">← Elegir otra opción</button>
+                    <h1 class="mb-4"><span data-lang="es">Importar desde ${feature}</span><span data-lang="en" hidden>Import from ${feature}</span></h1>
+                    <p class="text-secondary mb-8"><span data-lang="es">Esta función estará disponible próximamente.</span><span data-lang="en" hidden>This feature will be available soon.</span></p>
+                    <button class="btn btn-primary" id="back-onboarding"><span data-lang="es">← Elegir otra opción</span><span data-lang="en" hidden>← Pick another option</span></button>
                 </div>
             </div >
-            `;
+        `);
 
         document.getElementById('back-onboarding').addEventListener('click', () => this.showOnboarding());
     }
 
     showLearnMore() {
-        this.app.innerHTML = `
-            < div class="learn-more container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
-                <button class="btn btn-secondary mb-8" id="back-landing">← Volver</button>
+        this.paint(`
+            <div class="learn-more container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
+                <button class="btn btn-secondary mb-8" id="back-landing"><span data-lang="es">← Volver</span><span data-lang="en" hidden>← Back</span></button>
                 
                 <article class="animate-fade-in-up">
-                    <h1 class="mb-6">¿Qué es un Master Prompt?</h1>
+                    <h1 class="mb-6"><span data-lang="es">¿Qué es un Master Prompt?</span><span data-lang="en" hidden>What is a Master Prompt?</span></h1>
                     
                     <p class="text-lg mb-6">
-                        Un <strong>Master Prompt</strong> es un documento que contiene toda la información que un AI necesita saber sobre ti para darte las mejores respuestas posibles.
+                        <span data-lang="es">Un <strong>Master Prompt</strong> es un documento que contiene toda la información que un AI necesita saber sobre ti para darte las mejores respuestas posibles.</span>
+                        <span data-lang="en" hidden>A <strong>Master Prompt</strong> is a document with everything an AI needs to know about you to give you the best answers.</span>
                     </p>
                     
-                    <h3 class="mb-4">🤔 El problema</h3>
+                    <h3 class="mb-4"><span data-lang="es">🤔 El problema</span><span data-lang="en" hidden>🤔 The problem</span></h3>
                     <p class="mb-6">
-                        Cada vez que abres un chat nuevo con ChatGPT, Claude u otro AI, tienes que explicar desde cero quién eres, qué haces, cómo te gusta recibir respuestas, etc. Es tedioso y pierdes tiempo valioso.
+                        <span data-lang="es">Cada vez que abres un chat nuevo con ChatGPT, Claude u otro AI, tienes que explicar desde cero quién eres, qué haces, cómo te gusta recibir respuestas, etc. Es tedioso y pierdes tiempo valioso.</span>
+                        <span data-lang="en" hidden>Every time you open a new chat with ChatGPT, Claude or another AI, you have to explain from scratch who you are, what you do, and how you like answers. It is tedious and you lose valuable time.</span>
                     </p>
                     
-                    <h3 class="mb-4">💡 La solución</h3>
+                    <h3 class="mb-4"><span data-lang="es">💡 La solución</span><span data-lang="en" hidden>💡 The solution</span></h3>
                     <p class="mb-6">
-                        Un Master Prompt es como tu "manual de usuario personal". Lo pegas al inicio de cada conversación (o lo configuras en Custom Instructions) y el AI ya sabe exactamente cómo ayudarte.
+                        <span data-lang="es">Un Master Prompt es como tu "manual de usuario personal". Lo pegas al inicio de cada conversación (o lo configuras en Custom Instructions) y el AI ya sabe exactamente cómo ayudarte.</span>
+                        <span data-lang="en" hidden>A Master Prompt is your personal user manual. Paste it at the start of each chat (or set it in Custom Instructions) and the AI already knows how to help you.</span>
                     </p>
                     
-                    <h3 class="mb-4">✨ ¿Qué incluye?</h3>
+                    <h3 class="mb-4"><span data-lang="es">✨ ¿Qué incluye?</span><span data-lang="en" hidden>✨ What is included?</span></h3>
                     <ul class="mb-6" style="line-height: 2;">
-                        <li>👤 Quién eres (nombre, rol, empresa)</li>
-                        <li>🎯 Tu contexto profesional</li>
-                        <li>🛠️ Las herramientas que usas</li>
-                        <li>💬 Cómo te gusta recibir respuestas</li>
-                        <li>⚡ Reglas específicas (lo que siempre/nunca quieres)</li>
-                        <li>📁 Tus proyectos activos</li>
+                        <li><span data-lang="es">👤 Quién eres (nombre, rol, empresa)</span><span data-lang="en" hidden>👤 Who you are (name, role, company)</span></li>
+                        <li><span data-lang="es">🎯 Tu contexto profesional</span><span data-lang="en" hidden>🎯 Your professional context</span></li>
+                        <li><span data-lang="es">🛠️ Las herramientas que usas</span><span data-lang="en" hidden>🛠️ The tools you use</span></li>
+                        <li><span data-lang="es">💬 Cómo te gusta recibir respuestas</span><span data-lang="en" hidden>💬 How you like to receive answers</span></li>
+                        <li><span data-lang="es">⚡ Reglas específicas (lo que siempre/nunca quieres)</span><span data-lang="en" hidden>⚡ Specific rules (what you always/never want)</span></li>
+                        <li><span data-lang="es">📁 Tus proyectos activos</span><span data-lang="en" hidden>📁 Your active projects</span></li>
                     </ul>
                     
-                    <div class="card" style="background: var(--color-accent-gradient); border: none; padding: 30px;">
-                        <h3 class="mb-4" style="color: white;">¿Listo para crear el tuyo?</h3>
-                        <button class="btn btn-lg" id="start-wizard" style="background: white; color: #667EEA;">
-                            ⚡ Crear mi Master Prompt
+                    <div class="card" style="background: var(--brand-accent, #FF6B35); border: none; padding: 30px;">
+                        <h3 class="mb-4" style="color: var(--brand-ink, #22211F);"><span data-lang="es">¿Listo para crear el tuyo?</span><span data-lang="en" hidden>Ready to create yours?</span></h3>
+                        <button class="btn btn-lg jz-antic" id="start-wizard" type="button" data-jz="jz-tap" style="background: var(--brand-background, #0A0A0A); color: var(--brand-text-on-dark, #FFFFFF);">
+                            <span data-lang="es">⚡ Crear mi Master Prompt</span><span data-lang="en" hidden>⚡ Create my Master Prompt</span>
                         </button>
                     </div>
                 </article>
             </div >
-            `;
+        `);
 
         document.getElementById('back-landing').addEventListener('click', () => this.showLanding());
         document.getElementById('start-wizard').addEventListener('click', () => this.showOnboarding());
@@ -635,14 +712,14 @@ class MPBApp {
 
     showWizard() {
         this.currentView = 'wizard';
-        this.app.innerHTML = `
-            < div class="wizard-page" style = "min-height: 100vh; padding: 40px 20px;" >
+        this.paint(`
+            <div class="wizard-page" style = "min-height: 100vh; padding: 40px 20px;" >
                 <div class="split-layout container-lg">
                     <div id="wizard-container"></div>
                     <div id="preview-container" class="preview-panel"></div>
                 </div>
             </div >
-            `;
+        `);
 
         const wizardContainer = document.getElementById('wizard-container');
         const previewContainer = document.getElementById('preview-container');
@@ -658,21 +735,21 @@ class MPBApp {
         this.currentView = 'export';
         const prompt = generateMasterPrompt(data);
 
-        this.app.innerHTML = `
-            < div class="export-page container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
+        this.paint(`
+            <div class="export-page container" style = "max-width: 800px; min-height: 100vh; padding: 60px 20px;" >
                 <div class="text-center mb-12 animate-fade-in-up">
                     <div class="emoji-icon" style="font-size: 4rem;">🎉</div>
-                    <h1 class="mb-4">¡Tu Master Prompt está listo!</h1>
-                    <p class="text-secondary">Elige cómo quieres exportarlo</p>
+                    <h1 class="mb-4"><span data-lang="es">¡Tu Master Prompt está listo!</span><span data-lang="en" hidden>Your Master Prompt is ready!</span></h1>
+                    <p class="text-secondary"><span data-lang="es">Elige cómo quieres exportarlo</span><span data-lang="en" hidden>Choose how you want to export it</span></p>
                 </div>
                 
                 <div class="export-options" style="display: grid; gap: 16px; margin-bottom: 40px;">
-                    <div class="card card-clickable animate-fade-in-up stagger-1" id="export-copy">
+                    <div class="card card-clickable jz-host animate-fade-in-up stagger-1" id="export-copy" data-jz="jz-success">
                         <div class="flex items-center gap-4">
                             <span style="font-size: 2rem;">📋</span>
                             <div>
-                                <h4>Copiar al clipboard</h4>
-                                <p class="text-secondary mb-0">Listo para pegar en cualquier AI</p>
+                                <h4><span data-lang="es">Copiar al clipboard</span><span data-lang="en" hidden>Copy to clipboard</span></h4>
+                                <p class="text-secondary mb-0"><span data-lang="es">Listo para pegar en cualquier AI</span><span data-lang="en" hidden>Ready to paste into any AI</span></p>
                             </div>
                         </div>
                     </div>
@@ -681,8 +758,8 @@ class MPBApp {
                         <div class="flex items-center gap-4">
                             <span style="font-size: 2rem;">📝</span>
                             <div>
-                                <h4>Descargar Markdown</h4>
-                                <p class="text-secondary mb-0">Archivo .md para GitHub, Notion, Obsidian</p>
+                                <h4><span data-lang="es">Descargar Markdown</span><span data-lang="en" hidden>Download Markdown</span></h4>
+                                <p class="text-secondary mb-0"><span data-lang="es">Archivo .md para GitHub, Notion, Obsidian</span><span data-lang="en" hidden>.md file for GitHub, Notion, Obsidian</span></p>
                             </div>
                         </div>
                     </div>
@@ -691,8 +768,8 @@ class MPBApp {
                         <div class="flex items-center gap-4">
                             <span style="font-size: 2rem;">📄</span>
                             <div>
-                                <h4>Exportar a PDF</h4>
-                                <p class="text-secondary mb-0">Con instrucciones de uso incluidas</p>
+                                <h4><span data-lang="es">Exportar a PDF</span><span data-lang="en" hidden>Export to PDF</span></h4>
+                                <p class="text-secondary mb-0"><span data-lang="es">Con instrucciones de uso incluidas</span><span data-lang="en" hidden>With usage instructions included</span></p>
                             </div>
                         </div>
                     </div>
@@ -701,8 +778,8 @@ class MPBApp {
                         <div class="flex items-center gap-4">
                             <span style="font-size: 2rem;">🤖</span>
                             <div>
-                                <h4>Versión ChatGPT</h4>
-                                <p class="text-secondary mb-0">Optimizado para Custom Instructions</p>
+                                <h4><span data-lang="es">Versión ChatGPT</span><span data-lang="en" hidden>ChatGPT version</span></h4>
+                                <p class="text-secondary mb-0"><span data-lang="es">Optimizado para Custom Instructions</span><span data-lang="en" hidden>Optimized for Custom Instructions</span></p>
                             </div>
                         </div>
                     </div>
@@ -711,34 +788,36 @@ class MPBApp {
                         <div class="flex items-center gap-4">
                             <span style="font-size: 2rem;">🐙</span>
                             <div>
-                                <h4>Sincronizar con GitHub</h4>
-                                <p class="text-secondary mb-0">Versionado automático (próximamente)</p>
+                                <h4><span data-lang="es">Sincronizar con GitHub</span><span data-lang="en" hidden>Sync with GitHub</span></h4>
+                                <p class="text-secondary mb-0"><span data-lang="es">Versionado automático (próximamente)</span><span data-lang="en" hidden>Automatic versioning (coming soon)</span></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="flex justify-center gap-4">
-                    <button class="btn btn-secondary" id="back-wizard">← Editar más</button>
-                    <button class="btn btn-primary" id="new-prompt">🆕 Crear otro</button>
+                    <button class="btn btn-secondary" id="back-wizard"><span data-lang="es">← Editar más</span><span data-lang="en" hidden>← Edit more</span></button>
+                    <button class="btn btn-primary" id="new-prompt"><span data-lang="es">🆕 Crear otro</span><span data-lang="en" hidden>🆕 Create another</span></button>
                 </div>
                 
                 <!--Toast -->
-            <div id="toast" class="toast" style="display: none; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--color-success); color: white; padding: 16px 24px; border-radius: 12px; font-weight: 600;">
-                ✓ Copiado al clipboard
+            <div id="toast" class="toast" style="display: none; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--brand-accent, #FF6B35); color: var(--brand-ink, #22211F); padding: 16px 24px; border-radius: 12px; font-weight: 600;">
+                <span data-lang="es">✓ Copiado al clipboard</span><span data-lang="en" hidden>✓ Copied to clipboard</span>
             </div>
             </div >
-            `;
+        `);
 
         // Event listeners
         document.getElementById('export-copy').addEventListener('click', async () => {
+            const copyCard = document.getElementById('export-copy');
             await exportFunctions.copyToClipboard(prompt);
-            this.showToast('✓ Copiado al clipboard');
+            this.juiceCopy(copyCard);
+            this.showToast(getLang() === 'en' ? '✓ Copied to clipboard' : '✓ Copiado al clipboard');
         });
 
         document.getElementById('export-md').addEventListener('click', () => {
             exportFunctions.exportMarkdown(data);
-            this.showToast('✓ Descargando archivo...');
+            this.showToast(getLang() === 'en' ? '✓ Downloading file...' : '✓ Descargando archivo...');
         });
 
         document.getElementById('export-pdf').addEventListener('click', () => {
@@ -746,9 +825,10 @@ class MPBApp {
         });
 
         document.getElementById('export-chatgpt').addEventListener('click', async () => {
-            const chatgptVersion = generateMasterPrompt(data); // Usar versión completa
+            const chatgptVersion = generateMasterPrompt(data);
             await exportFunctions.copyToClipboard(chatgptVersion);
-            this.showToast('✓ Versión ChatGPT copiada');
+            this.juiceCopy(document.getElementById('export-chatgpt'));
+            this.showToast(getLang() === 'en' ? '✓ ChatGPT version copied' : '✓ Versión ChatGPT copiada');
         });
 
         document.getElementById('export-github').addEventListener('click', () => {

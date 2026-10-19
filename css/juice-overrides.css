@@ -1,0 +1,15 @@
+/* Site overlay after juice-menu.css. Do not edit the vendored pack. */
+.jz-panel {
+    background: var(--brand-surface, #161616);
+    color: var(--brand-text-on-dark, #FFFFFF);
+}
+
+.jz-panel fieldset,
+.jz-panel legend,
+.jz-panel label {
+    color: var(--brand-text-muted, #B7B3AD);
+}
+
+.jz-panel__note {
+    color: var(--brand-text-muted, #B7B3AD);
+}
