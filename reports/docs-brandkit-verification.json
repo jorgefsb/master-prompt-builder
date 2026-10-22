@@ -1,0 +1,288 @@
+{
+  "base_main": "c10a2e639b4a05336218bfa9aa5a50810423b575",
+  "branch": "docs/brandkit-es-en-20261022",
+  "runtime_byte_identical": true,
+  "protected_files_checked": 39,
+  "local_only": true,
+  "no_real_form_submission": true,
+  "verification_date": "2026-10-22",
+  "readme": {
+    "es": {
+      "section_count": 9,
+      "required_questions": [
+        "what",
+        "why",
+        "who",
+        "how",
+        "when",
+        "where",
+        "cost",
+        "privacy",
+        "limits",
+        "help"
+      ],
+      "local_links_checked": 12,
+      "missing_links": []
+    },
+    "en": {
+      "section_count": 9,
+      "required_questions": [
+        "what",
+        "why",
+        "who",
+        "how",
+        "when",
+        "where",
+        "cost",
+        "privacy",
+        "limits",
+        "help"
+      ],
+      "local_links_checked": 12,
+      "missing_links": []
+    }
+  },
+  "assets": {
+    "docs/media/walkthrough-en.mp4": {
+      "bytes": 994299,
+      "sha256": "ec2bef84fd2eb409fda30c7ed2177b3e6fb5cb5dcd4044abd3d3bfe8bd0108f1",
+      "codec": "h264",
+      "pix_fmt": "yuv420p",
+      "duration": 18.8,
+      "width": 1440,
+      "height": 1000
+    },
+    "docs/media/example-es.md": {
+      "bytes": 585,
+      "sha256": "04867184422dc77ba54f5aba643933fce1dd7ca6ae6129240f60a6b53c3c609b"
+    },
+    "docs/media/example-en.md": {
+      "bytes": 585,
+      "sha256": "04867184422dc77ba54f5aba643933fce1dd7ca6ae6129240f60a6b53c3c609b"
+    },
+    "docs/media/01-home-en.png": {
+      "bytes": 123534,
+      "sha256": "ffbcbfe885cd1941af85364abda2a711fd5940a4e15b3894d18066a26257c091",
+      "dimensions": [
+        1440,
+        1000
+      ]
+    },
+    "docs/media/04-export-es.png": {
+      "bytes": 79178,
+      "sha256": "f4a18ae66cc074b06210fcf1c7520e466753fb91163f4ecd12deaf97bba36746",
+      "dimensions": [
+        1440,
+        1000
+      ]
+    },
+    "docs/media/walkthrough-es.mp4": {
+      "bytes": 998330,
+      "sha256": "f701f216e8b7af2e725e7c1442b9a962dd2889244ffc7f1633f4fb769c9237e2",
+      "codec": "h264",
+      "pix_fmt": "yuv420p",
+      "duration": 19.16,
+      "width": 1440,
+      "height": 1000
+    },
+    "docs/media/03-review-es.png": {
+      "bytes": 132697,
+      "sha256": "97cfe49a92c294d518abb75062723c403088269320101ac27496d1490eb43b04",
+      "dimensions": [
+        1440,
+        1000
+      ]
+    },
+    "docs/media/02-identity-en.png": {
+      "bytes": 106106,
+      "sha256": "a0bdb075371113c36d78ecc7bf596ebbc4ef13df29bcfd2253b3596d55cd18c4",
+      "dimensions": [
+        1440,
+        1000
+      ]
+    },
+    "docs/media/walkthrough-es.vtt": {
+      "bytes": 352,
+      "sha256": "bea5a6e6a13996bdd7b285b94cdf107399d3319527c65e9f23848db8c2a171ee"
+    },
+    "docs/media/transcript-en.md": {
+      "bytes": 346,
+      "sha256": "0ce356320f2cb8fafaa004c7f3b99920a049e9d6eef153544549a25106e31297"
+    },
+    "docs/media/04-export-en.png": {
+      "bytes": 76982,
+      "sha256": "3ace901e061392ac6a62392ce82e50bf208931a0944441a5977c423b0137c69d",
+      "dimensions": [
+        1440,
+        1000
+      ]
+    },
+    "docs/media/cover-es.png": {
+      "bytes": 138928,
+      "sha256": "36b38a9d84ab9f8c6e11bca2ea37ef307a95dd26fc758850cbc2e3e2b6052bbd",
+      "dimensions": [
+        1600,
+        850
+      ]
+    },
+    "docs/media/02-identity-es.png": {
+      "bytes": 109364,
+      "sha256": "910497d64521e1d3291ef4d9c77e3c7f6aa20a0dba51d5b875987e593211ba20",
+      "dimensions": [
+        1440,
+        1000
+      ]
+    },
+    "docs/media/cover-en.png": {
+      "bytes": 136621,
+      "sha256": "882e09ed20980e69635651742af8ff1a03d9bcd1e054916d525aa0988bbe4787",
+      "dimensions": [
+        1600,
+        850
+      ]
+    },
+    "docs/media/mobile-identity-en.png": {
+      "bytes": 107994,
+      "sha256": "7a67413c2f510ee7083e3dfeb4d670bada9e11833be53e498ab237546980ad3f",
+      "dimensions": [
+        390,
+        1923
+      ]
+    },
+    "docs/media/walkthrough-en.vtt": {
+      "bytes": 330,
+      "sha256": "75e4a26c0205c1d0ea0a6b358b027f64efa0ce03d12da89be66e2ba1c3cbb1b7"
+    },
+    "docs/media/mobile-identity-es.png": {
+      "bytes": 109947,
+      "sha256": "bb144cf9f07b9f6f49acd0cd8a9a390310426eb0c68d0fbeb4beb6e60a2c18bf",
+      "dimensions": [
+        390,
+        1923
+      ]
+    },
+    "docs/media/mobile.png": {
+      "bytes": 50463,
+      "sha256": "00bd8ed5f7ab4e47af85c401293ff45b56a7c21b87d546fe626d29a76baa1dd1",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    "docs/media/transcript-es.md": {
+      "bytes": 375,
+      "sha256": "00d46a05a67c32a197e08164a36d980dc05bad898a8597ff6f33849e5b20e46c"
+    },
+    "docs/media/03-review-en.png": {
+      "bytes": 135002,
+      "sha256": "04c9e9e53ce52e9854b786395e8bdaaf5845acfa156020ccfefcab5eecdff14c",
+      "dimensions": [
+        1440,
+        1000
+      ]
+    },
+    "docs/media/01-home-es.png": {
+      "bytes": 118644,
+      "sha256": "1940bce3c58c9cc333d37d7402a91b5d308fb97327fd3669b3a18612cdf77f2b",
+      "dimensions": [
+        1440,
+        1000
+      ]
+    }
+  },
+  "brand_sources": [
+    {
+      "url": "https://brandkit.jorgesuarez.com.mx/assets/masters-1.0/signature/png/JorgeSuarez-A-oscuro-bicolor-screen-240px-visible.png",
+      "path": "brand-assets/assets/masters-1.0/signature/png/JorgeSuarez-A-oscuro-bicolor-screen-240px-visible.png",
+      "bytes": 4783,
+      "sha256": "560b2a153bb385c17da353de3b4224ac4bb15a4ba8c2fda88c99ad357fa18763"
+    },
+    {
+      "url": "https://brandkit.jorgesuarez.com.mx/assets/Outfit-static.ttf",
+      "path": "brand-assets/assets/Outfit-static.ttf",
+      "bytes": 55304,
+      "sha256": "cad43a79db1b8204a28d8a161d90c938ed80971affbf6768e357f090c7a2ed02"
+    },
+    {
+      "url": "https://brandkit.jorgesuarez.com.mx/assets/Inter-static.ttf",
+      "path": "brand-assets/assets/Inter-static.ttf",
+      "bytes": 341396,
+      "sha256": "6bd75f77a5941117f794cdb9cf4ee983acf45f2e96be56e74db55029454a988c"
+    }
+  ],
+  "browser_no_errors": true,
+  "tests": {
+    "command": "npm test",
+    "exit_code": 0,
+    "output": "test-output.txt",
+    "temporary_dependency": "Existing Playwright via a temporary node_modules symlink; removed after tests."
+  },
+  "recording_notes": "Actual browser screen recordings; silent; explanatory ES/EN VTT burned into H.264 MP4. No mocked responses, login or backend. Temporary localhost servers stopped.",
+  "protected_policy": "Every pre-existing tracked file except README.md compared byte-for-byte with base_main, including runtime, tests, vendor and historical docs.",
+  "readme_preview": [
+    {
+      "lang": "es",
+      "label": "desktop",
+      "imagesLoaded": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "lang": "es",
+      "label": "mobile",
+      "imagesLoaded": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "lang": "en",
+      "label": "desktop",
+      "imagesLoaded": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "lang": "en",
+      "label": "mobile",
+      "imagesLoaded": true,
+      "noHorizontalOverflow": true
+    }
+  ],
+  "changed_paths": [
+    "AGENTS.md",
+    "README.en.md",
+    "README.md",
+    "docs/ASSET-NOTICE.md",
+    "docs/REPOSITORY-DOCUMENTATION.en.md",
+    "docs/REPOSITORY-DOCUMENTATION.md",
+    "docs/TECHNICAL.en.md",
+    "docs/TECHNICAL.md",
+    "docs/media/01-home-en.png",
+    "docs/media/01-home-es.png",
+    "docs/media/02-identity-en.png",
+    "docs/media/02-identity-es.png",
+    "docs/media/03-review-en.png",
+    "docs/media/03-review-es.png",
+    "docs/media/04-export-en.png",
+    "docs/media/04-export-es.png",
+    "docs/media/cover-en.png",
+    "docs/media/cover-es.png",
+    "docs/media/example-en.md",
+    "docs/media/example-es.md",
+    "docs/media/mobile-identity-en.png",
+    "docs/media/mobile-identity-es.png",
+    "docs/media/mobile.png",
+    "docs/media/transcript-en.md",
+    "docs/media/transcript-es.md",
+    "docs/media/walkthrough-en.mp4",
+    "docs/media/walkthrough-en.vtt",
+    "docs/media/walkthrough-es.mp4",
+    "docs/media/walkthrough-es.vtt",
+    "reports/browser-evidence.json",
+    "reports/docs-brandkit-verification.json",
+    "reports/preview-en-desktop.png",
+    "reports/preview-en-mobile.png",
+    "reports/preview-es-desktop.png",
+    "reports/preview-es-mobile.png",
+    "reports/test-output.txt"
+  ],
+  "head_at_verification": "c10a2e639b4a05336218bfa9aa5a50810423b575",
+  "commit_identity_note": "No identity configured; command-scoped Hermes Agent <hermes-agent@localhost> used, without global or repository config change."
+}

@@ -1,0 +1,16 @@
+
+> test
+> node tests/brand-integrity.mjs && node tests/wizard-lang-isolation.mjs
+
+OK tokens.css 8d8f3a345d359a99dd48b98289b9a7d39e2be06179322949ff2e217395ef3152
+OK moki-parche-derecho-160.webp 6bf72d855bfd745d55a9dfb783d38ac58dea4975ea7209fc554cd0d8f28f8f0a
+OK moki-parche-derecho-160.webp derived_from 4980c46331c1fef308ab9505c7cf311466584af16adc741e7f8717e8dcf2e171
+OK moki-parche-derecho-80.webp bd2f67ef851cc3f4d14effcb653c990082ba887f7e552372161767411ddcdb30
+OK moki-parche-derecho-80.webp derived_from 4980c46331c1fef308ab9505c7cf311466584af16adc741e7f8717e8dcf2e171
+OK juice.css 2d02b3e2d968cd5afe9b6174979255b97aa7ad8793c682273a85976f06058981
+OK juice.js 03d7702ea203f4b817cef606ab982fa481da4bb0e7ec427ae513323218915bef
+OK juice-menu.css 3e4dcb2ccd833171eb6358bc9e337dc993c5c5fbf28aacd1672de3d6065c42d3
+OK juice-menu.js 2dfad631d1043dac50740485ce55d4c0d12b1e204f94bc07081b8cd822404917
+
+brand integrity OK
+OK wizard language isolated from site i18n
