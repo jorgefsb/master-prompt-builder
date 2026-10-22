@@ -1,0 +1,77 @@
+{
+  "source": "c10a2e639b4a05336218bfa9aa5a50810423b575",
+  "sessions": [
+    {
+      "lang": "es",
+      "errors": [],
+      "blockedWrites": [],
+      "steps": [
+        "home",
+        "scratch",
+        "identity",
+        "seven steps",
+        "review",
+        "Markdown download"
+      ],
+      "markdownDownload": "master-prompt-alex-demo-(fictional-_-ficticio)-2026-10-22.md",
+      "savedData": {
+        "name": "Alex Demo (fictional / ficticio)",
+        "role": "Desarrollador",
+        "roleEmoji": "👨‍💻",
+        "company": "Demo Studio (fictional / ficticio)",
+        "bio": "Demonstration data only / Solo datos ficticios",
+        "industry": "",
+        "industryEmoji": "",
+        "responsibilities": "Build a fictional puzzle game / Crear un juego ficticio",
+        "expertise": [],
+        "stack": [],
+        "experienceLevel": "intermediate",
+        "communicationStyle": "",
+        "formality": 50,
+        "detailLevel": 50,
+        "language": "Español",
+        "alwaysRules": [],
+        "neverRules": [],
+        "projects": [],
+        "customNotes": "",
+        "lastUpdated": "2026-10-22T06:14:55.025Z"
+      }
+    },
+    {
+      "lang": "en",
+      "errors": [],
+      "blockedWrites": [],
+      "steps": [
+        "home",
+        "scratch",
+        "identity",
+        "seven steps",
+        "review",
+        "Markdown download"
+      ],
+      "markdownDownload": "master-prompt-alex-demo-(fictional-_-ficticio)-2026-10-22.md",
+      "savedData": {
+        "name": "Alex Demo (fictional / ficticio)",
+        "role": "Desarrollador",
+        "roleEmoji": "👨‍💻",
+        "company": "Demo Studio (fictional / ficticio)",
+        "bio": "Demonstration data only / Solo datos ficticios",
+        "industry": "",
+        "industryEmoji": "",
+        "responsibilities": "Build a fictional puzzle game / Crear un juego ficticio",
+        "expertise": [],
+        "stack": [],
+        "experienceLevel": "intermediate",
+        "communicationStyle": "",
+        "formality": 50,
+        "detailLevel": 50,
+        "language": "Español",
+        "alwaysRules": [],
+        "neverRules": [],
+        "projects": [],
+        "customNotes": "",
+        "lastUpdated": "2026-10-22T06:15:13.737Z"
+      }
+    }
+  ]
+}

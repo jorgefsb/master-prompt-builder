@@ -1,121 +1,49 @@
-<div align="center">
+[Español](README.md) | [English](README.en.md)
 
-<img src="./assets/readme-banner.svg" width="1000" alt="Master Prompt Builder: tu contexto, tus reglas, tu IA." />
+![Master Prompt Builder](docs/media/cover-es.png)
 
-[⚡ Probar MPB](https://mpb.jorgesuarez.com.mx) · [🐙 Ver código](https://github.com/jorgefsb/master-prompt-builder) · **Estado:** activo
+# Master Prompt Builder
 
-</div>
+## ¿Qué es y por qué existe?
+Un editor guiado para escribir un documento con tu contexto, herramientas y preferencias de respuesta. Evita volver a redactar esa presentación; no conecta ni configura automáticamente ninguna IA y no garantiza mejores respuestas.
 
-## 👾 ¿Qué desbloquea?
+## ¿Para quién?
+Personas que ya usan un asistente de IA y quieren preparar instrucciones reutilizables. Basta un navegador moderno; para probar la web no necesitas programar ni registrarte. Para alojar tu propia copia sí necesitas ayuda técnica.
 
-**Crea tu Master Prompt personal para ChatGPT, Claude y cualquier IA.**
+## ¿Cómo empiezo?
+1. Abre [Master Prompt Builder](https://mpb.jorgesuarez.com.mx). La verificación de esta guía corresponde a la copia local de `main`, no certifica el despliegue público.
+2. Pulsa **Crear mi DNA Digital Gratis** y elige **Empezar de cero**. No uses Acceso VIP: no es necesario para este recorrido.
+3. Prueba con **Alex Demo (fictional / ficticio)** y **Demo Studio (fictional / ficticio)**: son datos ficticios, no una persona ni empresa reales. Elige un rol y escribe una descripción sin secretos.
+4. Recorre Identidad, Contexto, Stack, Comunicación, Reglas, Proyectos y Revisión con **Siguiente**. Ajusta lo que quieras; no hace falta llenar cada campo.
+5. Revisa el resultado y pulsa **Descargar Markdown**. Abrimos el archivo descargado y comprobamos que conserva el nombre ficticio. Después puedes pegar el texto revisado en tu asistente, bajo sus propias condiciones.
 
-Una web app que te guía paso a paso para crear, mantener y exportar tu Master Prompt - un documento que captura quién eres, cómo trabajas y cómo te gusta recibir respuestas.
+![Identidad con datos ficticios](docs/media/02-identity-es.png)
+![Exportación real](docs/media/04-export-es.png)
 
-## ✨ Features
+En teléfono: [captura vertical legible](docs/media/mobile-identity-es.png). Abre las capturas a tamaño completo para leer cada control.
 
-### 🎯 4 Formas de Empezar
-- **Empezar de cero** - Wizard guiado con ejemplos clickeables
-- **Importar Master Prompt** - Pega tu prompt existente y evoluciónalo
-- **Importar de ChatGPT** - Usa tus memorias de ChatGPT
-- **Importar de LinkedIn** - Pre-llena con tu perfil profesional (próximamente)
+## ¿Cuándo usarlo y cuándo no?
+Úsalo para preparar contexto reutilizable. No lo uses como almacén de contraseñas, expedientes, datos de clientes ni instrucciones que deban cumplirse como controles de seguridad.
 
-### 📝 Wizard de 7 Pasos
-1. **Identidad** - Nombre, rol, empresa
-2. **Contexto** - Industria, responsabilidades
-3. **Stack** - Herramientas y tecnologías
-4. **Comunicación** - Estilo de respuestas preferido
-5. **Reglas** - Lo que siempre/nunca quieres
-6. **Proyectos** - En qué estás trabajando
-7. **Revisión** - Edita y finaliza
+## ¿Dónde y en qué estado?
+[Web pública](https://mpb.jorgesuarez.com.mx) · [Código](https://github.com/jorgefsb/master-prompt-builder). Verificado desde `main` local el 22 de octubre de 2026. No se verificaron otros despliegues ni funciones de ramas/PR pendientes.
 
-### 📤 Exportación
-- 📋 Copiar al clipboard
-- 📝 Descargar como Markdown (.md)
-- 📄 Exportar a PDF con instrucciones
-- 🤖 Versión optimizada para ChatGPT
-- 🐙 Sincronización con GitHub (próximamente)
+## Costos y licencia
+El recorrido sin cuenta no mostró cobro. Los asistentes externos pueden cobrar. No hay archivo LICENSE en este snapshot: un repositorio público no equivale a licencia MIT ni permiso general de redistribución. La marca tiene restricciones separadas.
 
-### 💾 Persistencia
-- Guardado automático en localStorage
-- Sistema de versiones
-- Historial de cambios
+## Privacidad
+Los campos se guardan en `localStorage` de este navegador/origen; no es una bóveda cifrada. Los archivos exportados quedan donde los descargues. Borrar los datos del sitio puede eliminar borrador e historial; guarda tu exportación antes. La app carga Supabase desde un CDN y contiene autenticación y captura de leads: no afirmamos que toda la web sea offline ni que nunca contacte a terceros. No enviamos formularios, datos personales reales ni solicitudes de acceso VIP. Al pegar texto en otra IA, aplican sus reglas de privacidad.
 
-## 🛠️ Tech Stack
+## Límites y ayuda
+- Markdown: descarga comprobada en ES y EN. El idioma de la interfaz no garantiza que todo el contenido exportado se traduzca; el ejemplo EN conserva etiquetas/valores en español.
+- Copiar, versión ChatGPT y ventana de impresión/PDF existen en código, pero no se probaron en este recorrido. PDF usa impresión del navegador, no un generador PDF independiente.
+- LinkedIn y sincronización GitHub aparecen como futuras. No se verificaron login, sincronización, historial desde la interfaz ni importaciones.
+- Para problemas, [abre un issue](https://github.com/jorgefsb/master-prompt-builder/issues) sin datos sensibles. No hay soporte con plazo garantizado.
 
-- **Frontend**: Vanilla JavaScript (ES Modules)
-- **Styling**: CSS Custom Properties + Glassmorphism
-- **Storage**: localStorage
-- **Sin build step** - Sirve los archivos estáticos y empieza a trabajar
+## Video y siguientes pasos
 
-## 🚀 Cómo usar
+[MP4 · ES](docs/media/walkthrough-es.mp4) · [VTT](docs/media/walkthrough-es.vtt) · [Texto / Transcript](docs/media/transcript-es.md)
 
-### Desarrollo local
+[Guía técnica](docs/TECHNICAL.md) · [Canon de documentación](docs/REPOSITORY-DOCUMENTATION.md) · [Aviso de medios](docs/ASSET-NOTICE.md)
 
-```bash
-# Clonar el repositorio
-git clone https://github.com/jorgefsb/master-prompt-builder.git
-cd master-prompt-builder
-
-# Iniciar servidor local
-python3 -m http.server 3000
-# o
-npx serve .
-
-# Abrir en el navegador
-open http://localhost:3000
-```
-
-### Estructura del proyecto
-
-```
-Master Prompt Builder/
-├── index.html              # Entry point
-├── css/
-│   ├── styles.css          # Design system + componentes
-│   └── animations.css      # Animaciones y transiciones
-├── js/
-│   ├── app.js              # Aplicación principal
-│   ├── wizard.js           # Manager del wizard
-│   ├── generator.js        # Generador del prompt
-│   ├── storage.js          # Persistencia local
-│   ├── export.js           # Funciones de exportación
-│   └── data.js             # Templates y ejemplos
-├── assets/
-│   └── favicon.svg         # Logo
-└── README.md
-```
-
-## 📖 ¿Qué es un Master Prompt?
-
-Un **Master Prompt** es tu "manual de usuario personal" para las IAs. Incluye:
-
-- 👤 Quién eres (contexto personal/profesional)
-- 🎯 Cómo piensas y trabajas
-- 📁 Qué proyectos tienes activos
-- 💬 Cómo te gusta recibir respuestas
-- 🛠️ Tus herramientas y stack
-- ⚡ Reglas y preferencias específicas
-
-### ¿Por qué lo necesitas?
-
-**El problema**: Cada vez que abres un chat nuevo con ChatGPT, tienes que explicar desde cero quién eres.
-
-**La solución**: Un Master Prompt que pegas una vez y el AI ya sabe exactamente cómo ayudarte.
-
-## 🔜 Roadmap
-
-- [x] Wizard de 7 pasos
-- [x] Ejemplos clickeables
-- [x] Preview en tiempo real
-- [x] Export a PDF/MD/Texto
-- [x] Guardado local
-- [ ] Autenticación (Supabase)
-- [ ] Dashboard de admin
-- [ ] GitHub Sync
-- [ ] API pública
-- [ ] Mobile app (PWA)
-
----
-
-Hecho con ❤️ para la comunidad de IA
+Construido por [Jorge Suárez](https://jorgesuarez.com.mx) · [Brandkit oficial / Official brandkit](https://brandkit.jorgesuarez.com.mx/)
