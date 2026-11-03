@@ -119,3 +119,18 @@ Un **Master Prompt** es tu "manual de usuario personal" para las IAs. Incluye:
 ---
 
 Hecho con ❤️ para la comunidad de IA
+
+<!-- HERDR-CONTEXT:START -->
+## Contexto del proyecto y clasificación en Herdr
+
+Constructor de contexto e instrucciones reutilizables para trabajar con asistentes de IA.
+
+**Espacio:** `02 LAB | REV | Master Prompt Builder`. **Unidad:** Unidad pendiente de confirmar.
+
+### Clasificación
+
+La etiqueta LAB identifica una clasificación de catálogo pendiente de revalidación; no implica inactividad. REV significa unidad propietaria pendiente de confirmar. Los números ordenan navegación; no son un ranking de ingresos.
+
+Se conserva la documentación original y el crédito a sus autores. Esta sección no certifica disponibilidad actual ni modifica el runtime. Actualizada el 28-oct-2026.
+
+<!-- HERDR-CONTEXT:END -->
