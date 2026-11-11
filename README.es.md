@@ -16,7 +16,7 @@
 ---
 
 <p align="center"><img src="docs/readme/tour.gif" width="720" alt="Recorrido de Master Prompt Builder"></p>
-<p align="center"><sub>Recorrido real del sitio en vivo, grabado el 10 nov 2026 en Chromium (1280×720). Sin retoque. <a href="docs/readme/tour.mp4">Ver el video MP4</a></sub></p>
+<p align="center"><sub>Recorrido real del sitio en vivo, grabado el 10 nov 2026 en Chromium (1280×720). Sin retoque. Se reproduce una sola vez; recarga la página para verlo de nuevo. <a href="docs/readme/tour.mp4">Ver el video MP4</a></sub></p>
 
 ## ¿Qué es?
 

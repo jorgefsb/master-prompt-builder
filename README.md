@@ -16,7 +16,7 @@
 ---
 
 <p align="center"><img src="docs/readme/tour.gif" width="720" alt="Walkthrough of Master Prompt Builder"></p>
-<p align="center"><sub>Real walkthrough of the live site, recorded 10 Nov 2026 in Chromium (1280×720). No retouching. <a href="docs/readme/tour.mp4">Watch the MP4 video</a></sub></p>
+<p align="center"><sub>Real walkthrough of the live site, recorded 10 Nov 2026 in Chromium (1280×720). No retouching. It plays once; reload the page to watch it again. <a href="docs/readme/tour.mp4">Watch the MP4 video</a></sub></p>
 
 ## What is it?
 
